@@ -1,31 +1,31 @@
+/* eslint-disable react/no-unescaped-entities */
 import MaxWidthWrapper from '@/components/MaxWidthWrapper'
 import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
-import { Button, buttonVariants } from '@/components/ui/button'
+import { User, Upload, Keyboard } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 
 export default function Home() {
   return (
-    <>
-     <MaxWidthWrapper className='mb-12 mt-28 sm:mt-40 flex flex-col items-center justify-center text-center text-white'>
-        <h1 className='max-w-4xl text-5xl font-bold md:text-6xl lg:text-7xl'>
-          Transform your{' '}
-          <span className='bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] rounded-lg px-3 '>Files</span>{' '}
-          into interactive chats.
+    <div className='bg-[#000f12] pt-12'>
+     <MaxWidthWrapper className='mb-12 flex flex-col items-center justify-center text-center text-white'>
+     <h1 className='max-w-4xl text-5xl font-bold md:text-6xl lg:text-7xl'>
+            Elevate your
+            <span className='bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] rounded-lg px-3 ml-3'>PDFs</span>{' '}
+            with Intelligent Conversations
         </h1>
         <p className='mt-5 max-w-prose text-gray-400 sm:text-lg'>
-          Genius PDF empowers students, lawyers, and professionals to engage with their Files like never before. Just upload, and begin your interactive journey.
+            My PDF Genius isn't just another file manager. It's your smart assistant, turning dense PDFs into interactive dialogues using advanced AI. Upload and start conversing with your files like never before.
         </p>
 
-      <Button
-        className='mt-10 bg-white text-gray-900 hover:bg-gray-100 hover:bg-opacity-90'
-      >
+
           <Link
-            href='/dashboard'
-            target='_blank'>
-            Start Free Trial
+            href='/pricing'
+            className='mt-12'
+            >
+                 <ButtonTrial />
           </Link>
-        </Button>
+
 
       </MaxWidthWrapper>
 
@@ -76,69 +76,91 @@ export default function Home() {
       </div>
 
       {/* Feature section */}
-      <div className='mx-auto mb-32 mt-32 max-w-5xl sm:mt-56'>
-        <div className='mb-12 px-6 lg:px-8'>
-          <div className='mx-auto max-w-2xl sm:text-center'>
+      <div className='mx-auto relative sm:-top-[200px]  max-w-5xl sm:mt-5'>
+           <div
+            aria-hidden='true'
+            className='pointer-events-none -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80 -top-14'>
+            <div
+              style={{
+                clipPath:
+                  'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+              }}
+              className='relative aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:w-[72.1875rem] sm:-right-[700px] '
+            />
+          </div>
+          <div className='px-6 lg:px-8 relative -top-40'>
+            <div className='mx-auto max-w-2xl sm:text-center'>
+              
             <h2 className='mt-2 font-bold text-4xl text-white sm:text-5xl'>
-              Seamless Interactions in Just Minutes
+                AI-Powered Interactions in Just Minutes
             </h2>
             <p className='mt-4 text-lg text-gray-600'>
-              With GeniusPDF, diving deep into your academic papers, legal documents, or professional reports is a breeze.
+                Delve deep into academic papers, legal documents, or professional reports seamlessly. My PDF Genius' advanced AI understands, interprets, and converses, making information absorption effortless.
             </p>
-          </div>
+            </div>
         </div>
 
         {/* steps */}
         <ol className='my-8 space-y-4 pt-8 md:flex md:space-x-12 md:space-y-0'>
-          <li className='md:flex-1'>
-            <div className='flex flex-col space-y-2 border-l-4 border-zinc-300 py-2 pl-4 md:border-l-0 md:border-t-2 md:pb-0 md:pl-0 md:pt-4'>
-              <span className='text-sm font-medium text-blue-600'>
-                Step 1
-              </span>
-              <span className='text-xl font-semibold'>
+          <li className='md:flex-1 bg-[#1e202e] rounded flex flex-col items-center gap-3 p-4
+           hover:bg-[#2a2c3e] transition-colors duration-300 ease-in-out'>  
+            
+          <span><User className='w-12 h-12 text-[#404356] ' /></span>
+            <div className='flex flex-col space-y-2 border-l-4py-2 md:pb-0 md:pl-0 md:pt-4 items-center'>
+              <span className='text-xl font-semibold text-white'>
                 Sign up for an account
               </span>
-              <span className='mt-2 text-zinc-700'>
+              <span className='mt-2 text-zinc-500'>
                 Either starting out with a free plan or
-                choose our{' '}
+                choose our
                 <Link
                   href='/pricing'
-                  className='text-blue-700 underline underline-offset-2'>
+                  className='
+                  text-zinc-200
+                  hover:text-zinc-600
+                  transition-colors
+                  duration-300
+                  ease-in-out
+                  border-b-2
+                  border-zinc-500
+                  ml-1
+                  '>
                   pro plan
                 </Link>
                 .
               </span>
             </div>
           </li>
-          <li className='md:flex-1'>
-            <div className='flex flex-col space-y-2 border-l-4 border-zinc-300 py-2 pl-4 md:border-l-0 md:border-t-2 md:pb-0 md:pl-0 md:pt-4'>
-              <span className='text-sm font-medium text-blue-600'>
-                Step 2
+    
+          <li className='md:flex-1 bg-[#1e202e] rounded flex flex-col items-center gap-3 p-4
+           hover:bg-[#2a2c3e] transition-colors duration-300 ease-in-out'>  
+            
+          <span><Upload className='w-12 h-12 text-[#404356] ' /></span>
+            <div className='flex flex-col space-y-2 border-l-4py-2 md:pb-0 md:pl-0 md:pt-4 items-center'>
+              <span className='text-xl font-semibold text-white'>
+              Upload your PDF file
               </span>
-              <span className='text-xl font-semibold'>
-                Upload your PDF file
-              </span>
-              <span className='mt-2 text-zinc-700'>
-                We&apos;ll process your file and make it
+              <span className='mt-2 text-zinc-500'>
+              We&apos;ll process your file and make it
                 ready for you to chat with.
               </span>
             </div>
           </li>
-          <li className='md:flex-1'>
-            <div className='flex flex-col space-y-2 border-l-4 border-zinc-300 py-2 pl-4 md:border-l-0 md:border-t-2 md:pb-0 md:pl-0 md:pt-4'>
-              <span className='text-sm font-medium text-blue-600'>
-                Step 3
-              </span>
-              <span className='text-xl font-semibold'>
-                Start asking questions
-              </span>
-              <span className='mt-2 text-zinc-700'>
-                It&apos;s that simple. Try out GeniusPDF today -
-                it really takes less than a minute.
-              </span>
+          
+          <li className='md:flex-1 bg-[#1e202e] rounded flex flex-col items-center gap-3 p-4
+           hover:bg-[#2a2c3e] transition-colors duration-300 ease-in-out'>  
+            
+          <span><Keyboard className='w-12 h-12 text-[#404356] ' /></span>
+            <div className='flex flex-col space-y-2 border-l-4py-2 md:pb-0 md:pl-0 md:pt-4 items-center'>
+            <span className='text-xl font-semibold text-white'>
+                Engage with AI-led conversations
+            </span>
+            <span className='mt-2 text-zinc-500'>
+                No more manual searches. Ask questions and get instant answers from your PDFs. Experience the power of AI-driven interactions.
+            </span>
             </div>
           </li>
-        </ol>
+       </ol>
 
         <div className='mx-auto max-w-6xl px-6 lg:px-8'>
           <div className='mt-16 flow-root sm:mt-24'>
@@ -155,6 +177,18 @@ export default function Home() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
+
+const ButtonTrial =  () => (
+  <button className="relative group overflow-hidden px-6 h-12 rounded-full flex space-x-2 items-center bg-gradient-to-r from-pink-500 to-purple-500 hover:to-purple-600">
+  <span className="relative text-sm text-white">Experience AI Now </span>
+  <div className="flex items-center -space-x-3 translate-x-3">
+    <div className="w-2.5 h-[1.6px] rounded bg-white origin-left scale-x-0 transition duration-300 group-hover:scale-x-100"></div>
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 stroke-white -translate-x-2 transition duration-300 group-hover:translate-x-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+    </svg>
+  </div>
+</button>
+)

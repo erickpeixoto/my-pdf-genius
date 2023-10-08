@@ -23,7 +23,7 @@ export default function RootLayout({
       <Providers>
         <body
           className={cn(
-            'min-h-screen font-sans antialiased  ',
+            'min-h-screen font-sans antialiased bg-gray-100  ',
             inter.className
           )}>
           <Toaster />

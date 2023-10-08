@@ -42,6 +42,7 @@ const BillingForm = ({
 
   return (
     <MaxWidthWrapper className='max-w-5xl'>
+       <pre>{JSON.stringify(subscriptionPlan, null, 2)}</pre>
       <form
         className='mt-12'
         onSubmit={(e) => {

@@ -23,28 +23,26 @@ const Page = () => {
   const user = getUser()
 
   const pricingItems = [
+    // Updated information based on new PLANS structure
     {
-      plan: 'Free',
-      tagline: 'For small side projects.',
-      quota: 10,
+      plan: 'Explorer',
+      tagline: '1 Month Free, no credit card required',
+      quota: PLANS.find((p) => p.slug === 'explorer')!.quota,
       features: [
         {
-          text: '5 pages per PDF',
-          footnote:
-            'The maximum amount of pages per PDF-file.',
+          text: `${PLANS.find((p) => p.slug === 'explorer')!.pagesPerPdf} pages per PDF`,
+          footnote: 'The maximum amount of pages per PDF-file.',
         },
         {
           text: '4MB file size limit',
-          footnote:
-            'The maximum file size of a single PDF file.',
+          footnote: 'The maximum file size of a single PDF file.',
         },
         {
           text: 'Mobile-friendly interface',
         },
         {
           text: 'Higher-quality responses',
-          footnote:
-            'Better algorithmic responses for enhanced content quality',
+          footnote: 'Better algorithmic responses for enhanced content quality',
           negative: true,
         },
         {
@@ -54,49 +52,69 @@ const Page = () => {
       ],
     },
     {
-      plan: 'Pro',
-      tagline: 'For larger projects with higher needs.',
-      quota: PLANS.find((p) => p.slug === 'pro')!.quota,
+      plan: 'Champion',
+      tagline: 'Unleash the full power of our platform.',
+      quota: PLANS.find((p) => p.slug === 'champion')!.quota,
       features: [
         {
-          text: '25 pages per PDF',
-          footnote:
-            'The maximum amount of pages per PDF-file.',
+          text: `${PLANS.find((p) => p.slug === 'champion')!.pagesPerPdf} pages per PDF`,
+          footnote: 'The maximum amount of pages per PDF-file.',
         },
         {
           text: '16MB file size limit',
-          footnote:
-            'The maximum file size of a single PDF file.',
+          footnote: 'The maximum file size of a single PDF file.',
         },
         {
           text: 'Mobile-friendly interface',
         },
         {
           text: 'Higher-quality responses',
-          footnote:
-            'Better algorithmic responses for enhanced content quality',
+          footnote: 'Better algorithmic responses for enhanced content quality',
         },
         {
           text: 'Priority support',
         },
       ],
     },
+    {
+      plan: 'Elite',
+      tagline: 'For professionals seeking excellence without boundaries.',
+      quota: PLANS.find((p) => p.slug === 'elite')!.quota,
+      features: [
+        {
+          text: `Up to ${PLANS.find((p) => p.slug === 'elite')!.pagesPerPdf} pages per PDF`,
+        },
+        {
+          text: 'File size limit: 32MB',
+        },
+        {
+          text: 'Optimized interface for mobile devices',
+        },
+        {
+          text: 'High-quality algorithmic responses',
+        },
+        {
+          text: '24/7 priority support',
+        },
+        {
+          text: 'Automatic backup and advanced security features',
+        }
+      ],
+    },
   ]
-
   return (
     <>
-      <MaxWidthWrapper className='mb-8 mt-24 text-center max-w-5xl'>
-        <div className='mx-auto mb-10 sm:max-w-lg'>
-          <h1 className='text-6xl font-bold sm:text-7xl'>
-            Pricing
+      <MaxWidthWrapper className='mb-8 mt-24 text-center'>
+        <div className='mx-auto mb-10'>
+         <h1 className='text-6xl font-bold sm:text-7xl'>
+              Choose Your Path
           </h1>
           <p className='mt-5 text-gray-600 sm:text-lg'>
-            Whether you&apos;re just trying out our service
-            or need more, we&apos;ve got you covered.
+              Dive into our tailored plans designed to suit every kind of PDF enthusiast, from hobbyists to professionals.
           </p>
         </div>
 
-        <div className='pt-12 grid grid-cols-1 gap-10 lg:grid-cols-2'>
+        <div className='pt-12 grid grid-cols-1 gap-10 lg:grid-cols-3'>
           <TooltipProvider>
             {pricingItems.map(
               ({ plan, tagline, quota, features }) => {
@@ -109,15 +127,16 @@ const Page = () => {
                   <div
                     key={plan}
                     className={cn(
-                      'relative rounded-2xl bg-white shadow-lg',
+                      'relative rounded-2xl bg-white shadow-lg flex flex-col justify-between',
                       {
                         'border-2 border-blue-600 shadow-blue-200':
-                          plan === 'Pro',
+                          plan === 'Champion',
                         'border border-gray-200':
-                          plan !== 'Pro',
+                          plan !== 'Champion',
                       }
                     )}>
-                    {plan === 'Pro' && (
+            
+                      {plan === 'Champion' && (
                       <div className='absolute -top-5 left-0 right-0 mx-auto w-32 rounded-full bg-gradient-to-r from-blue-600 to-cyan-600 px-3 py-2 text-sm font-medium text-white'>
                         Upgrade now
                       </div>
@@ -127,9 +146,11 @@ const Page = () => {
                       <h3 className='my-3 text-center font-display text-3xl font-bold'>
                         {plan}
                       </h3>
+                    
                       <p className='text-gray-500'>
                         {tagline}
                       </p>
+                     
                       <p className='my-5 font-display text-6xl font-semibold'>
                         ${price}
                       </p>
@@ -210,31 +231,27 @@ const Page = () => {
                     </ul>
                     <div className='border-t border-gray-200' />
                     <div className='p-5'>
-                      {plan === 'Free' ? (
-                        <Link
-                          href={
-                            user ? '/dashboard' : '/sign-in'
-                          }
-                          className={buttonVariants({
-                            className: 'w-full',
-                            variant: 'secondary',
-                          })}>
-                          {user ? 'Upgrade now' : 'Sign up'}
-                          <ArrowRight className='h-5 w-5 ml-1.5' />
-                        </Link>
+                      {plan === 'Champion' ? (
+                          <Link
+                              href={user ? '/dashboard' : '/sign-in'}
+                              className="w-full relative group overflow-hidden px-6 h-12 rounded flex space-x-2 items-center bg-gradient-to-r from-pink-500 to-purple-500 hover:to-purple-600 justify-center text-white">
+                              {user ? 'Upgrade now' : 'Sign up'}
+                              <ArrowRight className='h-5 w-5 ml-1.5' />
+                          </Link>
                       ) : user ? (
-                        <UpgradeButton />
+                          <UpgradeButton />
                       ) : (
-                        <Link
-                          href='/sign-in'
-                          className={buttonVariants({
-                            className: 'w-full',
-                          })}>
-                          {user ? 'Upgrade now' : 'Sign up'}
-                          <ArrowRight className='h-5 w-5 ml-1.5' />
-                        </Link>
+                          <Link
+                              href='/sign-in'
+                              className={buttonVariants({
+                                  className: 'w-full',
+                              })}>
+                              {user ? 'Upgrade now' : 'Sign up'}
+                              <ArrowRight className='h-5 w-5 ml-1.5' />
+                          </Link>
                       )}
-                    </div>
+                  </div>
+
                   </div>
                 )
               }

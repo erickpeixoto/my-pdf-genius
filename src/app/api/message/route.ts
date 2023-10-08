@@ -83,7 +83,7 @@ console.log({results})
   }))
 
   const response = await openai.chat.completions.create({
-    model: 'gpt-3.5-turbo',
+    model: 'gpt-4',
     temperature: 0,
     stream: true,
     messages: [
