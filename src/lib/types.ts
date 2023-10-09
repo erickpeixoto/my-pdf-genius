@@ -1,0 +1,1 @@
+export type Plans = 'explorer' | 'champion' | 'elite'

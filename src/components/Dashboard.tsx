@@ -49,7 +49,7 @@ const Dashboard = ({subscriptionPlan}: PageProps) => {
           My Files
         </h1>
 
-        <UploadButton isSubscribed={subscriptionPlan.isSubscribed} />
+        <UploadButton planName="elite"/>
       </div>
 
       {/* display all user files */}

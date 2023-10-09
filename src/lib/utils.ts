@@ -1,6 +1,9 @@
+import { PLANS } from '@/config/stripe'
 import { type ClassValue, clsx } from 'clsx'
 import { Metadata } from 'next'
 import { twMerge } from 'tailwind-merge'
+import { Plans } from '@/lib/types'
+import { pl } from 'date-fns/locale'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -57,4 +60,10 @@ export function constructMetadata({
       }
     })
   }
+}
+
+
+export const getPagesPerPdfByPlanName = (planName: Plans): number | null => {
+  const plan = PLANS.find(p => p.slug === planName);
+  return plan ? plan.pagesPerPdf : null;
 }

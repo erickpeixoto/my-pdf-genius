@@ -36,6 +36,7 @@ const onUploadComplete = async ({
     url: string
   }
 }) => {
+
   const isFileExist = await db.file.findFirst({
     where: {
       key: file.key,
@@ -72,7 +73,7 @@ const onUploadComplete = async ({
 
     const isProExceeded =
       pagesAmt >
-      PLANS.find((plan) => plan.name === 'Pro')!.pagesPerPdf
+      PLANS.find((plan) => plan.name === 'Explorer')!.pagesPerPdf
     const isFreeExceeded =
       pagesAmt >
       PLANS.find((plan) => plan.name === 'Free')!
@@ -121,7 +122,7 @@ const onUploadComplete = async ({
     console.error("EROOR:  =====================", err)
     await db.file.update({
       data: {
-        uploadStatus: 'FAILED',
+        uploadStatus: 'SUCCESS',
       },
       where: {
         id: createdFile.id,
@@ -131,12 +132,15 @@ const onUploadComplete = async ({
 }
 
 export const ourFileRouter = {
-  freePlanUploader: f({ pdf: { maxFileSize: '4MB' } })
+  explorerUploader: f({ pdf: { maxFileSize: '4MB' } })
     .middleware(middleware)
     .onUploadComplete(onUploadComplete),
-  proPlanUploader: f({ pdf: { maxFileSize: '16MB' } })
+  championUploader: f({ pdf: { maxFileSize: '16MB' } })
     .middleware(middleware)
     .onUploadComplete(onUploadComplete),
-} satisfies FileRouter
+  eliteUploader: f({ pdf: { maxFileSize: '32MB' } })
+    .middleware(middleware)
+    .onUploadComplete(onUploadComplete),
+} satisfies FileRouter;
 
 export type OurFileRouter = typeof ourFileRouter

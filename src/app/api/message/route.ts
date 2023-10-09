@@ -52,6 +52,9 @@ export const POST = async (req: NextRequest) => {
   const pinecone = await getPineconeClient()
   const pineconeIndex = pinecone.Index('genius')
 
+  const indexStats = await pinecone.listIndexes()
+  console.log('index stats: ', indexStats)
+
   const vectorStore = await PineconeStore.fromExistingIndex(
     embeddings,
     {
@@ -64,7 +67,7 @@ export const POST = async (req: NextRequest) => {
     message,
     4
   )
-console.log({results})
+
   const prevMessages = await db.message.findMany({
     where: {
       fileId,

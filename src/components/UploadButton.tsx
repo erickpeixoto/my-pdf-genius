@@ -15,11 +15,14 @@ import { useUploadThing } from '@/lib/uploadthing'
 import { useToast } from './ui/use-toast'
 import { trpc } from '@/app/_trpc/client'
 import { useRouter } from 'next/navigation'
+import { getPagesPerPdfByPlanName } from '@/lib/utils'
+import { Plans } from '@/lib/types'
+
 
 const UploadDropzone = ({
-  isSubscribed,
+  planName,
 }: {
-  isSubscribed: boolean
+  planName: Plans
 }) => {
   const router = useRouter()
 
@@ -30,8 +33,12 @@ const UploadDropzone = ({
   const { toast } = useToast()
 
   const { startUpload } = useUploadThing(
-    isSubscribed ? 'proPlanUploader' : 'freePlanUploader'
-  )
+    planName === 'explorer'
+    ? 'explorerUploader'
+    : planName === 'champion'
+    ? 'championUploader'
+    : 'eliteUploader'
+    )
 
   const { mutate: startPolling } = trpc.getFile.useMutation(
     {
@@ -59,6 +66,7 @@ const UploadDropzone = ({
     return interval
   }
 
+ 
   return (
     <Dropzone
       multiple={false}
@@ -108,11 +116,11 @@ const UploadDropzone = ({
                 <p className='mb-2 text-sm text-zinc-700'>
                   <span className='font-semibold'>
                     Click to upload
-                  </span>{' '}
+                  </span>
                   or drag and drop
                 </p>
                 <p className='text-xs text-zinc-500'>
-                  PDF (up to {isSubscribed ? "16" : "4"}MB)
+                  PDF (up to {getPagesPerPdfByPlanName(planName)} MB)
                 </p>
               </div>
 
@@ -162,9 +170,9 @@ const UploadDropzone = ({
 }
 
 const UploadButton = ({
-  isSubscribed,
+  planName,
 }: {
-  isSubscribed: boolean
+  planName: Plans
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
@@ -183,10 +191,11 @@ const UploadButton = ({
       </DialogTrigger>
 
       <DialogContent>
-        <UploadDropzone isSubscribed={isSubscribed} />
+        <UploadDropzone planName={planName} />
       </DialogContent>
     </Dialog>
   )
 }
+
 
 export default UploadButton
