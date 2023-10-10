@@ -30,6 +30,7 @@ const Page = async ({ params }: PageProps) => {
   if (!file) notFound()
 
   const plan = await getUserSubscriptionPlan()
+  console.log({ plan })
 
   return (
     <div className='flex-1 justify-between flex flex-col h-[calc(100vh-3.5rem)]'>

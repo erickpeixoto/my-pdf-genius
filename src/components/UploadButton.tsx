@@ -175,6 +175,15 @@ const UploadButton = ({
   planName: Plans
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
+  const router = useRouter()
+
+const handleModal = () => {
+  if(!planName){
+    router.push('/pricing')
+  }else{
+    setIsOpen(true)
+  }
+}
 
   return (
     <Dialog
@@ -185,7 +194,7 @@ const UploadButton = ({
         }
       }}>
       <DialogTrigger
-        onClick={() => setIsOpen(true)}
+        onClick={handleModal}
         asChild>
         <Button>Upload PDF</Button>
       </DialogTrigger>

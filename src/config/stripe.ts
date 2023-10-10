@@ -3,24 +3,11 @@ export const PLANS = [
     name: 'Explorer',
     slug: 'explorer',
     quota: 20,  
-    pagesPerPdf: 10,
-    price: {
-      amount: 0, 
-      priceIds: {
-        test: '',
-        production: '',
-      },
-    },
-  },
-  {
-    name: 'Free',
-    slug: 'free',
-    quota: 10,
     pagesPerPdf: 5,
     price: {
-      amount: 0,
+      amount: 10, 
       priceIds: {
-        test: '',
+        test: 'price_1Nz4VfFl55eurQgwmXdadVVL',
         production: '',
       },
     },
@@ -31,9 +18,9 @@ export const PLANS = [
     quota: 50,
     pagesPerPdf: 25,
     price: {
-      amount: 14,
+      amount: 20,
       priceIds: {
-        test: 'price_1NxGxFFl55eurQgwUTHRCQa6',
+        test: 'price_1Nz4WpFl55eurQgwOPnxJ5LP',
         production: '',
       },
     },
@@ -44,9 +31,9 @@ export const PLANS = [
     quota: 100, 
     pagesPerPdf: 50,
     price: {
-      amount: 29,  
+      amount: 80,  
       priceIds: {
-        test: 'new_test_price_id_for_elite', 
+        test: 'price_1Nz4XYFl55eurQgwqgEgOHA8', 
         production: 'new_production_price_id_for_elite',  
       },
     },

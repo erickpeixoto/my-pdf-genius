@@ -7,7 +7,9 @@ export async function POST(request: Request) {
   const body = await request.text()
   const signature = headers().get('Stripe-Signature') ?? ''
 
+
   let event: Stripe.Event
+
 
   try {
     event = stripe.webhooks.constructEvent(
@@ -26,7 +28,7 @@ export async function POST(request: Request) {
 
   const session = event.data
     .object as Stripe.Checkout.Session
-
+    console.log({session})
   if (!session?.metadata?.userId) {
     return new Response(null, {
       status: 200,
@@ -55,6 +57,7 @@ export async function POST(request: Request) {
   }
 
   if (event.type === 'invoice.payment_succeeded') {
+
     // Retrieve the subscription details from Stripe.
     const subscription =
       await stripe.subscriptions.retrieve(

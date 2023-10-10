@@ -15,12 +15,14 @@ import { format } from 'date-fns'
 import { Button } from './ui/button'
 import { useState } from 'react'
 import { getUserSubscriptionPlan } from '@/lib/stripe'
+import { Plans } from '@/lib/types'
 
 interface PageProps {
   subscriptionPlan: Awaited<ReturnType<typeof getUserSubscriptionPlan>>
 }
 
 const Dashboard = ({subscriptionPlan}: PageProps) => {
+
   const [currentlyDeletingFile, setCurrentlyDeletingFile] =
     useState<string | null>(null)
 
@@ -49,7 +51,7 @@ const Dashboard = ({subscriptionPlan}: PageProps) => {
           My Files
         </h1>
 
-        <UploadButton planName="elite"/>
+        <UploadButton planName={subscriptionPlan.slug as Plans} />
       </div>
 
       {/* display all user files */}

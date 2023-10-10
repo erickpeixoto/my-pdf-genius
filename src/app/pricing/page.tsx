@@ -1,5 +1,5 @@
 import MaxWidthWrapper from '@/components/MaxWidthWrapper'
-import UpgradeButton from '@/components/UpgradeButton'
+import SessionButton from '@/components/SessionButton'
 import { buttonVariants } from '@/components/ui/button'
 import {
   Tooltip,
@@ -8,6 +8,8 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip'
 import { PLANS } from '@/config/stripe'
+import { getUserSubscriptionPlan } from '@/lib/stripe'
+import { Plans } from '@/lib/types'
 import { cn } from '@/lib/utils'
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
 import {
@@ -16,18 +18,20 @@ import {
   HelpCircle,
   Minus,
 } from 'lucide-react'
-import Link from 'next/link'
 
-const Page = () => {
+const Page = async () => {
+  
   const { getUser } = getKindeServerSession()
-  const user = getUser()
+  const subscriptionPlan = await getUserSubscriptionPlan()
+  const { isSubscribed } = subscriptionPlan
 
   const pricingItems = [
-    // Updated information based on new PLANS structure
+
     {
       plan: 'Explorer',
-      tagline: '1 Month Free, no credit card required',
+      tagline: 'First Month Free, no credit card required',
       quota: PLANS.find((p) => p.slug === 'explorer')!.quota,
+      slug:  PLANS.find((p) => p.slug === 'explorer')!.slug,
       features: [
         {
           text: `${PLANS.find((p) => p.slug === 'explorer')!.pagesPerPdf} pages per PDF`,
@@ -53,8 +57,9 @@ const Page = () => {
     },
     {
       plan: 'Champion',
-      tagline: 'Unleash the full power of our platform.',
+      tagline: 'Unleash the full power of our platform',
       quota: PLANS.find((p) => p.slug === 'champion')!.quota,
+      slug:  PLANS.find((p) => p.slug === 'champion')!.slug,
       features: [
         {
           text: `${PLANS.find((p) => p.slug === 'champion')!.pagesPerPdf} pages per PDF`,
@@ -78,11 +83,12 @@ const Page = () => {
     },
     {
       plan: 'Elite',
-      tagline: 'For professionals seeking excellence without boundaries.',
+      tagline: 'For professionals seeking excellence',
       quota: PLANS.find((p) => p.slug === 'elite')!.quota,
+      slug:  PLANS.find((p) => p.slug === 'elite')!.slug,
       features: [
         {
-          text: `Up to ${PLANS.find((p) => p.slug === 'elite')!.pagesPerPdf} pages per PDF`,
+          text: `Unlimited pages per PDF`,
         },
         {
           text: 'File size limit: 32MB',
@@ -117,7 +123,7 @@ const Page = () => {
         <div className='pt-12 grid grid-cols-1 gap-10 lg:grid-cols-3'>
           <TooltipProvider>
             {pricingItems.map(
-              ({ plan, tagline, quota, features }) => {
+              ({ plan, tagline, quota, features, slug }) => {
                 const price =
                   PLANS.find(
                     (p) => p.slug === plan.toLowerCase()
@@ -138,7 +144,8 @@ const Page = () => {
             
                       {plan === 'Champion' && (
                       <div className='absolute -top-5 left-0 right-0 mx-auto w-32 rounded-full bg-gradient-to-r from-blue-600 to-cyan-600 px-3 py-2 text-sm font-medium text-white'>
-                        Upgrade now
+                        {isSubscribed ? 'Upgrade now' : 'Most popular'}
+                        
                       </div>
                     )}
 
@@ -162,8 +169,8 @@ const Page = () => {
                     <div className='flex h-20 items-center justify-center border-b border-t border-gray-200 bg-gray-50'>
                       <div className='flex items-center space-x-1'>
                         <p>
-                          {quota.toLocaleString()} PDFs/mo
-                          included
+                          {plan === 'Elite' ? 'Unlimited PDFs' :  `${quota.toLocaleString()} PDFs/mo included`}
+                          
                         </p>
 
                         <Tooltip delayDuration={300}>
@@ -231,25 +238,7 @@ const Page = () => {
                     </ul>
                     <div className='border-t border-gray-200' />
                     <div className='p-5'>
-                      {plan === 'Champion' ? (
-                          <Link
-                              href={user ? '/dashboard' : '/sign-in'}
-                              className="w-full relative group overflow-hidden px-6 h-12 rounded flex space-x-2 items-center bg-gradient-to-r from-pink-500 to-purple-500 hover:to-purple-600 justify-center text-white">
-                              {user ? 'Upgrade now' : 'Sign up'}
-                              <ArrowRight className='h-5 w-5 ml-1.5' />
-                          </Link>
-                      ) : user ? (
-                          <UpgradeButton />
-                      ) : (
-                          <Link
-                              href='/sign-in'
-                              className={buttonVariants({
-                                  className: 'w-full',
-                              })}>
-                              {user ? 'Upgrade now' : 'Sign up'}
-                              <ArrowRight className='h-5 w-5 ml-1.5' />
-                          </Link>
-                      )}
+                    <SessionButton isSubscribed={isSubscribed} planName={slug as Plans}/>
                   </div>
 
                   </div>

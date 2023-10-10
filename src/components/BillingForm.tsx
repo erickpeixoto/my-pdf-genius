@@ -14,6 +14,7 @@ import {
 import { Button } from './ui/button'
 import { Loader2 } from 'lucide-react'
 import { format } from 'date-fns'
+import { Plans } from '@/lib/types'
 
 interface BillingFormProps {
   subscriptionPlan: Awaited<
@@ -47,7 +48,7 @@ const BillingForm = ({
         className='mt-12'
         onSubmit={(e) => {
           e.preventDefault()
-          createStripeSession()
+          createStripeSession({ isSubscribed: subscriptionPlan.isSubscribed, planName: subscriptionPlan.slug as Plans })
         }}>
         <Card>
           <CardHeader>
