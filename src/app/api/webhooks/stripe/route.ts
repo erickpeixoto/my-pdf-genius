@@ -8,15 +8,18 @@ export async function POST(request: Request) {
   const signature = headers().get('Stripe-Signature') ?? ''
 
 
+
   let event: Stripe.Event
+
 
 
   try {
     event = stripe.webhooks.constructEvent(
       body,
       signature,
-      process.env.STRIPE_WEBHOOK_SECRET || ''
+      'whsec_c3615c3febb0b837af0b91d51d12f4def20984bf6dfdecb252d550931c898395'
     )
+
   } catch (err) {
     return new Response(
       `Webhook Error: ${
@@ -34,13 +37,15 @@ export async function POST(request: Request) {
       status: 200,
     })
   }
+console.log("SESSION ===============", session)
 
   if (event.type === 'checkout.session.completed') {
+
     const subscription =
       await stripe.subscriptions.retrieve(
         session.subscription as string
       )
-
+console.log({subscription})
     await db.user.update({
       where: {
         id: session.metadata.userId,

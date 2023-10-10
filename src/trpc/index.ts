@@ -106,6 +106,9 @@ export const appRouter = router({
               price: pricePlan, 
               quantity: 1,
             }],
+          metadata: {
+            userId: userId,
+          },
       
         } as Stripe.Checkout.SessionCreateParams;
 
