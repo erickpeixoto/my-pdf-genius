@@ -48,12 +48,17 @@ const Navbar = () => {
             ) : (
               <>
                 <Link
+                  href='/dashboard/billing'
+                  className="text-white p-2 text-sm"
+                 >
+                  My Subscription
+                </Link>
+
+                <Link
                   href='/dashboard'
-                  className={buttonVariants({
-                    variant: 'ghost',
-                    size: 'sm',
-                  })}>
-                  Dashboard
+                  className="text-white p-2 border border-white rounded-full text-sm"
+                 >
+                  My Files
                 </Link>
 
                 <UserAccountNav

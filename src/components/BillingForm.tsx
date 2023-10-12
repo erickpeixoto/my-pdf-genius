@@ -1,74 +1,38 @@
-'use client'
 
-import { getUserSubscriptionPlan } from '@/lib/stripe'
-import { useToast } from './ui/use-toast'
-import { trpc } from '@/app/_trpc/client'
-import MaxWidthWrapper from './MaxWidthWrapper'
-import {
-  Card,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from './ui/card'
+import { getUserSubscriptionPlan as SubscriptionType } from '@/lib/stripe'
 import { Button } from './ui/button'
-import { Loader2 } from 'lucide-react'
 import { format } from 'date-fns'
 import { Plans } from '@/lib/types'
-
+import SessionButton from './SessionButton'
+import Link from 'next/link'
 interface BillingFormProps {
   subscriptionPlan: Awaited<
-    ReturnType<typeof getUserSubscriptionPlan>
+    ReturnType<typeof SubscriptionType>
   >
 }
 
 const BillingForm = ({
   subscriptionPlan,
 }: BillingFormProps) => {
-  const { toast } = useToast()
 
-  const { mutate: createStripeSession, isLoading } =
-    trpc.createStripeSession.useMutation({
-      onSuccess: ({ url }) => {
-        if (url) window.location.href = url
-        if (!url) {
-          toast({
-            title: 'There was a problem...',
-            description: 'Please try again in a moment',
-            variant: 'destructive',
-          })
-        }
-      },
-    })
 
   return (
-    <MaxWidthWrapper className='max-w-5xl'>
-       <pre>{JSON.stringify(subscriptionPlan, null, 2)}</pre>
-      <form
-        className='mt-12'
-        onSubmit={(e) => {
-          e.preventDefault()
-          createStripeSession({ isSubscribed: subscriptionPlan.isSubscribed, planName: subscriptionPlan.slug as Plans })
-        }}>
-        <Card>
-          <CardHeader>
-            <CardTitle>Subscription Plan</CardTitle>
-            <CardDescription>
-              You are currently on the{' '}
-              <strong>{subscriptionPlan.name}</strong> plan.
-            </CardDescription>
-          </CardHeader>
-
-          <CardFooter className='flex flex-col items-start space-y-2 md:flex-row md:justify-between md:space-x-0'>
-            <Button type='submit'>
-              {isLoading ? (
-                <Loader2 className='mr-4 h-4 w-4 animate-spin' />
-              ) : null}
-              {subscriptionPlan.isSubscribed
-                ? 'Manage Subscription'
-                : 'Upgrade to PRO'}
-            </Button>
-
+      <div className="px-4 lg:px-8 space-y-4 flex flex-col gap-2 ">
+          <div className="text-muted-foreground text-sm">
+            You are currently on a {subscriptionPlan.name} plan.
+          </div>
+          <div className='md:w-1/2 w-full' >
+                <SessionButton   
+                    isSubscribed={subscriptionPlan.isSubscribed} 
+                    planName={subscriptionPlan.slug as Plans} 
+                    isManagedMode={true} />
+            </div>
+          <div className="md:w-1/2 w-full flex flex-row justify-between items-center">
+            <Link href={'/pricing'}>
+              <Button variant="ghost" className='bg-slate-300 text-gray-500 w-[250px] '>
+                  Change plan
+              </Button>
+            </Link>
             {subscriptionPlan.isSubscribed ? (
               <p className='rounded-full text-xs font-medium'>
                 {subscriptionPlan.isCanceled
@@ -81,10 +45,8 @@ const BillingForm = ({
                 .
               </p>
             ) : null}
-          </CardFooter>
-        </Card>
-      </form>
-    </MaxWidthWrapper>
+         </div>
+      </div>
   )
 }
 

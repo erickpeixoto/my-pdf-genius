@@ -10,7 +10,6 @@ const Logo = () => {
    
     const pathName = usePathname()
     const colorText = pathName === "/" || "/pricing" ? "text-white" : "text-black"
-    console.log(colorText)
 
     return (
 

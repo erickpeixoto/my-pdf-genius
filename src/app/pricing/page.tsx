@@ -21,7 +21,6 @@ import {
 
 const Page = async () => {
   
-  const { getUser } = getKindeServerSession()
   const subscriptionPlan = await getUserSubscriptionPlan()
   const { isSubscribed } = subscriptionPlan
 

@@ -12,7 +12,7 @@ export async function getUserSubscriptionPlan() {
   const { getUser } = getKindeServerSession()
   const user = getUser()
 
-  if (!user.id) {
+  if (!user?.id) {
     return {
       ...PLANS[0],
       isSubscribed: false,
@@ -47,13 +47,11 @@ export async function getUserSubscriptionPlan() {
     ? PLANS.find((plan) => plan.price.priceIds.test === dbUser.stripePriceId)
     : null
 
-  let isCanceled = false
-  if (isSubscribed && dbUser.stripeSubscriptionId) {
-    const stripePlan = await stripe.subscriptions.retrieve(
-      dbUser.stripeSubscriptionId
-    )
-    isCanceled = stripePlan.cancel_at_period_end
-  }
+    let isCanceled = false;
+    if (isSubscribed && dbUser.stripeSubscriptionId) {
+        const stripePlan = await stripe.subscriptions.retrieve(dbUser.stripeSubscriptionId);
+        isCanceled = stripePlan.status === 'canceled';
+    }
  
   return {
     ...plan,

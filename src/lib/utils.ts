@@ -67,3 +67,14 @@ export const getPagesPerPdfByPlanName = (planName: Plans): number | null => {
   const plan = PLANS.find(p => p.slug === planName);
   return plan ? plan.pagesPerPdf : null;
 }
+
+const getPlanDetails = (planName: string) => {
+  return PLANS.find(p => p.name.toLowerCase() === planName.toLowerCase())?.slug
+}
+
+export const getNextPlan = (currentPlan: string) => {
+  const planOrder = ['explorer', 'champion', 'elite'];
+  const currentPlanIndex = planOrder.indexOf(currentPlan.toLowerCase());
+  if (currentPlanIndex < 0 || currentPlanIndex === planOrder.length - 1) return null;
+  return getPlanDetails(planOrder[currentPlanIndex + 1]);
+}

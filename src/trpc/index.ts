@@ -57,6 +57,7 @@ export const appRouter = router({
     .input(
       z.object({
         isSubscribed: z.boolean().optional(),
+        isManagedMode: z.boolean().optional(),
         planName:  z.union([
           z.literal('explorer'),
           z.literal('champion'),
@@ -81,7 +82,8 @@ export const appRouter = router({
         if (!dbUser)
           throw new TRPCError({ code: 'UNAUTHORIZED' })
 
-        if (input.isSubscribed) {
+        // if the user is already subscribed, redirect to billing page
+        if (input.isSubscribed && input.isManagedMode) {
           const subscriptionPlan = await getUserSubscriptionPlan()
 
           if (subscriptionPlan && dbUser.stripeCustomerId) {
@@ -89,7 +91,6 @@ export const appRouter = router({
               customer: dbUser.stripeCustomerId,
               return_url: billingUrl,
             })
-
             return { url: stripeSession.url }
           }
         }

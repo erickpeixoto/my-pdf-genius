@@ -1,38 +1,43 @@
 'use client'
 
-import { trpc } from '@/app/_trpc/client'
 import ChatInput from './ChatInput'
 import Messages from './Messages'
-import { ChevronLeft, Loader2, XCircle } from 'lucide-react'
+import { ChevronLeft, Loader2, XCircle, Info } from 'lucide-react'
 import Link from 'next/link'
 import { buttonVariants } from '../ui/button'
 import { ChatContextProvider } from './ChatContext'
 import { PLANS } from '@/config/stripe'
+import { getUserSubscriptionPlan } from '@/lib/stripe'
+import SessionButton from '@/components/SessionButton'
+import { Plans } from '@/lib/types'
+import { getNextPlan } from '@/lib/utils'
+import { File } from '@prisma/client'
+import { useEffect, useState } from 'react'
 
 interface ChatWrapperProps {
-  fileId: string
-  isSubscribed: boolean
+  file: File
+  subscriptionPlan: Awaited<
+  ReturnType<typeof getUserSubscriptionPlan>>
 }
 
-const ChatWrapper = ({
-  fileId,
-  isSubscribed,
-}: ChatWrapperProps) => {
-  const { data, isLoading } =
-    trpc.getFileUploadStatus.useQuery(
-      {
-        fileId,
-      },
-      {
-        refetchInterval: (data) =>
-          data?.status === 'SUCCESS' ||
-          data?.status === 'FAILED'
-            ? false
-            : 500,
-      }
-    )
 
-  if (isLoading)
+const ChatWrapper = ({
+  file,
+  subscriptionPlan,
+}: ChatWrapperProps) => {
+
+ 
+const { slug, isSubscribed, quota, name } = subscriptionPlan
+const nextPlan = getNextPlan(slug as string) as unknown as Plans
+const [loaded, setLoaded] = useState(false)
+
+useEffect(() => {
+    setLoaded(true)
+}, [])
+
+if(!loaded) return null
+
+  if (!file)
     return (
       <div className='relative min-h-full bg-zinc-50 flex divide-y divide-zinc-200 flex-col justify-between gap-2'>
         <div className='flex-1 flex justify-center items-center flex-col mb-28'>
@@ -51,7 +56,7 @@ const ChatWrapper = ({
       </div>
     )
 
-  if (data?.status === 'PROCESSING')
+  if (file.uploadStatus === 'PROCESSING')
     return (
       <div className='relative min-h-full bg-zinc-50 flex divide-y divide-zinc-200 flex-col justify-between gap-2'>
         <div className='flex-1 flex justify-center items-center flex-col mb-28'>
@@ -70,7 +75,7 @@ const ChatWrapper = ({
       </div>
     )
 
-  if (data?.status === 'FAILED')
+  if (file.uploadStatus === 'FAILED')
     return (
       <div className='relative min-h-full bg-zinc-50 flex divide-y divide-zinc-200 flex-col justify-between gap-2'>
         <div className='flex-1 flex justify-center items-center flex-col mb-28'>
@@ -108,11 +113,34 @@ const ChatWrapper = ({
       </div>
     )
 
+    if (file.uploadStatus === "EXCEEDED_QUOTA")
+    return (
+      <div className='relative min-h-full bg-zinc-50 flex divide-y divide-zinc-200 flex-col justify-between gap-2'>
+        <div className='flex-1 flex justify-center items-center flex-col mb-28'>
+          <div className='flex flex-col items-center gap-2'>
+            <Info className='h-10 w-10 text-red-300 relative top-6' />
+      
+            <div className='flex items-center flex-col bg-red-100 p-9 rounded-xl gap-2'>
+                <div className="text-xl font-bold font-white"> Oops! Too many pages</div>
+                <div className=""> You have {quota} pages per file</div>
+                <div> Upgrade to <span className='capitalize font-bold'>{nextPlan} </span>  to get more pages</div>
+                <div className="mt-5">
+                  <SessionButton  planName={nextPlan} isSubscribed={isSubscribed}/>
+                </div>
+           
+            </div>
+          </div>
+        </div>
+
+        <ChatInput isDisabled />
+      </div>
+    )
+
   return (
-    <ChatContextProvider fileId={fileId}>
+    <ChatContextProvider fileId={file.id}>
       <div className='relative min-h-full bg-zinc-50 flex divide-y divide-zinc-200 flex-col justify-between gap-2'>
         <div className='flex-1 justify-between flex flex-col mb-28'>
-          <Messages fileId={fileId} />
+          <Messages fileId={file.id} />
         </div>
 
         <ChatInput />

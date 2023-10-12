@@ -9,7 +9,7 @@ import {
 import { Button } from './ui/button'
 
 import Dropzone from 'react-dropzone'
-import { Cloud, File, Loader2 } from 'lucide-react'
+import { Cloud, File, Loader2, Plus } from 'lucide-react'
 import { Progress } from './ui/progress'
 import { useUploadThing } from '@/lib/uploadthing'
 import { useToast } from './ui/use-toast'
@@ -115,9 +115,9 @@ const UploadDropzone = ({
                 <Cloud className='h-6 w-6 text-zinc-500 mb-2' />
                 <p className='mb-2 text-sm text-zinc-700'>
                   <span className='font-semibold'>
-                    Click to upload
+                    Click to upload {' '}
                   </span>
-                  or drag and drop
+                   or drag and drop
                 </p>
                 <p className='text-xs text-zinc-500'>
                   PDF (up to {getPagesPerPdfByPlanName(planName)} MB)
@@ -196,7 +196,8 @@ const handleModal = () => {
       <DialogTrigger
         onClick={handleModal}
         asChild>
-        <Button>Upload PDF</Button>
+        <Button className='absolute p-7 w-[180px] ml-[300px] bg-gradient-to-r from-sky-500 to-indigo-500' >
+          <Plus /> Upload PDF</Button>
       </DialogTrigger>
 
       <DialogContent>

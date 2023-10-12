@@ -44,7 +44,6 @@ const onUploadComplete = async ({
   })
 
   if (isFileExist) return
-
   const createdFile = await db.file.create({
     data: {
       key: file.key,
@@ -69,31 +68,13 @@ const onUploadComplete = async ({
     const pagesAmt = pageLevelDocs.length
 
     const { subscriptionPlan } = metadata
-    const { isSubscribed } = subscriptionPlan
+    const { isSubscribed, slug } = subscriptionPlan
+    const  currentPlan = PLANS.find((plan) => plan.slug === slug)!
+    const quota = currentPlan.pagesPerPdf
 
-    const isProExceeded =
-      pagesAmt >
-      PLANS.find((plan) => plan.name === 'Explorer')!.pagesPerPdf
-    const isFreeExceeded =
-      pagesAmt >
-      PLANS.find((plan) => plan.name === 'Free')!
-        .pagesPerPdf
+    const isExceeded = pagesAmt > quota
 
-    if (
-      (isSubscribed && isProExceeded) ||
-      (!isSubscribed && isFreeExceeded)
-    ) {
-      await db.file.update({
-        data: {
-          uploadStatus: 'FAILED',
-        },
-        where: {
-          id: createdFile.id,
-        },
-      })
-    }
-
-    // vectorize and index entire document
+    // Creating vector store
     const pinecone = await getPineconeClient()
     const pineconeIndex = pinecone.Index('genius')
 
@@ -109,20 +90,25 @@ const onUploadComplete = async ({
         namespace: createdFile.id,
       }
     )
+  
+    // If user is subscribed and pages amt is exceeded
+    const uploadStatus = (isSubscribed && isExceeded) ? 'EXCEEDED_QUOTA' : 'SUCCESS';
 
     await db.file.update({
-      data: {
-        uploadStatus: 'SUCCESS',
-      },
-      where: {
-        id: createdFile.id,
-      },
-    })
+        data: {
+            uploadStatus: uploadStatus,
+        },
+        where: {
+            id: createdFile.id,
+        },
+    });
+    
+
   } catch (err) {
-    console.error("EROOR:  =====================", err)
+    console.error("EROOR:", err)
     await db.file.update({
       data: {
-        uploadStatus: 'SUCCESS',
+        uploadStatus: 'FAILED',
       },
       where: {
         id: createdFile.id,

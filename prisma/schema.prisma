@@ -29,6 +29,7 @@ enum UploadStatus {
   PROCESSING
   FAILED
   SUCCESS
+  EXCEEDED_QUOTA
 }
 
 model File {
