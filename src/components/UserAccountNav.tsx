@@ -26,7 +26,7 @@ const UserAccountNav = async ({
   name,
 }: UserAccountNavProps) => {
   const subscriptionPlan = await getUserSubscriptionPlan()
-
+console.log({  imageUrl })
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
@@ -71,18 +71,14 @@ const UserAccountNav = async ({
 
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem asChild>
-          <Link href='/dashboard'>Dashboard</Link>
-        </DropdownMenuItem>
-
-        <DropdownMenuItem asChild>
+         <DropdownMenuItem asChild>
           {subscriptionPlan?.isSubscribed ? (
             <Link href='/dashboard/billing'>
               Manage Subscription
             </Link>
           ) : (
             <Link href='/pricing'>
-              Upgrade to PRO
+              Subscribe a Plan
               <Gem className='text-blue-600 h-4 w-4 ml-1.5' />
             </Link>
           )}

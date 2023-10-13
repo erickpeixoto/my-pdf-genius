@@ -32,6 +32,7 @@ const SessionButton = ({ isDisabled, isSubscribed, planName, isManagedMode, isLo
     >
       {isLoading &&  <Loader2 className='mr-4 h-4 w-4 animate-spin' />}
       {!isLoading && isSubscribed && title }
+      {!isSubscribed && title}
        <ArrowRight className='h-5 w-5 ml-1.5' />
     </Button>
   )

@@ -5,6 +5,7 @@ import { Plans } from "@/lib/types";
 import { Button } from "./ui/button";
 import { format } from "date-fns";
 import Link from "next/link";
+import RegisterButton from "./RegisterButton";
 
 interface CurrentPlanProps {
 
@@ -16,7 +17,15 @@ export const CurrentPlan = ({ subscriptionPlan }: CurrentPlanProps) => {
     const explorerPlan = pricingItems.find(item => item.plan === subscriptionPlan.name);
 
     if (!explorerPlan) {
-        return <p>Plan not found</p>;
+        return <div className="flex justify-center flex-col gap-2 w-1/2">
+                    <h3>Uh-oh! Looks like you have not subscribed yet.</h3>
+                    <Link href={'/pricing'}>
+                        <Button>
+                            Subscribe a plan
+                        </Button>
+                    </Link>
+
+            </div>;
     }
 
     return (

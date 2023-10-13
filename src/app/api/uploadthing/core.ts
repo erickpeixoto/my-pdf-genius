@@ -97,6 +97,7 @@ const onUploadComplete = async ({
     await db.file.update({
         data: {
             uploadStatus: uploadStatus,
+            pagesAmt: pagesAmt
         },
         where: {
             id: createdFile.id,

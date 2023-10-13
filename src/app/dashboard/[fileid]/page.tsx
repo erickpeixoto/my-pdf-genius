@@ -26,10 +26,27 @@ const Page = async ({ params }: PageProps) => {
       userId: user.id,
     },
   })
-
   if (!file) notFound()
 
-  const plan = await getUserSubscriptionPlan()
+
+  // Check quota and amt plan
+  const plan = await getUserSubscriptionPlan();
+  const { pagesAmt } = file;
+  
+  if (pagesAmt && plan.quota) {
+    const uploadStatus =
+      pagesAmt < plan.quota ? "SUCCESS" : "EXCEEDED_QUOTA";
+  
+    await db.file.update({
+      data: {
+        uploadStatus,
+      },
+      where: {
+        id: file.id,
+      },
+    });
+  }
+
 
   return (
     <div className='flex-1 justify-between flex flex-col h-[calc(100vh-3.5rem)]'>

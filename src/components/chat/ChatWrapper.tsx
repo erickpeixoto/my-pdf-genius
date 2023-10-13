@@ -13,7 +13,7 @@ import { Plans } from '@/lib/types'
 import { getNextPlan } from '@/lib/utils'
 import { File } from '@prisma/client'
 import { useEffect, useState } from 'react'
-
+import { trpc } from '@/app/_trpc/client'
 interface ChatWrapperProps {
   file: File
   subscriptionPlan: Awaited<
@@ -31,14 +31,25 @@ const { slug, isSubscribed, quota, isCanceled} = subscriptionPlan
 const nextPlan = getNextPlan(slug as string) as unknown as Plans
 const [loaded, setLoaded] = useState(false)
 
+const { data, isLoading } =
+trpc.getFileUploadStatus.useQuery(
+  {
+    fileId: file.id,
+  },
+  {
+    refetchInterval: (data) =>
+      data?.status === 'SUCCESS' ||
+      data?.status === 'FAILED'
+        ? false
+        : 500,
+  }
+)
+
 useEffect(() => {
     setLoaded(true)
 }, [file.id])
 
 if(!loaded) return null
-
-// verify quota and file size and update the API
-// check why has it been saved as exceed quota
 
 
 
