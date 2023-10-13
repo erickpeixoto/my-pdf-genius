@@ -78,3 +78,87 @@ export const getNextPlan = (currentPlan: string) => {
   if (currentPlanIndex < 0 || currentPlanIndex === planOrder.length - 1) return null;
   return getPlanDetails(planOrder[currentPlanIndex + 1]);
 }
+
+export const pricingItems = [
+
+  {
+    plan: 'Explorer',
+    tagline: 'First Month Free, no credit card required',
+    quota: PLANS.find((p) => p.slug === 'explorer')!.quota,
+    slug:  PLANS.find((p) => p.slug === 'explorer')!.slug,
+    features: [
+      {
+        text: `${PLANS.find((p) => p.slug === 'explorer')!.pagesPerPdf} pages per PDF`,
+        footnote: 'The maximum amount of pages per PDF-file.',
+      },
+      {
+        text: '4MB file size limit',
+        footnote: 'The maximum file size of a single PDF file.',
+      },
+      {
+        text: 'Mobile-friendly interface',
+      },
+      {
+        text: 'Higher-quality responses',
+        footnote: 'Better algorithmic responses for enhanced content quality',
+        negative: true,
+      },
+      {
+        text: 'Priority support',
+        negative: true,
+      },
+    ],
+  },
+  {
+    plan: 'Champion',
+    tagline: 'Unleash the full power of our platform',
+    quota: PLANS.find((p) => p.slug === 'champion')!.quota,
+    slug:  PLANS.find((p) => p.slug === 'champion')!.slug,
+    features: [
+      {
+        text: `${PLANS.find((p) => p.slug === 'champion')!.pagesPerPdf} pages per PDF`,
+        footnote: 'The maximum amount of pages per PDF-file.',
+      },
+      {
+        text: '16MB file size limit',
+        footnote: 'The maximum file size of a single PDF file.',
+      },
+      {
+        text: 'Mobile-friendly interface',
+      },
+      {
+        text: 'Higher-quality responses',
+        footnote: 'Better algorithmic responses for enhanced content quality',
+      },
+      {
+        text: 'Priority support',
+      },
+    ],
+  },
+  {
+    plan: 'Elite',
+    tagline: 'For professionals seeking excellence',
+    quota: PLANS.find((p) => p.slug === 'elite')!.quota,
+    slug:  PLANS.find((p) => p.slug === 'elite')!.slug,
+    features: [
+      {
+        text: `Unlimited pages per PDF`,
+      },
+      {
+        text: 'File size limit: 32MB',
+      },
+      {
+        text: 'Optimized interface for mobile devices',
+      },
+      {
+        text: 'High-quality algorithmic responses',
+      },
+      {
+        text: '24/7 priority support',
+      },
+      {
+        text: 'Automatic backup and advanced security features',
+      }
+    ],
+  },
+]

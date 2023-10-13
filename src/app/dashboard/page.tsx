@@ -34,7 +34,7 @@ const Page = async () => {
         iconColor="text-gray-700"
         bgColor="bg-gray-700/10"
     />
-     <UploadButton planName={subscriptionPlan.slug as Plans} />
+     <UploadButton planName={subscriptionPlan.slug as Plans} isCanceled={subscriptionPlan.isCanceled}/>
 
     <Dashboard subscriptionPlan={subscriptionPlan} />
 </MaxWidthWrapper>

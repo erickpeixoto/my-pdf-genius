@@ -1,8 +1,8 @@
-import BillingForm from "@/components/BillingForm"
 import { getUserSubscriptionPlan } from "@/lib/stripe"
 import { Heading } from '@/components/heading'
 import { Settings } from 'lucide-react'
 import MaxWidthWrapper from "@/components/MaxWidthWrapper"
+import { CurrentPlan } from "@/components/CurrentPlan"
 
 const Page = async () => {
     const subscriptionPlan = await getUserSubscriptionPlan()
@@ -16,11 +16,9 @@ const Page = async () => {
                 iconColor="text-gray-700"
                 bgColor="bg-gray-700/10"
             />
-            <BillingForm subscriptionPlan={subscriptionPlan} />
+            <CurrentPlan subscriptionPlan={subscriptionPlan} />
         </MaxWidthWrapper>
    )
-    
-     
 }
 
 export default Page

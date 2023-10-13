@@ -1,4 +1,5 @@
 import MaxWidthWrapper from '@/components/MaxWidthWrapper'
+import RegisterButton from '@/components/RegisterButton'
 import SessionButton from '@/components/SessionButton'
 import { buttonVariants } from '@/components/ui/button'
 import {
@@ -10,8 +11,9 @@ import {
 import { PLANS } from '@/config/stripe'
 import { getUserSubscriptionPlan } from '@/lib/stripe'
 import { Plans } from '@/lib/types'
-import { cn } from '@/lib/utils'
+import { cn, pricingItems } from '@/lib/utils'
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
+
 import {
   ArrowRight,
   Check,
@@ -21,92 +23,11 @@ import {
 
 const Page = async () => {
   
+
   const subscriptionPlan = await getUserSubscriptionPlan()
   const { isSubscribed } = subscriptionPlan
 
-  const pricingItems = [
 
-    {
-      plan: 'Explorer',
-      tagline: 'First Month Free, no credit card required',
-      quota: PLANS.find((p) => p.slug === 'explorer')!.quota,
-      slug:  PLANS.find((p) => p.slug === 'explorer')!.slug,
-      features: [
-        {
-          text: `${PLANS.find((p) => p.slug === 'explorer')!.pagesPerPdf} pages per PDF`,
-          footnote: 'The maximum amount of pages per PDF-file.',
-        },
-        {
-          text: '4MB file size limit',
-          footnote: 'The maximum file size of a single PDF file.',
-        },
-        {
-          text: 'Mobile-friendly interface',
-        },
-        {
-          text: 'Higher-quality responses',
-          footnote: 'Better algorithmic responses for enhanced content quality',
-          negative: true,
-        },
-        {
-          text: 'Priority support',
-          negative: true,
-        },
-      ],
-    },
-    {
-      plan: 'Champion',
-      tagline: 'Unleash the full power of our platform',
-      quota: PLANS.find((p) => p.slug === 'champion')!.quota,
-      slug:  PLANS.find((p) => p.slug === 'champion')!.slug,
-      features: [
-        {
-          text: `${PLANS.find((p) => p.slug === 'champion')!.pagesPerPdf} pages per PDF`,
-          footnote: 'The maximum amount of pages per PDF-file.',
-        },
-        {
-          text: '16MB file size limit',
-          footnote: 'The maximum file size of a single PDF file.',
-        },
-        {
-          text: 'Mobile-friendly interface',
-        },
-        {
-          text: 'Higher-quality responses',
-          footnote: 'Better algorithmic responses for enhanced content quality',
-        },
-        {
-          text: 'Priority support',
-        },
-      ],
-    },
-    {
-      plan: 'Elite',
-      tagline: 'For professionals seeking excellence',
-      quota: PLANS.find((p) => p.slug === 'elite')!.quota,
-      slug:  PLANS.find((p) => p.slug === 'elite')!.slug,
-      features: [
-        {
-          text: `Unlimited pages per PDF`,
-        },
-        {
-          text: 'File size limit: 32MB',
-        },
-        {
-          text: 'Optimized interface for mobile devices',
-        },
-        {
-          text: 'High-quality algorithmic responses',
-        },
-        {
-          text: '24/7 priority support',
-        },
-        {
-          text: 'Automatic backup and advanced security features',
-        }
-      ],
-    },
-  ]
   return (
     <>
       <MaxWidthWrapper className='mb-8 mt-24 text-center'>
@@ -143,7 +64,9 @@ const Page = async () => {
             
                       {plan === 'Champion' && (
                       <div className='absolute -top-5 left-0 right-0 mx-auto w-32 rounded-full bg-gradient-to-r from-blue-600 to-cyan-600 px-3 py-2 text-sm font-medium text-white'>
-                        {isSubscribed ? 'Upgrade now' : 'Most popular'}
+                        {isSubscribed ? (
+                          plan === subscriptionPlan.name ? "My Plan" : "Upgrade now"
+                        ) : "Most Popular" } 
                         
                       </div>
                     )}
@@ -237,7 +160,13 @@ const Page = async () => {
                     </ul>
                     <div className='border-t border-gray-200' />
                     <div className='p-5'>
-                    <SessionButton isSubscribed={isSubscribed} planName={slug as Plans}/>
+                      {!isSubscribed && <RegisterButton planName={slug as Plans}/> }
+                      {isSubscribed &&  <SessionButton 
+                                              isSubscribed={isSubscribed} 
+                                              planName={slug as Plans} 
+                                              title='Upgrade Plan'
+                                              isDisabled={slug === subscriptionPlan.slug}
+                                              /> }
                   </div>
 
                   </div>
@@ -250,5 +179,8 @@ const Page = async () => {
     </>
   )
 }
+
+
+
 
 export default Page

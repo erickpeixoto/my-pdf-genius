@@ -4,7 +4,7 @@ import ChatInput from './ChatInput'
 import Messages from './Messages'
 import { ChevronLeft, Loader2, XCircle, Info } from 'lucide-react'
 import Link from 'next/link'
-import { buttonVariants } from '../ui/button'
+import { Button, buttonVariants } from '../ui/button'
 import { ChatContextProvider } from './ChatContext'
 import { PLANS } from '@/config/stripe'
 import { getUserSubscriptionPlan } from '@/lib/stripe'
@@ -27,15 +27,20 @@ const ChatWrapper = ({
 }: ChatWrapperProps) => {
 
  
-const { slug, isSubscribed, quota, name } = subscriptionPlan
+const { slug, isSubscribed, quota, isCanceled} = subscriptionPlan
 const nextPlan = getNextPlan(slug as string) as unknown as Plans
 const [loaded, setLoaded] = useState(false)
 
 useEffect(() => {
     setLoaded(true)
-}, [])
+}, [file.id])
 
 if(!loaded) return null
+
+// verify quota and file size and update the API
+// check why has it been saved as exceed quota
+
+
 
   if (!file)
     return (
@@ -125,7 +130,7 @@ if(!loaded) return null
                 <div className=""> You have {quota} pages per file</div>
                 <div> Upgrade to <span className='capitalize font-bold'>{nextPlan} </span>  to get more pages</div>
                 <div className="mt-5">
-                  <SessionButton  planName={nextPlan} isSubscribed={isSubscribed}/>
+                  <SessionButton  planName={nextPlan} isSubscribed={isSubscribed} title='Upgrade Plan'/>
                 </div>
            
             </div>
@@ -136,6 +141,30 @@ if(!loaded) return null
       </div>
     )
 
+    if (isCanceled)
+    return (
+      <div className='relative min-h-full bg-zinc-50 flex divide-y divide-zinc-200 flex-col justify-between gap-2'>
+        <div className='flex-1 flex justify-center items-center flex-col mb-28'>
+          <div className='flex flex-col items-center gap-2'>
+            <Info className='h-10 w-10 text-red-300 relative top-6' />
+      
+            <div className='flex items-center flex-col bg-red-100 p-9 rounded-xl gap-2'>
+                <div className="text-xl font-bold font-white"> Oops! Subscription expired</div>
+            
+                <div>To select your preferred plan, simply click on the link provided below.</div>
+                <div className="mt-5">
+                  <Link href={'/pricing'}>
+                    <Button>Choose Plans</Button>
+                  </Link>
+                </div>
+           
+            </div>
+          </div>
+        </div>
+
+        <ChatInput isDisabled />
+      </div>
+    )
   return (
     <ChatContextProvider fileId={file.id}>
       <div className='relative min-h-full bg-zinc-50 flex divide-y divide-zinc-200 flex-col justify-between gap-2'>

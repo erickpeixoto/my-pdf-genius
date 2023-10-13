@@ -31,13 +31,12 @@ export async function POST(request: Request) {
 
   const session = event.data
     .object as Stripe.Checkout.Session
-    console.log({session})
-  if (!session?.metadata?.userId) {
+
+    if (!session?.metadata?.userId) {
     return new Response(null, {
       status: 200,
     })
   }
-console.log("SESSION ===============", session)
 
   if (event.type === 'checkout.session.completed') {
 
@@ -45,7 +44,7 @@ console.log("SESSION ===============", session)
       await stripe.subscriptions.retrieve(
         session.subscription as string
       )
-console.log({subscription})
+
     await db.user.update({
       where: {
         id: session.metadata.userId,

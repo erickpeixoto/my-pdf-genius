@@ -6,22 +6,22 @@ import {
   RegisterLink,
   getKindeServerSession,
 } from '@kinde-oss/kinde-auth-nextjs/server'
-import { ArrowRight } from 'lucide-react'
 import UserAccountNav from '../UserAccountNav'
 import MobileNav from '@/components/MobileNav'
 import ClientWrapper from '@/components/Navbar/ClientWrapper'
-import Image from 'next/image'
 import Logo from '@/components/Logo'
-const Navbar = () => {
+import { getUserSubscriptionPlan } from '@/lib/stripe'
+
+const Navbar  =  async () => {
+
   const { getUser } = getKindeServerSession()
   const user = getUser()
-
-  
+  const subscriptionPlan = await getUserSubscriptionPlan()
 
   return (
     <ClientWrapper>
       <MaxWidthWrapper>
-        <div className='flex items-center justify-between '>
+        <div className='flex items-center justify-between text-zinc-500'>
           <Logo />
 
           <MobileNav isAuth={!!user} />
@@ -47,6 +47,9 @@ const Navbar = () => {
               </>
             ) : (
               <>
+              {subscriptionPlan.isCanceled && (
+                <span className='p-2 text-red-300 border border-red-500 rounded'>Plan Expired</span>
+              )}
                 <Link
                   href='/dashboard/billing'
                   className="text-white p-2 text-sm"
@@ -56,7 +59,7 @@ const Navbar = () => {
 
                 <Link
                   href='/dashboard'
-                  className="text-white p-2 border border-white rounded-full text-sm"
+                  className="text-white p-2 text-sm"
                  >
                   My Files
                 </Link>

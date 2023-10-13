@@ -17,6 +17,7 @@ import { trpc } from '@/app/_trpc/client'
 import { useRouter } from 'next/navigation'
 import { getPagesPerPdfByPlanName } from '@/lib/utils'
 import { Plans } from '@/lib/types'
+import Link from 'next/link'
 
 
 const UploadDropzone = ({
@@ -171,8 +172,10 @@ const UploadDropzone = ({
 
 const UploadButton = ({
   planName,
+  isCanceled
 }: {
-  planName: Plans
+  planName: Plans,
+  isCanceled: boolean
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const router = useRouter()
@@ -196,7 +199,7 @@ const handleModal = () => {
       <DialogTrigger
         onClick={handleModal}
         asChild>
-        <Button className='absolute p-7 w-[180px] ml-[300px] bg-gradient-to-r from-sky-500 to-indigo-500' >
+          <Button disabled={isCanceled} className='absolute p-7 w-[180px] ml-[300px] bg-gradient-to-r from-sky-500 to-indigo-500' >
           <Plus /> Upload PDF</Button>
       </DialogTrigger>
 

@@ -53,7 +53,6 @@ export const POST = async (req: NextRequest) => {
   const pineconeIndex = pinecone.Index('genius')
 
   const indexStats = await pinecone.listIndexes()
-  console.log('index stats: ', indexStats)
 
   const vectorStore = await PineconeStore.fromExistingIndex(
     embeddings,
