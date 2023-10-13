@@ -33,9 +33,9 @@ const Page = async ({ params }: PageProps) => {
   const plan = await getUserSubscriptionPlan();
   const { pagesAmt } = file;
   
-  if (pagesAmt && plan.quota) {
+  if (pagesAmt && plan.pagesPerPdf) {
     const uploadStatus =
-      pagesAmt < plan.quota ? "SUCCESS" : "EXCEEDED_QUOTA";
+      pagesAmt < plan.pagesPerPdf ? "SUCCESS" : "EXCEEDED_QUOTA";
   
     await db.file.update({
       data: {

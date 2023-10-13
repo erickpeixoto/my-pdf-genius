@@ -39,12 +39,11 @@ trpc.getFileUploadStatus.useQuery(
   {
     refetchInterval: (data) =>
       data?.status === 'SUCCESS' ||
-      data?.status === 'FAILED'
+      data?.status === "EXCEEDED_QUOTA"
         ? false
         : 500,
   }
 )
-console.log({ data })
 
 useEffect(() => {
     setLoaded(true)

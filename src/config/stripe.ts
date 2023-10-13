@@ -29,7 +29,7 @@ export const PLANS = [
     name: 'Elite',  
     slug: 'elite',
     quota: 500, 
-    pagesPerPdf: 50,
+    pagesPerPdf: 500,
     price: {
       amount: 80,  
       priceIds: {

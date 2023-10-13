@@ -26,7 +26,6 @@ const Page = async () => {
   const subscriptionPlan = await getUserSubscriptionPlan()
   const { isSubscribed } = subscriptionPlan
 
-console.log({ subscriptionPlan })
   return (
     <>
       <MaxWidthWrapper className='mb-8 mt-24 text-center'>
