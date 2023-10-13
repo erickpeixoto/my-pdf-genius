@@ -17,7 +17,7 @@ const Navbar  =  async () => {
   const { getUser } = getKindeServerSession()
   const user = getUser()
   const subscriptionPlan = await getUserSubscriptionPlan()
-console.log({ subscriptionPlan, user })
+
   return (
     <ClientWrapper>
       <MaxWidthWrapper>
