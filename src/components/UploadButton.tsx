@@ -177,7 +177,7 @@ const UploadButton = ({ planName, isCanceled }: { planName: Plans, isCanceled: b
       <DialogTrigger
         onClick={handleModal}
         asChild>
-        <Button disabled={isCanceled} className='absolute p-7 w-[180px] ml-[300px] bg-gradient-to-r from-sky-500 to-indigo-500' >
+        <Button disabled={isCanceled} className='md:absolute p-7 md:w-[180px] md:ml-[300px] bg-gradient-to-r from-sky-500 to-indigo-500' >
           <Plus /> Upload PDF
         </Button>
       </DialogTrigger>

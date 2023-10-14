@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import MaxWidthWrapper from '@/components/MaxWidthWrapper'
 import Link from 'next/link'
-import { User, Upload, Keyboard } from 'lucide-react'
+import { User, Upload, Keyboard, Heart, HelpCircleIcon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import CustomButton from '@/components/CustomButton'
@@ -46,16 +46,16 @@ export default function Home() {
           </div>
 
           <div>
-            <div className='mx-auto max-w-6xl px-6 lg:px-8'>
-              <div className='mt-16 flow-root sm:mt-24'>
-                <div className='-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4'>
+            <div className='flex flex-col items-center w-full'>
+              <div className='flow-root sm:mt-24'>
+                <div className=' rounded-xl lg:-m-[120px] lg:rounded-2xl lg:p-4'>
                   <Image
-                    src='/dashboard-preview.jpg'
+                    src='/dashboard-preview.png'
                     alt='product preview'
-                    width={1364}
-                    height={866}
+                    width={1600}
+                    height={900}
                     quality={100}
-                    className='rounded-md bg-white p-2 sm:p-8 md:p-20 shadow-2xl ring-1 ring-gray-900/10'
+                    className='rounded-md  p-2 sm:p-8 md:p-20 '
                   />
                 </div>
               </div>
@@ -113,7 +113,7 @@ export default function Home() {
               </span>
               <span className='mt-2 text-zinc-500'>
                 Either starting out with a free plan or
-                choose our
+                choose the better 
                 <Link
                   href='/pricing'
                   className='
@@ -126,7 +126,7 @@ export default function Home() {
                   border-zinc-500
                   ml-1
                   '>
-                  pro plan
+                   plan for you
                 </Link>
                 .
               </span>
@@ -163,21 +163,61 @@ export default function Home() {
           </li>
        </ol>
 
-        <div className='mx-auto max-w-6xl px-6 lg:px-8'>
-          <div className='mt-16 flow-root sm:mt-24'>
-            <div className='-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4'>
-              <Image
-                src='/file-upload-preview.jpg'
-                alt='uploading preview'
-                width={1419}
-                height={732}
-                quality={100}
-                className='rounded-md bg-white p-2 sm:p-8 md:p-20 shadow-2xl ring-1 ring-gray-900/10'
-              />
+       <footer className=" bg-[#000f12] py-12 text-white flex flex-col items-center text-center">
+          <div className="max-w-7xl mx-auto flex flex-col items-center justify-center">
+            <h3 className="text-3xl font-bold mb-4">Ready to elevate your PDFs?</h3>
+            <p className="text-gray-400 sm:text-lg mb-6">
+              Get started today and unlock the power of intelligent conversations with your documents.
+            </p>
+            <Link href="/signup">
+              <Button size="lg">Get Started</Button>
+            </Link>
+          </div>
+        </footer>
+
+
+
+      </div>
+      <div className="w-full bg-[#000f12] py-2 text-white text-center p-5">
+          <div className="flex justify-between items-center">
+            <div className="flex items-center">
+              <HelpCircleIcon className='w-5 pr-2 text-gray-400' />
+              <p className="text-gray-400">Support</p>
+            </div>
+            <div className='flex gap-2 items-center text-gray-400'>
+              <span>
+                  Made with  
+              </span>
+                  <Heart className='text-primary w-5' /> 
+              <span>
+                  by Systemroot
+              </span>
+            </div>
+            <div className="flex items-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5 mr-2 text-gray-400"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M10 9H6a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2v-4m-2-2v-4a2 2 0 00-2-2h-4a2 2 0 00-2 2"
+                />
+              </svg>
+              <a
+                href="mailto:contact@mypdfgenius.com"
+                className="text-gray-400 hover:text-gray-600 transition-colors duration-300 ease-in-out"
+              >
+                Send us an email
+              </a>
             </div>
           </div>
-        </div>
-      </div>
+</div>
+
     </div>
   )
 }
