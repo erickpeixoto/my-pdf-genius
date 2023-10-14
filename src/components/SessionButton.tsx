@@ -5,6 +5,7 @@ import { Button } from './ui/button'
 import { trpc } from '@/app/_trpc/client'
 import { Plans } from '@/lib/types'
 import { cn } from '@/lib/utils'
+import { usePlausible } from 'next-plausible'
 
 type SessionButtonProps = {
   isSubscribed: boolean
@@ -16,7 +17,8 @@ type SessionButtonProps = {
   isDisabled?: boolean
 }
 const SessionButton = ({ isDisabled, isSubscribed, planName, isManagedMode, isLoading, title, className = 'w-full'}: SessionButtonProps) => {
-
+  
+  const plausible = usePlausible()
   const {mutate: createStripeSession} = trpc.createStripeSession.useMutation({
     onSuccess: ({url}) => {
       window.location.href = url ?? "/dashboard/billing"
@@ -25,8 +27,13 @@ const SessionButton = ({ isDisabled, isSubscribed, planName, isManagedMode, isLo
   
   const isChampion = planName === "champion"
 
+  const handleCreateSession = () => {
+    plausible(`sessionButtonClicked=${planName}`)
+    createStripeSession({isSubscribed, planName, isManagedMode})
+  }
+
   return (
-    <Button onClick={() => createStripeSession({isSubscribed, planName, isManagedMode})}
+    <Button onClick={handleCreateSession}
         disabled={isDisabled}  
         className={cn(isChampion && 'bg-gradient-to-r from-pink-500 to-purple-500 hover:to-purple-600 w-full', className)}
     >

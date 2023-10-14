@@ -8,6 +8,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import 'simplebar-react/dist/simplebar.min.css'
 
 import { Toaster } from '@/components/ui/toaster'
+import PlausibleProvider from 'next-plausible'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,17 +21,19 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en' className='light' suppressHydrationWarning>
-      <Providers>
-        <body
-          className={cn(
-            'min-h-screen font-sans antialiased bg-gray-100  ',
-            inter.className
-          )}>
-          <Toaster />
-          <Navbar />
-          {children}
-        </body>
-      </Providers>
+        <PlausibleProvider domain='my-pdf-genius.vercel.app' trackLocalhost={true} enabled={true}>
+          <Providers>
+            <body
+              className={cn(
+                'min-h-screen font-sans antialiased bg-gray-100  ',
+                inter.className
+              )}>
+              <Toaster />
+              <Navbar />
+              {children}
+            </body>
+          </Providers>
+       </PlausibleProvider>
     </html>
   )
 }

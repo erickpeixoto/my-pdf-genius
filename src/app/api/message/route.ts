@@ -10,62 +10,59 @@ import { NextRequest } from 'next/server'
 import { OpenAIStream, StreamingTextResponse } from 'ai'
 
 export const POST = async (req: NextRequest) => {
-  // endpoint for asking a question to a pdf file
+  // Endpoint for asking a question to a PDF file
 
   const body = await req.json()
 
   const { getUser } = getKindeServerSession()
   const user = getUser()
 
-  const { id: userId } = user
+  const { id: loggedInUserId } = user
 
-  if (!userId)
+  if (!loggedInUserId) {
     return new Response('Unauthorized', { status: 401 })
+  }
 
-  const { fileId, message } =
-    SendMessageValidator.parse(body)
+  const { fileId, message } = SendMessageValidator.parse(body)
 
   const file = await db.file.findFirst({
     where: {
       id: fileId,
-      userId,
+      userId: loggedInUserId,
     },
   })
 
-  if (!file)
-    return new Response('Not found', { status: 404 })
+  if (!file) {
+    return new Response('File not found', { status: 404 })
+  }
 
   await db.message.create({
     data: {
       text: message,
       isUserMessage: true,
-      userId,
+      userId: loggedInUserId,
       fileId,
     },
   })
 
-  // 1: vectorize message
-  const embeddings = new OpenAIEmbeddings({
-    openAIApiKey: process.env.OPENAI_API_KEY,
-  })
+  // Configuration
+  const openAIApiKey = process.env.OPENAI_API_KEY
+  const modelName = 'gpt-4'
+  const maxResults = 4
+  const temperature = 0.2
+  const assistantName = 'PDF Genius'
 
+  // 1: Vectorize message
+  const embeddings = new OpenAIEmbeddings({ openAIApiKey })
   const pinecone = await getPineconeClient()
   const pineconeIndex = pinecone.Index('genius')
 
-  const indexStats = await pinecone.listIndexes()
+  const vectorStore = await PineconeStore.fromExistingIndex(embeddings, {
+    pineconeIndex,
+    namespace: file.id,
+  })
 
-  const vectorStore = await PineconeStore.fromExistingIndex(
-    embeddings,
-    {
-      pineconeIndex,
-      namespace: file.id,
-    }
-  )
-
-  const results = await vectorStore.similaritySearch(
-    message,
-    4
-  )
+  const results = await vectorStore.similaritySearch(message, maxResults)
 
   const prevMessages = await db.message.findMany({
     where: {
@@ -78,41 +75,41 @@ export const POST = async (req: NextRequest) => {
   })
 
   const formattedPrevMessages = prevMessages.map((msg) => ({
-    role: msg.isUserMessage
-      ? ('user' as const)
-      : ('assistant' as const),
+    role: msg.isUserMessage ? 'user' : 'assistant',
     content: msg.text,
   }))
 
+  const contextDescription = `
+    If you don't know the answer, just say that you don't know, don't try to make up an answer.
+
+    ----------------
+
+    PREVIOUS CONVERSATION:
+    ${formattedPrevMessages.map((message) => {
+      if (message.role === 'user') return `User: ${message.content}\n`
+      return `${assistantName}: ${message.content}\n`
+    })}
+
+    ----------------
+
+    CONTEXT:
+    ${results.map((r) => r.pageContent).join('\n\n')}
+
+    USER INPUT: ${message}
+  `
+
   const response = await openai.chat.completions.create({
-    model: 'gpt-4',
-    temperature: 0,
+    model: modelName,
+    temperature,
     stream: true,
     messages: [
       {
         role: 'system',
-        content:
-          'Use the following pieces of context (or previous conversaton if needed) to answer the users question in markdown format.',
+        content: 'Use the following pieces of context to answer the user\'s question in markdown format.',
       },
       {
         role: 'user',
-        content: `Use the following pieces of context (or previous conversaton if needed) to answer the users question in markdown format. \nIf you don't know the answer, just say that you don't know, don't try to make up an answer.
-        
-  \n----------------\n
-  
-  PREVIOUS CONVERSATION:
-  ${formattedPrevMessages.map((message) => {
-    if (message.role === 'user')
-      return `User: ${message.content}\n`
-    return `Assistant: ${message.content}\n`
-  })}
-  
-  \n----------------\n
-  
-  CONTEXT:
-  ${results.map((r) => r.pageContent).join('\n\n')}
-  
-  USER INPUT: ${message}`,
+        content: contextDescription,
       },
     ],
   })
@@ -124,7 +121,7 @@ export const POST = async (req: NextRequest) => {
           text: completion,
           isUserMessage: false,
           fileId,
-          userId,
+          userId: loggedInUserId,
         },
       })
     },
