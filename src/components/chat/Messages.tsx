@@ -3,15 +3,16 @@ import { INFINITE_QUERY_LIMIT } from '@/config/infinite-query'
 import { Loader2, MessageSquare } from 'lucide-react'
 import Skeleton from 'react-loading-skeleton'
 import Message from './Message'
-import { useContext, useEffect, useRef } from 'react'
+import { use, useContext, useEffect, useRef } from 'react'
 import { ChatContext } from './ChatContext'
 import { useIntersection } from '@mantine/hooks'
 
 interface MessagesProps {
   fileId: string
+  picture: string
 }
 
-const Messages = ({ fileId }: MessagesProps) => {
+const Messages = ({ fileId, picture }: MessagesProps) => {
   const { isLoading: isAiThinking } =
     useContext(ChatContext)
 
@@ -78,6 +79,7 @@ const Messages = ({ fileId }: MessagesProps) => {
                   isNextMessageSamePerson
                 }
                 key={message.id}
+                picture={picture}
               />
             )
           } else
@@ -88,6 +90,7 @@ const Messages = ({ fileId }: MessagesProps) => {
                   isNextMessageSamePerson
                 }
                 key={message.id}
+                picture={picture}
               />
             )
         })
@@ -102,10 +105,10 @@ const Messages = ({ fileId }: MessagesProps) => {
         <div className='flex-1 flex flex-col items-center justify-center gap-2'>
           <MessageSquare className='h-8 w-8 text-blue-500' />
           <h3 className='font-semibold text-xl'>
-            You&apos;re all set!
+            You&apos;re good to go!
           </h3>
           <p className='text-zinc-500 text-sm'>
-            Ask your first question to get started.
+            Feel free to ask your initial question to kick things off
           </p>
         </div>
       )}

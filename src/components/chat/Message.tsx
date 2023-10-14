@@ -5,14 +5,16 @@ import { Icons } from '../Icons'
 import ReactMarkdown from 'react-markdown'
 import { format } from 'date-fns'
 import { forwardRef } from 'react'
-
+import { Avatar } from '@nextui-org/react'
+import Image from 'next/image'
 interface MessageProps {
   message: ExtendedMessage
   isNextMessageSamePerson: boolean
+  picture: string
 }
 
 const Message = forwardRef<HTMLDivElement, MessageProps>(
-  ({ message, isNextMessageSamePerson }, ref) => {
+  ({ message, isNextMessageSamePerson, picture }, ref) => {
     return (
       <div
         ref={ref}
@@ -21,19 +23,19 @@ const Message = forwardRef<HTMLDivElement, MessageProps>(
         })}>
         <div
           className={cn(
-            'relative flex h-6 w-6 aspect-square items-center justify-center',
+            'relative flex w-10 items-center justify-center',
             {
-              'order-2 bg-blue-600 rounded-sm':
+              'order-2 rounded-sm':
                 message.isUserMessage,
-              'order-1 bg-zinc-800 rounded-sm':
+              'order-1  rounded-sm':
                 !message.isUserMessage,
               invisible: isNextMessageSamePerson,
             }
           )}>
           {message.isUserMessage ? (
-            <Icons.user className='fill-zinc-200 text-zinc-200 h-3/4 w-3/4' />
+             <Avatar src={picture}  />
           ) : (
-            <Icons.logo className='fill-zinc-300 h-3/4 w-3/4' />
+             <Image src="/ico.png" alt="logo" width={50} height={53} />
           )}
         </div>
 
@@ -49,7 +51,7 @@ const Message = forwardRef<HTMLDivElement, MessageProps>(
             className={cn(
               'px-4 py-2 rounded-lg inline-block',
               {
-                'bg-blue-600 text-white':
+                'bg-gradient-to-r from-sky-500 to-indigo-500 text-white':
                   message.isUserMessage,
                 'bg-gray-200 text-gray-900':
                   !message.isUserMessage,

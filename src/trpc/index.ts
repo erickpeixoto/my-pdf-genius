@@ -44,13 +44,20 @@ export const appRouter = router({
     return { success: true }
   }),
   getUserFiles: privateProcedure.query(async ({ ctx }) => {
-    const { userId } = ctx
+    const { userId } = ctx;
 
-    return await db.file.findMany({
+    const filesWithMessageCount = await db.file.findMany({
       where: {
         userId,
       },
-    })
+      include: {
+        _count: {
+          select: { messages: true },
+        },
+      },
+    });
+
+    return filesWithMessageCount
   }),
 
   createStripeSession: privateProcedure

@@ -5,7 +5,6 @@ import { Plans } from "@/lib/types";
 import { Button } from "./ui/button";
 import { format } from "date-fns";
 import Link from "next/link";
-import RegisterButton from "./RegisterButton";
 
 interface CurrentPlanProps {
 

@@ -11,19 +11,22 @@ import { getUserSubscriptionPlan } from '@/lib/stripe'
 import SessionButton from '@/components/SessionButton'
 import { Plans } from '@/lib/types'
 import { getNextPlan } from '@/lib/utils'
-import { File } from '@prisma/client'
+import { File, User } from '@prisma/client'
 import { useEffect, useState } from 'react'
 import { trpc } from '@/app/_trpc/client'
+import { KindeUser } from '@kinde-oss/kinde-auth-nextjs/server'
 interface ChatWrapperProps {
   file: File
   subscriptionPlan: Awaited<
   ReturnType<typeof getUserSubscriptionPlan>>
+  user: KindeUser
 }
 
 
 const ChatWrapper = ({
   file,
   subscriptionPlan,
+  user,
 }: ChatWrapperProps) => {
 
  
@@ -181,7 +184,7 @@ if(!loaded) return null
     <ChatContextProvider fileId={file.id}>
       <div className='relative min-h-full bg-zinc-50 flex divide-y divide-zinc-200 flex-col justify-between gap-2'>
         <div className='flex-1 justify-between flex flex-col mb-28'>
-          <Messages fileId={file.id} />
+          <Messages fileId={file.id} picture={user.picture!} />
         </div>
 
         <ChatInput />

@@ -1,15 +1,15 @@
-'use client'
+
+"use client"
 
 import { trpc } from '@/app/_trpc/client'
 import { absoluteUrl } from '@/lib/utils'
+import { NextUIProvider } from '@nextui-org/react'
 import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
 import { httpBatchLink } from '@trpc/client'
 import { PropsWithChildren, useState } from 'react'
-import PlausibleProvider from 'next-plausible'
-
 const Providers = ({ children }: PropsWithChildren) => {
   const [queryClient] = useState(() => new QueryClient())
   const [trpcClient] = useState(() =>
@@ -23,13 +23,16 @@ const Providers = ({ children }: PropsWithChildren) => {
   )
 
   return (
-      <trpc.Provider
-        client={trpcClient}
-        queryClient={queryClient}>
-        <QueryClientProvider client={queryClient}>
-          {children}
-        </QueryClientProvider>
-      </trpc.Provider>
+    <NextUIProvider>
+        <trpc.Provider
+          client={trpcClient}
+          queryClient={queryClient}>
+              <QueryClientProvider client={queryClient}>
+                    {children}
+              </QueryClientProvider>
+        </trpc.Provider>
+    </NextUIProvider>
+ 
   )
 }
 
