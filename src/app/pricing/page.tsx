@@ -25,6 +25,8 @@ const Page = async () => {
   
   const subscriptionPlan = await getUserSubscriptionPlan()
   const { isSubscribed } = subscriptionPlan
+  const { getUser } = getKindeServerSession()
+  const user = getUser()
 
   return (
     <>
@@ -158,11 +160,13 @@ const Page = async () => {
                     </ul>
                     <div className='border-t border-gray-200' />
                     <div className='p-5'>
-                      {!isSubscribed && <SessionButton 
+                      {!isSubscribed && user && <SessionButton 
                                               isSubscribed={false} 
                                               planName={slug as Plans} 
                                               title='Choose Plan'
                                               />}
+                      {!isSubscribed && !user && <RegisterButton 
+                                                    planName={slug as Plans} /> }                                              
                       {isSubscribed &&  <SessionButton 
                                               isSubscribed={isSubscribed} 
                                               planName={slug as Plans} 
