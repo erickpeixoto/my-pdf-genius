@@ -21,7 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en' className='light bg-[#000f12]' suppressHydrationWarning>
-        <PlausibleProvider domain='my-pdf-genius.vercel.app' trackLocalhost={true} enabled={true}>
+        <PlausibleProvider domain={process.env.APPLICATION_URL as string} trackLocalhost={true} enabled={true}>
             <Providers>
               <body
                 className={cn(
