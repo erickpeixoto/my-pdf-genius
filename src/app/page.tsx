@@ -169,9 +169,12 @@ export default function Home() {
             <p className="text-gray-400 sm:text-lg mb-6">
               Get started today and unlock the power of intelligent conversations with your documents.
             </p>
-            <Link href="/signup">
-              <Button size="lg">Get Started</Button>
-            </Link>
+            <Link
+            href='/pricing'
+            className='mt-12'
+            >
+                 <CustomButton />
+          </Link>
           </div>
         </footer>
 
