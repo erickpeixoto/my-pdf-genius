@@ -20,12 +20,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang='en' className='light' suppressHydrationWarning>
+    <html lang='en' className='light bg-[#000f12]' suppressHydrationWarning>
         <PlausibleProvider domain='my-pdf-genius.vercel.app' trackLocalhost={true} enabled={true}>
             <Providers>
               <body
                 className={cn(
-                  'min-h-screen font-sans antialiased bg-gray-100  ',
+                  'min-h-screen font-sans antialiased',
                   inter.className
                 )}>
                       <Toaster />
