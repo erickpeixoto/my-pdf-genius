@@ -37,7 +37,7 @@ export async function POST(request: Request) {
       status: 200,
     })
   }
-
+console.log({ event })
   if (event.type === 'checkout.session.completed') {
 
     const subscription =

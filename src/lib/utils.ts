@@ -82,7 +82,7 @@ export const pricingItems = [
 
   {
     plan: 'Explorer',
-    tagline: 'First Month Free, no credit card required',
+    tagline: '10 Days Free Trial, no credit card required',
     quota: PLANS.find((p) => p.slug === 'explorer')!.quota,
     slug:  PLANS.find((p) => p.slug === 'explorer')!.slug,
     features: [
@@ -102,11 +102,7 @@ export const pricingItems = [
         footnote: 'Better algorithmic responses for enhanced content quality',
         negative: true,
       },
-      {
-        text: 'Priority support',
-        negative: true,
-      },
-    ],
+     ],
   },
   {
     plan: 'Champion',

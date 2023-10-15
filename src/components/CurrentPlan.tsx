@@ -53,7 +53,7 @@ export const CurrentPlan = ({ subscriptionPlan }: CurrentPlanProps) => {
             </div>
             
             {/* Buttons */}
-            <div className="flex flex-col md:w-1/3 gap-3 md:mt-0 mt-9">
+            <div className="flex flex-col md:w-1/2 gap-3 md:mt-0 mt-9">
                     <div className="text-muted-foreground text-sm">
                             You are currently on a/n {subscriptionPlan.name} plan.
                             <div className='flex gap-2'>
@@ -72,7 +72,7 @@ export const CurrentPlan = ({ subscriptionPlan }: CurrentPlanProps) => {
                         title="Manage Subscription"
                         />
                 
-                     {subscriptionPlan.isSubscribed ? (
+                     {!subscriptionPlan.isCanceled && subscriptionPlan.isSubscribed ? (
                         <p className='rounded-full text-xs font-medium'>
                             {subscriptionPlan.isCanceled
                             ? 'Your plan will be canceled on '

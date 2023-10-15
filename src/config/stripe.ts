@@ -7,8 +7,8 @@ export const PLANS = [
     price: {
       amount: 10, 
       priceIds: {
-        test: 'price_1Nz4VfFl55eurQgwmXdadVVL',
-        production: '',
+        test: 'price_1O1Zl7Fl55eurQgw2MOJ3AiS',
+        production: 'price_1O1Zl7Fl55eurQgw2MOJ3AiS',
       },
     },
   },
@@ -20,8 +20,8 @@ export const PLANS = [
     price: {
       amount: 20,
       priceIds: {
-        test: 'price_1Nz4WpFl55eurQgwOPnxJ5LP',
-        production: '',
+        test: 'price_1O1Zn0Fl55eurQgwoiaKHUsX',
+        production: 'price_1O1Zn0Fl55eurQgwoiaKHUsX',
       },
     },
   },
@@ -33,8 +33,8 @@ export const PLANS = [
     price: {
       amount: 80,  
       priceIds: {
-        test: 'price_1Nz4XYFl55eurQgwqgEgOHA8', 
-        production: 'new_production_price_id_for_elite',  
+        test: 'price_1O1ZnrFl55eurQgwCKPYo7de', 
+        production: 'price_1O1ZnrFl55eurQgwCKPYo7de',  
       },
     },
   },

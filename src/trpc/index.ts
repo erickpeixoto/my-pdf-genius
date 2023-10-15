@@ -94,9 +94,9 @@ export const appRouter = router({
           const subscriptionPlan = await getUserSubscriptionPlan()
 
           if (subscriptionPlan && dbUser.stripeCustomerId) {
+         
             const stripeSession = await stripe.billingPortal.sessions.create({
-              customer: dbUser.stripeCustomerId,
-              return_url: billingUrl,
+              customer: dbUser.stripeCustomerId
             })
             return { url: stripeSession.url }
           }
@@ -109,6 +109,7 @@ export const appRouter = router({
           cancel_url: billingUrl,
           payment_method_types: ['card'],
           mode: 'subscription',
+          currency: "usd", // that will be changed
           billing_address_collection: 'auto',
           line_items: [{
               price: pricePlan, 

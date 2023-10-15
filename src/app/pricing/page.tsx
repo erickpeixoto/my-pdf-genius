@@ -24,7 +24,7 @@ import {
 const Page = async () => {
   
   const subscriptionPlan = await getUserSubscriptionPlan()
-  const { isSubscribed } = subscriptionPlan
+  const { isSubscribed, isCanceled } = subscriptionPlan
   const { getUser } = getKindeServerSession()
   const user = getUser()
 
@@ -64,11 +64,10 @@ const Page = async () => {
             
                       {plan === 'Champion' && (
                       <div className='absolute -top-5 left-0 right-0 mx-auto w-32 rounded-full bg-gradient-to-r from-blue-600 to-cyan-600 px-3 py-2 text-sm font-medium text-white'>
-                        {isSubscribed ? (
-                          plan === subscriptionPlan.name ? "My Plan" : "Upgrade now"
+                        {!isCanceled && isSubscribed ? (
+                          plan === subscriptionPlan.name ? "My Plan" :  "Upgrade now"
                         ) : "Most Popular" } 
-                        
-                      </div>
+                        </div>
                     )}
 
                     <div className='p-5'>
@@ -170,7 +169,7 @@ const Page = async () => {
                       {isSubscribed &&  <SessionButton 
                                               isSubscribed={isSubscribed} 
                                               planName={slug as Plans} 
-                                              title='Upgrade Plan'
+                                              title='Change Plan'
                                               isDisabled={slug === subscriptionPlan.slug}
                                               /> }
                   </div>
