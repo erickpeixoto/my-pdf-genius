@@ -3,7 +3,6 @@ import { type ClassValue, clsx } from 'clsx'
 import { Metadata } from 'next'
 import { twMerge } from 'tailwind-merge'
 import { Plans } from '@/lib/types'
-import { pl } from 'date-fns/locale'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -12,15 +11,15 @@ export function cn(...inputs: ClassValue[]) {
 export function absoluteUrl(path: string) {
   if (typeof window !== 'undefined') return path
   if (process.env.VERCEL_URL)
-    return `https://${process.env.VERCEL_URL}${path}`
+    return `${process.env.VERCEL_URL}${path}`
   return `http://localhost:${
     process.env.PORT ?? 3000
   }${path}`
 }
 
 export function constructMetadata({
-  title = "Genius - the SaaS for students",
-  description = "Genius is an open-source software to make chatting to your PDF files easy.",
+  title = "My PDF Genius - AI-Powered Interactions in Just Minutes",
+  description = "My PDF Genius isn't just another file manager. It's your smart assistant, turning dense PDFs into interactive dialogues using advanced AI. Upload and start conversing with your files like never before.",
   image = "/thumbnail.png",
   icons = "/favicon.ico",
   noIndex = false
@@ -51,7 +50,7 @@ export function constructMetadata({
       creator: "@erickpeixoto"
     },
     icons,
-    metadataBase: new URL('https://genius-pdf.vercel.app'),
+    metadataBase: new URL(process.env.VERCEL_URL!),
     themeColor: '#FFF',
     ...(noIndex && {
       robots: {
