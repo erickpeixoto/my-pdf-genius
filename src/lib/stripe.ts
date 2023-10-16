@@ -47,10 +47,25 @@ export async function getUserSubscriptionPlan() {
     ? PLANS.find((plan) => plan.price.priceIds.test === dbUser.stripePriceId)
     : null
 
-    let isCanceled = false;
-    if (isSubscribed && dbUser.stripeSubscriptionId) {
-        const stripePlan = await stripe.subscriptions.retrieve(dbUser.stripeSubscriptionId);
-        isCanceled = stripePlan.status === 'canceled';
+ 
+    const stripePlan = await stripe.subscriptions.retrieve(dbUser.stripeSubscriptionId!) as any;
+
+    // Plan has been changed
+    if (stripePlan.plan.id !== dbUser.stripePriceId) {
+       
+        await db.user.update({
+          where: {
+            id: dbUser.id,
+          },
+          data: {
+            stripeSubscriptionId: stripePlan.id,
+            stripeCustomerId: stripePlan.customer as string,
+            stripePriceId: stripePlan.plan.id,
+            stripeCurrentPeriodEnd: new Date(
+              stripePlan.current_period_end * 1000
+            ),
+          },
+        })
     }
  
   return {
@@ -59,6 +74,6 @@ export async function getUserSubscriptionPlan() {
     stripeCurrentPeriodEnd: dbUser.stripeCurrentPeriodEnd,
     stripeCustomerId: dbUser.stripeCustomerId,
     isSubscribed,
-    isCanceled,
+    isCanceled: stripePlan.status === 'canceled',
   }
 }
