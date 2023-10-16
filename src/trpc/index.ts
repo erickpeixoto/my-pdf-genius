@@ -32,6 +32,7 @@ export const appRouter = router({
         id: user.id,
       },
     })
+
     if (!dbUser) {
       // create user in db
       await db.user.create({
@@ -123,7 +124,7 @@ export const appRouter = router({
 
         if (!input.isSubscribed && input.planName === 'explorer') {
           stripeSessionConfig.subscription_data = {
-            trial_period_days: 30,
+            trial_period_days: 10,
           };
           stripeSessionConfig.payment_method_collection = 'if_required';
         }
