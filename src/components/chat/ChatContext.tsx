@@ -11,7 +11,7 @@ import { trpc } from '@/app/_trpc/client'
 import { INFINITE_QUERY_LIMIT } from '@/config/infinite-query'
 
 type StreamResponse = {
-  addMessage: () => void
+  addMessage: (param: string) => void
   message: string
   handleInputChange: (
     event: React.ChangeEvent<HTMLTextAreaElement>
@@ -50,6 +50,7 @@ export const ChatContextProvider = ({
     }: {
       message: string
     }) => {
+   
       const response = await fetch('/api/message', {
         method: 'POST',
         body: JSON.stringify({
@@ -221,7 +222,7 @@ export const ChatContextProvider = ({
     setMessage(e.target.value)
   }
 
-  const addMessage = () => sendMessage({ message })
+  const addMessage = (message: string) => sendMessage({ message });
 
   return (
     <ChatContext.Provider

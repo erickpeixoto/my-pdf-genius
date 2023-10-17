@@ -16,7 +16,7 @@ export const PLANS = [
     name: 'Champion', 
     slug: 'champion',
     quota: 50,
-    pagesPerPdf: 25,
+    pagesPerPdf: 600,
     price: {
       amount: 20,
       priceIds: {
@@ -29,7 +29,7 @@ export const PLANS = [
     name: 'Elite',  
     slug: 'elite',
     quota: 500, 
-    pagesPerPdf: 500,
+    pagesPerPdf: 1000,
     price: {
       amount: 80,  
       priceIds: {

@@ -34,7 +34,7 @@ const { slug, isSubscribed, quota, isCanceled} = subscriptionPlan
 const nextPlan = getNextPlan(slug as string) as unknown as Plans
 const [loaded, setLoaded] = useState(false)
 
-const { data, isLoading } =
+const { data } =
 trpc.getFileUploadStatus.useQuery(
   {
     fileId: file.id,
@@ -72,7 +72,7 @@ if(!loaded) return null
           </div>
         </div>
 
-        <ChatInput isDisabled />
+        <ChatInput isDisabled  />
       </div>
     )
 
@@ -187,7 +187,7 @@ if(!loaded) return null
           <Messages fileId={file.id} picture={user.picture!} />
         </div>
 
-        <ChatInput />
+        <ChatInput fileId={file.id} />
       </div>
     </ChatContextProvider>
   )

@@ -9,11 +9,11 @@ import { NextRequest } from 'next/server'
 
 import { OpenAIStream, StreamingTextResponse } from 'ai'
 
+
 export const POST = async (req: NextRequest) => {
-  // Endpoint for asking a question to a PDF file
+
 
   const body = await req.json()
-
   const { getUser } = getKindeServerSession()
   const user = getUser()
 
@@ -48,7 +48,7 @@ export const POST = async (req: NextRequest) => {
   // Configuration
   const openAIApiKey = process.env.OPENAI_API_KEY
   const modelName = 'gpt-4'
-  const maxResults = 4
+  const maxResults = 5
   const temperature = 0.2
   const assistantName = 'PDF Genius'
 
@@ -97,6 +97,21 @@ export const POST = async (req: NextRequest) => {
 
     USER INPUT: ${message}
   `
+ const pageSummary = ` Using markdown create a simple page number list at the end of the message containing the number of the page which the results were found, show only in the end of the message
+      follow this format: 
+
+      Page Reference: (bold)
+      p.1  p.2  p.3 (it is not a link)
+
+      Important: don't user characters on the main text like: [^1^]
+
+      ----------------
+
+      Save a index page using the number of the page, user will use this on their interactions
+
+      -------
+
+ ` 
 
   const response = await openai.chat.completions.create({
     model: modelName,
@@ -105,7 +120,7 @@ export const POST = async (req: NextRequest) => {
     messages: [
       {
         role: 'system',
-        content: 'Use the following pieces of context to answer the user\'s question in markdown format.',
+        content: `Use the following pieces of context to answer the user\'s question in markdown format, ${pageSummary}`,
       },
       {
         role: 'user',
@@ -126,6 +141,6 @@ export const POST = async (req: NextRequest) => {
       })
     },
   })
-
+  
   return new StreamingTextResponse(stream)
 }

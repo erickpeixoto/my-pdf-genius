@@ -240,6 +240,22 @@ export const appRouter = router({
 
       return file
     }),
+
+  getQuestions: privateProcedure
+    .input(z.object({ fileId: z.string() }))
+    .query(async ({ input }) => {
+      
+      const { fileId } = input
+      
+      const response = await fetch('http://localhost:3000/api/questions', {
+        method: 'POST',
+        body: JSON.stringify({
+          fileId
+        }),
+      })
+
+      return response
+    }),
 })
 
 export type AppRouter = typeof appRouter

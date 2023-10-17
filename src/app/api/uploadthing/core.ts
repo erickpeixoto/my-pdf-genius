@@ -25,6 +25,7 @@ const middleware = async () => {
   return { subscriptionPlan, userId: user.id }
 }
 
+
 const onUploadComplete = async ({
   metadata,
   file,
@@ -64,7 +65,7 @@ const onUploadComplete = async ({
     const loader = new PDFLoader(blob)
 
     const pageLevelDocs = await loader.load()
-
+ 
     const pagesAmt = pageLevelDocs.length
 
     const { subscriptionPlan } = metadata

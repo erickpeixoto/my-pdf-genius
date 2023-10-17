@@ -17,7 +17,7 @@ model User {
 
   File    File[]
   Message Message[]
-
+ 
   stripeCustomerId       String?   @unique @map(name: "stripe_customer_id")
   stripeSubscriptionId   String?   @unique @map(name: "stripe_subscription_id")
   stripePriceId          String?   @map(name: "stripe_price_id")
@@ -41,6 +41,7 @@ model File {
   url      String
   key      String
   messages Message[]
+  questionsAI GeneratedQuestion[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -61,4 +62,16 @@ model Message {
   userId    String?
   File      File?    @relation(fields: [fileId], references: [id])
   fileId    String?
+}
+
+
+model GeneratedQuestion {
+  id   String @id @default(cuid())
+  text String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  File  File? @relation(fields: [fileId], references: [id])
+  fileId String?
 }

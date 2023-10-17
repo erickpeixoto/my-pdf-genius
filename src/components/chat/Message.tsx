@@ -22,7 +22,7 @@ const Message = forwardRef<HTMLDivElement, MessageProps>(
         })}>
         <div
           className={cn(
-            'relative flex w-10 items-center justify-center',
+            'relative flex w-10 items-center justify-center z-0',
             {
               'order-2 rounded-sm':
                 message.isUserMessage,
