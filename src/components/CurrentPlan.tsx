@@ -35,9 +35,7 @@ export const CurrentPlan = ({ subscriptionPlan }: CurrentPlanProps) => {
                 <h2 className="text-2xl font-bold">{explorerPlan.plan}</h2>
                 <p className="text-gray-600">{explorerPlan.tagline}</p>
                 <div className="mt-4">
-                    <p><strong>Quota:</strong> {explorerPlan.quota}</p>
-                    <p><strong>Slug:</strong> {explorerPlan.slug}</p>
-                    <p>
+                        <p>
                         <span className="font-bold pr-1">Status:</span>
                         {subscriptionPlan.isSubscribed ? 'Active' : 'Inactive'}
                     </p>

@@ -8,6 +8,7 @@ import { Plans } from '@/lib/types'
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
 import { Files } from 'lucide-react'
 import { redirect } from 'next/navigation'
+import { Suspense } from 'react'
 
 const Page = async () => {
   const { getUser } = getKindeServerSession()
@@ -35,8 +36,9 @@ const Page = async () => {
         bgColor="bg-gray-700/10"
     />
      <UploadButton planName={subscriptionPlan.slug as Plans} isCanceled={subscriptionPlan.isCanceled}/>
-
-    <Dashboard subscriptionPlan={subscriptionPlan} />
+    <Suspense fallback={<div className='pt-5 flex flex-col'>Loading...</div>}>
+      <Dashboard />
+    </Suspense>
 </MaxWidthWrapper>
   )
   
