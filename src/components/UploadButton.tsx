@@ -13,7 +13,7 @@ import { useUploadThing } from '@/lib/uploadthing';
 import { useToast } from './ui/use-toast';
 import { trpc } from '@/app/_trpc/client';
 import { useRouter } from 'next/navigation';
-import { getPagesPerPdfByPlanName } from '@/lib/utils';
+import { getSizePlanByName } from '@/lib/utils';
 import { Plans } from '@/lib/types';
 import {Progress} from "@nextui-org/react";
 const UploadDropzone = ({ planName }: { planName: Plans }) => {
@@ -106,7 +106,7 @@ const UploadDropzone = ({ planName }: { planName: Plans }) => {
                   or drag and drop
                 </p>
                 <p className='text-xs text-zinc-500'>
-                  PDF (up to {getPagesPerPdfByPlanName(planName)} MB)
+                  PDF (up to {getSizePlanByName(planName)} MB)
                 </p>
               </div>
 
@@ -140,7 +140,6 @@ const UploadDropzone = ({ planName }: { planName: Plans }) => {
                 </div>
               ) : null}
 
-              {/* Remova o atributo 'id' do elemento input */}
               <input
                 {...getInputProps()}
                 type='file'

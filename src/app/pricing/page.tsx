@@ -15,7 +15,6 @@ import { cn, pricingItems } from '@/lib/utils'
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
 
 import {
-  ArrowRight,
   Check,
   HelpCircle,
   Minus,

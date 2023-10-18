@@ -64,8 +64,14 @@ export function constructMetadata({
 
 export const getPagesPerPdfByPlanName = (planName: Plans): number | null => {
   const plan = PLANS.find(p => p.slug === planName);
-  return plan ? plan.pagesPerPdf : null;
+  return plan ? plan.quota : null;
 }
+
+export const getSizePlanByName = (planName: Plans): number | null => {
+  const plan = PLANS.find(p => p.slug === planName);
+  return plan ? plan.size : null;
+}
+
 
 const getPlanDetails = (planName: string) => {
   return PLANS.find(p => p.name.toLowerCase() === planName.toLowerCase())?.slug
@@ -94,6 +100,15 @@ export const pricingItems = [
         text: '4MB file size limit',
         footnote: 'The maximum file size of a single PDF file.',
       },
+     
+      {
+        text: 'Unlimited Conversations',
+        footnote: 'Talk to your files as much as you want',
+      },
+      {
+        text: 'Saved Conversations',
+        footnote: 'Access your conversations anytime',
+      },
       {
         text: 'Mobile-friendly interface',
       },
@@ -119,7 +134,8 @@ export const pricingItems = [
         footnote: 'The maximum file size of a single PDF file.',
       },
       {
-        text: 'Mobile-friendly interface',
+        text: 'AI Question Generator',
+        footnote: 'Generate questions for your PDFs using AI',
       },
       {
         text: 'Higher-quality responses',
@@ -143,16 +159,21 @@ export const pricingItems = [
         text: 'File size limit: 32MB',
       },
       {
-        text: 'Optimized interface for mobile devices',
+        text: 'AI Question Generator',
+        footnote: 'Generate questions for your PDFs using AI',
       },
       {
-        text: 'High-quality algorithmic responses',
+        text: 'Optimized interface for mobile',
+      },
+      {
+        text: 'High-quality algorithmic',
+        footnote: 'Better algorithmic responses for enhanced content quality',
       },
       {
         text: '24/7 priority support',
       },
       {
-        text: 'Automatic backup and advanced security features',
+        text: 'First access to new features',
       }
     ],
   },

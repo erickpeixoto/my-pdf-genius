@@ -2,8 +2,9 @@ export const PLANS = [
   {
     name: 'Explorer',
     slug: 'explorer',
-    quota: 20,  
-    pagesPerPdf: 5,
+    quota: 5,  
+    size: 4,
+    pagesPerPdf: 100,
     price: {
       amount: 10, 
       priceIds: {
@@ -15,8 +16,9 @@ export const PLANS = [
   {
     name: 'Champion', 
     slug: 'champion',
-    quota: 50,
-    pagesPerPdf: 600,
+    quota: 20,
+    size: 16,
+    pagesPerPdf: 1000,
     price: {
       amount: 20,
       priceIds: {
@@ -29,7 +31,8 @@ export const PLANS = [
     name: 'Elite',  
     slug: 'elite',
     quota: 500, 
-    pagesPerPdf: 1000,
+    size: 32,
+    pagesPerPdf: 10000,
     price: {
       amount: 80,  
       priceIds: {

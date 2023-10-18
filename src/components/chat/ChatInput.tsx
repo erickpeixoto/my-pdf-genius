@@ -18,13 +18,7 @@ const ChatInput = ({ isDisabled, fileId }: ChatInputProps) => {
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [showAITips, setShowAITips] = useState(false);
-  const [questions, setQuestions] = useState<string[]>([
-    "Who are some of the people Aurélien Géron thanks in the preface of the book?",
-    "What is the background of the author, Aurélien Géron?",
-    "What is the title of the book written by Aurélien Géron?",
-    "What are some of the interesting facts about the author mentioned in the context?",
-    "What is the significance of the fire salamander in relation to the book?",
-  ]);
+  const [questions, setQuestions] = useState<string[]>([]);
 
   const { mutate: getQuestions } = useMutation({
     mutationFn: async ({ fileId }: { fileId: string }) => {
@@ -58,9 +52,9 @@ const ChatInput = ({ isDisabled, fileId }: ChatInputProps) => {
 
   useEffect(() => {
     if (fileId) {
-      // getQuestions({ fileId: fileId! })
+      getQuestions({ fileId: fileId! })
     }
-  }, [fileId, getQuestions, questions.length, showAITips]);
+  }, []);
 
 
   const selectQuestion = (selectedQuestion: string) => {
@@ -87,7 +81,7 @@ const ChatInput = ({ isDisabled, fileId }: ChatInputProps) => {
               className="w-full text-slate-500 bg-white-200 hover:bg-slate-100 transition-all p-3 opacity-100 border-1 border-b-slate-200"
               onClick={() => selectQuestion(question)}
             >
-              {question}
+              {question.replace(/['"]+/g, '')}
             </Button>
           );
         })}
@@ -104,6 +98,7 @@ const ChatInput = ({ isDisabled, fileId }: ChatInputProps) => {
                   "absolute bottom-1.5 left-[8px]  hover:text-violet-400"
                 )}
                 onClick={() => setShowAITips(!showAITips)}
+                disabled={isLoading || isDisabled}
               >
                 <Sparkles className="w-5 h-5" />
               </Button>

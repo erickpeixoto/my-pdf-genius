@@ -30,11 +30,11 @@ const ChatWrapper = ({
 }: ChatWrapperProps) => {
 
  
-const { slug, isSubscribed, quota, isCanceled} = subscriptionPlan
+const { slug, isSubscribed, quota, isCanceled, pagesPerPdf } = subscriptionPlan
 const nextPlan = getNextPlan(slug as string) as unknown as Plans
 const [loaded, setLoaded] = useState(false)
 
-const { data } =
+const { data, isLoading } =
 trpc.getFileUploadStatus.useQuery(
   {
     fileId: file.id,
@@ -53,9 +53,6 @@ useEffect(() => {
 }, [file.id, data?.status])
 
 if(!loaded) return null
-
-
-
 
   if (!file)
     return (
@@ -142,7 +139,7 @@ if(!loaded) return null
       
             <div className='flex items-center flex-col bg-red-100 p-9 rounded-xl gap-2'>
                 <div className="text-xl font-bold font-white"> Oops! Too many pages</div>
-                <div className=""> You have {quota} pages per file</div>
+                <div className=""> You have {pagesPerPdf} pages per file</div>
                 <div> Upgrade to <span className='capitalize font-bold'>{nextPlan} </span>  to get more pages</div>
                 <div className="mt-5">
                   <SessionButton  planName={nextPlan} isSubscribed={isSubscribed} title='Upgrade Plan'/>
