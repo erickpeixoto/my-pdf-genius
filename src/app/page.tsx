@@ -95,7 +95,7 @@ export default function Home() {
             <h2 className='mt-2 font-bold text-4xl text-white sm:text-5xl'>
                 AI-Powered Interactions in Just Minutes
             </h2>
-            <p className='mt-4 text-lg text-gray-600'>
+            <p className='mt-4 text-lg text-gray-400'>
                 Delve deep into academic papers, legal documents, or professional reports seamlessly. My PDF Genius' advanced AI understands, interprets, and converses, making information absorption effortless.
             </p>
             </div>

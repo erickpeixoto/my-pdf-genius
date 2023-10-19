@@ -65,7 +65,8 @@ const ChatInput = ({ isDisabled, fileId }: ChatInputProps) => {
 
   return (
     <div className="absolute bottom-0 left-0 w-full">
-      <div
+      {questions.length > 0 && (
+       <div
         className={`flex flex-col gap-2 shadow-lg cursor-pointer ${
           showAITips ? "h-full block" : "h-[0px] hidden"
         } overflow-hidden transition-all bg-white p-5 paper`}
@@ -86,11 +87,13 @@ const ChatInput = ({ isDisabled, fileId }: ChatInputProps) => {
           );
         })}
       </div>
+      )}
 
       <div className="mx-2 flex flex-row gap-3 md:mx-4 md:last:mb-6 lg:mx-auto lg:max-w-2xl xl:max-w-3xl">
         <div className="relative flex h-full flex-1 items-stretch md:flex-col">
           <div className="relative flex flex-col w-full flex-grow p-4">
             <div className="relative">
+              {questions.length > 0 && (  
               <Button
                 variant="ghost"
                 className={cn(
@@ -102,6 +105,7 @@ const ChatInput = ({ isDisabled, fileId }: ChatInputProps) => {
               >
                 <Sparkles className="w-5 h-5" />
               </Button>
+              )}
               <Textarea
                 rows={1}
                 ref={textareaRef}
