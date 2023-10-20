@@ -56,6 +56,10 @@ export const appRouter = router({
           select: { messages: true },
         },
       },
+      orderBy: {
+        createdAt: 'desc',
+      },
+      take: 50, // temporary
     });
 
     return filesWithMessageCount

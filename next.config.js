@@ -31,6 +31,20 @@ const nextConfig = {
     config.resolve.alias.encoding = false
     return config
   },
+  i18n: {
+    locales: ['en-US', 'pt-BR'],
+    defaultLocale: 'en-US',
+    domains: [
+      {
+        domain: 'mypdfgenius.com',
+        defaultLocale: 'en-US',
+      },
+      {
+        domain: 'mypdfgenius.com.br',
+        defaultLocale: 'pt-BR',
+      },
+    ],
+  },
 }
 
 module.exports = nextConfig

@@ -22,7 +22,7 @@ export const POST = async (req: NextRequest) => {
 
   // Configuration
   const openAIApiKey = process.env.OPENAI_API_KEY;
-  const modelName = 'gpt-4';
+  const modelName = process.env.OPENAI_LANGUAGE_MODEL!;
   const maxResults = 5;
   const temperature = 0.2;
   const assistantName = 'PDF Genius';

@@ -2,17 +2,16 @@
 import MaxWidthWrapper from '@/components/MaxWidthWrapper'
 import Link from 'next/link'
 import { User, Upload, Keyboard, Heart, HelpCircleIcon } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import CustomButton from '@/components/CustomButton'
 
-export default function Home() {
+export default function Home({ params: { lang } }: { params: { lang: Locale }}) {
   return (
     <div className='bg-[#000f12] pt-12'>
      <MaxWidthWrapper className='mb-12 flex flex-col items-center justify-center text-center text-white'>
-     <h1 className='max-w-4xl text-5xl font-bold md:text-6xl lg:text-7xl'>
-            Elevate your
-            <span className='bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] rounded-lg px-3 ml-3'>PDFs</span>{' '}
+     <h1 className='max-w-4xl text-4xl font-bold md:text-6xl lg:text-7xl'>
+            Elevate your {JSON.stringify({lang})}
+            <span className='bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] rounded-lg md:px-3 ml-3 p-1 text-[22px] md:text-[55px] '>PDFs</span>{' '}
             with Intelligent Conversations
         </h1>
         <p className='mt-5 max-w-prose text-gray-400 sm:text-lg'>

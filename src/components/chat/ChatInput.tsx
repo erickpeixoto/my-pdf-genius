@@ -125,9 +125,14 @@ const ChatInput = ({ isDisabled, fileId }: ChatInputProps) => {
                       }
                   }
                 }}
+                disabled={isLoading || isDisabled}
                 placeholder="Ask your PDF Genius..."
-                className="resize-none pl-[65px] pr-12 text-base py-3 scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch"
-              />
+                className={
+                  cn(
+                    questions.length > 0 ? "pl-[65px]" : "pl-[10px]",
+                    "resize-none  pr-12 text-base py-3 scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch"
+                  )
+                }/>
 
               <Button
                 disabled={isLoading || isDisabled}
