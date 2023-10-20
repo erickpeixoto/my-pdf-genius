@@ -27,6 +27,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang={params.lang} className='light bg-[#000f12]' suppressHydrationWarning>
+      
         <PlausibleProvider domain={process.env.APPLICATION_URL as string} trackLocalhost={true} enabled={true}>
             <Providers>
               <body
