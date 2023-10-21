@@ -4,18 +4,22 @@ import Link from 'next/link'
 import { User, Upload, Keyboard, Heart, HelpCircleIcon } from 'lucide-react'
 import Image from 'next/image'
 import CustomButton from '@/components/CustomButton'
+import { getDictionary } from '@/lib/dictionary'
+import { Locale } from '../../../i18n.config'
 
-export default function Home({ params: { lang } }: { params: { lang: Locale }}) {
+export default async function Home({ params: { lang } }: { params: { lang: Locale }}) {
+  const { home } = await getDictionary(lang)
+  
   return (
     <div className='bg-[#000f12] pt-12'>
      <MaxWidthWrapper className='mb-12 flex flex-col items-center justify-center text-center text-white'>
      <h1 className='max-w-4xl text-4xl font-bold md:text-6xl lg:text-7xl'>
-            Elevate your {JSON.stringify({lang})}
+            { home.title }
             <span className='bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] rounded-lg md:px-3 ml-3 p-1 text-[22px] md:text-[55px] '>PDFs</span>{' '}
-            with Intelligent Conversations
+            { home.subtitle }
         </h1>
         <p className='mt-5 max-w-prose text-gray-400 sm:text-lg'>
-            My PDF Genius isn't just another file manager. It's your smart assistant, turning dense PDFs into interactive dialogues using advanced AI. Upload and start conversing with your files like never before.
+            { home.description }
         </p>
 
 
@@ -92,10 +96,10 @@ export default function Home({ params: { lang } }: { params: { lang: Locale }}) 
             <div className='mx-auto max-w-2xl sm:text-center'>
               
             <h2 className='mt-2 font-bold text-4xl text-white sm:text-5xl'>
-                AI-Powered Interactions in Just Minutes
+                {home.valuePropHeader}
             </h2>
             <p className='mt-4 text-lg text-gray-400'>
-                Delve deep into academic papers, legal documents, or professional reports seamlessly. My PDF Genius' advanced AI understands, interprets, and converses, making information absorption effortless.
+                {home.valuePropDescription}
             </p>
             </div>
         </div>
@@ -108,11 +112,10 @@ export default function Home({ params: { lang } }: { params: { lang: Locale }}) 
           <span><User className='w-12 h-12 text-[#404356] ' /></span>
             <div className='flex flex-col space-y-2 border-l-4py-2 md:pb-0 md:pl-0 md:pt-4 items-center'>
               <span className='text-xl font-semibold text-white'>
-                Sign up for an account
+                {home.step1Header}
               </span>
               <span className='mt-2 text-zinc-500'>
-                Either starting out with a free plan or
-                choose the better 
+                {home.step1Description}
                 <Link
                   href='/pricing'
                   className='
@@ -125,7 +128,7 @@ export default function Home({ params: { lang } }: { params: { lang: Locale }}) 
                   border-zinc-500
                   ml-1
                   '>
-                   plan for you
+                 {home.step1Link}
                 </Link>
                 .
               </span>
@@ -138,11 +141,10 @@ export default function Home({ params: { lang } }: { params: { lang: Locale }}) 
           <span><Upload className='w-12 h-12 text-[#404356] ' /></span>
             <div className='flex flex-col space-y-2 border-l-4py-2 md:pb-0 md:pl-0 md:pt-4 items-center'>
               <span className='text-xl font-semibold text-white'>
-              Upload your PDF file
+              {home.step2Header}
               </span>
               <span className='mt-2 text-zinc-500'>
-              We&apos;ll process your file and make it
-                ready for you to chat with.
+              {home.step2Description}
               </span>
             </div>
           </li>
@@ -153,10 +155,10 @@ export default function Home({ params: { lang } }: { params: { lang: Locale }}) 
           <span><Keyboard className='w-12 h-12 text-[#404356] ' /></span>
             <div className='flex flex-col space-y-2 border-l-4py-2 md:pb-0 md:pl-0 md:pt-4 items-center'>
             <span className='text-xl font-semibold text-white'>
-                Engage with AI-led conversations
+                {home.step3Header}
             </span>
             <span className='mt-2 text-zinc-500'>
-                No more manual searches. Ask questions and get instant answers from your PDFs. Experience the power of AI-driven interactions.
+                {home.step3Description}
             </span>
             </div>
           </li>
@@ -164,9 +166,9 @@ export default function Home({ params: { lang } }: { params: { lang: Locale }}) 
 
        <footer className=" bg-[#000f12] py-12 text-white flex flex-col items-center text-center">
           <div className="max-w-7xl mx-auto flex flex-col items-center justify-center">
-            <h3 className="text-3xl font-bold mb-4">Ready to elevate your PDFs?</h3>
+            <h3 className="text-3xl font-bold mb-4">{home.footerHeader}</h3>
             <p className="text-gray-400 sm:text-lg mb-6">
-              Get started today and unlock the power of intelligent conversations with your documents.
+              {home.footerDescription}
             </p>
             <Link
             href='/pricing'
@@ -184,15 +186,15 @@ export default function Home({ params: { lang } }: { params: { lang: Locale }}) 
           <div className="flex justify-between items-center">
             <div className="flex items-center">
               <HelpCircleIcon className='w-5 pr-2 text-gray-400' />
-              <p className="text-gray-400">Support</p>
+              <p className="text-gray-400">{home.support}</p>
             </div>
             <div className='flex gap-2 items-center text-gray-400'>
               <span>
-                  Made with  
+                  {home.madeBy}
               </span>
                   <Heart className='text-primary w-5' /> 
               <span>
-                  by Systemroot
+                  {home.by}
               </span>
             </div>
             <div className="flex items-center">
@@ -214,7 +216,7 @@ export default function Home({ params: { lang } }: { params: { lang: Locale }}) 
                 href="mailto:contact@mypdfgenius.com"
                 className="text-gray-400 hover:text-gray-600 transition-colors duration-300 ease-in-out"
               >
-                Send us an email
+                {home.contactUs}
               </a>
             </div>
           </div>

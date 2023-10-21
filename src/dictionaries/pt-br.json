@@ -1,0 +1,88 @@
+{
+  "home": {
+    "title": "Eleve seus",
+    "subtitle": "com Conversas Inteligentes",
+    "description": "Meu PDF Genius não é apenas outro gerenciador de arquivos. É o seu assistente inteligente, transformando PDFs densos em diálogos interativos usando IA avançada. Faça o upload e comece a conversar com seus arquivos como nunca antes.",
+    "valuePropHeader": "Interações Potencializadas por IA em Apenas Alguns Minutos",
+    "valuePropDescription": "Mergulhe profundamente em artigos acadêmicos, documentos legais ou relatórios profissionais sem esforço. O avançado IA do My PDF Genius entende, interpreta e conversa, tornando a absorção de informações fácil.",
+    "step1Header": "Cadastre-se",
+    "step1Description": "Comece com um plano gratuito ou escolha o melhor",
+    "step1Link": "plano para você",
+    "step2Header": "Faça o upload do seu arquivo PDF",
+    "step2Description": "Processaremos seu arquivo e o prepararemos para você conversar.",
+    "step3Header": "Veja o poder do My PDF Genius",
+    "step3Description": "Sem mais pesquisas manuais. Faça perguntas e obtenha respostas instantâneas dos seus PDFs. Experimente o poder das interações guiadas por IA.",
+    "footerHeader": "Pronto para poupar tempo e esforço?",
+    "footerDescription": "Comece hoje e desbloqueie o poder de conversas inteligentes com seus documentos.",
+    "support": "Suporte",
+    "madeBy": "Feito com",
+    "by": "por Systemroot",
+    "contactUs": "Envie-nos um email"
+  },
+  "navbar": {
+    "pricing": "Preços",
+    "signIn": "Entrar",
+    "getStarted": "Começar",
+    "planExpired": "Plano Expirado",
+    "mySubscription": "Minha Assinatura",
+    "myFiles": "Meus Arquivos",
+    "yourAccount": "Sua Conta"
+  },
+  "billing": {
+    "title": "Minha Assinatura",
+    "description": "Gerencie as configurações da sua conta.",
+    "notSubscribedTitle": "Ops! Parece que você ainda não se inscreveu.",
+    "subscribeButton": "Assinar um plano",
+    "statusActive": "Ativo",
+    "statusInactive": "Inativo",
+    "statusLabel": "Status:",
+    "planExpired": "Plano Expirado",
+    "upgradeText": "Atualize usando o botão abaixo para manter seus poderes",
+    "manageSubscriptionButton": "Gerenciar Assinatura",
+    "renewOn": "Seu plano renova em",
+    "cancelOn": "Seu plano será cancelado em",
+    "changePlanButton": "Mudar plano",
+    "lang": "Você está atualmente em um",
+    "planName": "plano."
+  },
+  "pricingItems": {
+    "explorer": {
+       "tagline": "10 Days Free Trial, no credit card required",
+       "pagesPerPdf": "pages per PDF",
+       "pagesPerPdfFootnote": "The maximum amount of pages per PDF-file.",
+       "fileSizeLimit": "4MB file size limit",
+       "fileSizeLimitFootnote": "The maximum file size of a single PDF file.",
+       "unlimitedConversations": "Unlimited Conversations",
+       "unlimitedConversationsFootnote": "Talk to your files as much as you want",
+       "savedConversations": "Saved Conversations",
+       "savedConversationsFootnote": "Access your conversations anytime",
+       "mobileFriendlyInterface": "Mobile-friendly interface",
+       "higherQualityResponses": "Higher-quality responses",
+       "higherQualityResponsesFootnote": "Better algorithmic responses for enhanced content quality"
+     },
+     "champion": {
+       "tagline": "Unleash the full power of our platform",
+       "pagesPerPdf": "pages per PDF",
+       "pagesPerPdfFootnote": "The maximum amount of pages per PDF-file.",
+       "fileSizeLimit": "16MB file size limit",
+       "fileSizeLimitFootnote": "The maximum file size of a single PDF file.",
+       "aiQuestionGenerator": "AI Question Generator",
+       "aiQuestionGeneratorFootnote": "Generate questions for your PDFs using AI",
+       "higherQualityResponses": "Higher-quality responses",
+       "higherQualityResponsesFootnote": "Better algorithmic responses for enhanced content quality",
+       "prioritySupport": "Priority support"
+     },
+     "elite": {
+       "tagline": "For professionals seeking excellence",
+       "unlimitedPagesPerPdf": "Unlimited pages per PDF",
+       "fileSizeLimit": "File size limit: 32MB",
+       "aiQuestionGenerator": "AI Question Generator",
+       "aiQuestionGeneratorFootnote": "Generate questions for your PDFs using AI",
+       "optimizedInterfaceForMobile": "Optimized interface for mobile",
+       "highQualityAlgorithmic": "High-quality algorithmic",
+       "highQualityAlgorithmicFootnote": "Better algorithmic responses for enhanced content quality",
+       "prioritySupport": "24/7 priority support",
+       "firstAccessToNewFeatures": "First access to new features"
+     }
+   }
+}

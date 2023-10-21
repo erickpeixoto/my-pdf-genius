@@ -5,22 +5,25 @@ import { Plans } from "@/lib/types";
 import { Button } from "./ui/button";
 import { format } from "date-fns";
 import Link from "next/link";
+import { getDictionary } from "@/lib/dictionary";
 
 interface CurrentPlanProps {
 
     subscriptionPlan: Awaited<
     ReturnType<typeof getUserSubscriptionPlan>>
+    lang: "en" | "pt-br"
   }
   
-export const CurrentPlan = ({ subscriptionPlan }: CurrentPlanProps) => {
+export const CurrentPlan = async ({ subscriptionPlan, lang }: CurrentPlanProps) => {
     const explorerPlan = pricingItems.find(item => item.plan === subscriptionPlan.name);
+    const { billing } = await getDictionary(lang)
 
     if (!explorerPlan) {
         return <div className="flex justify-center flex-col gap-2 w-1/2">
-                    <h3>Uh-oh! Looks like you have not subscribed yet.</h3>
+                    <h3>{billing.notSubscribedTitle}</h3>
                     <Link href={'/pricing'}>
                         <Button>
-                            Subscribe a plan
+                            {billing.subscribeButton}
                         </Button>
                     </Link>
 
@@ -36,8 +39,8 @@ export const CurrentPlan = ({ subscriptionPlan }: CurrentPlanProps) => {
                 <p className="text-gray-600">{explorerPlan.tagline}</p>
                 <div className="mt-4">
                         <p>
-                        <span className="font-bold pr-1">Status:</span>
-                        {subscriptionPlan.isSubscribed ? 'Active' : 'Inactive'}
+                        <span className="font-bold pr-1">{billing.statusLabel}</span>
+                        {subscriptionPlan.isSubscribed ? billing.statusActive : billing.statusInactive}
                     </p>
                 </div>
                 <ul className="mt-4 list-disc list-inside">
@@ -53,12 +56,12 @@ export const CurrentPlan = ({ subscriptionPlan }: CurrentPlanProps) => {
             {/* Buttons */}
             <div className="flex flex-col md:w-1/2 gap-3 md:mt-0 mt-9">
                     <div className="text-muted-foreground text-sm">
-                            You are currently on a/n {subscriptionPlan.name} plan.
+                            {billing.lang} {subscriptionPlan.name} {billing.planName}
                             <div className='flex gap-2'>
                                 {subscriptionPlan.isCanceled && 
                                 <>
-                                    <div className='text-red-500'> Plan Expired </div>
-                                    <span>Upgrage usign the button below to keep your powers</span>
+                                    <div className='text-red-500'> {billing.planExpired} </div>
+                                    <span>{billing.upgradeText}</span>
                                     </>
                                 }
                             </div>
@@ -67,14 +70,14 @@ export const CurrentPlan = ({ subscriptionPlan }: CurrentPlanProps) => {
                         isSubscribed={subscriptionPlan.isSubscribed} 
                         planName={subscriptionPlan.slug as Plans} 
                         isManagedMode={true}
-                        title="Manage Subscription"
+                        title={billing.manageSubscriptionButton}
                         />
                 
                      {!subscriptionPlan.isCanceled && subscriptionPlan.isSubscribed ? (
                         <p className='rounded-full text-xs font-medium'>
                             {subscriptionPlan.isCanceled
-                            ? 'Your plan will be canceled on '
-                            : 'Your plan renews on '}
+                            ? billing.cancelOn
+                            : billing.renewOn }
                             {format(
                             subscriptionPlan.stripeCurrentPeriodEnd!,
                             'dd.MM.yyyy'
@@ -85,7 +88,7 @@ export const CurrentPlan = ({ subscriptionPlan }: CurrentPlanProps) => {
                 
                         <Link href={'/pricing'}>
                             <Button variant="ghost" className='bg-slate-300 text-gray-500 w-full'>
-                                Change plan
+                                {billing.changePlanButton}
                             </Button>
                         </Link>
             </div>

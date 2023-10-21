@@ -11,12 +11,18 @@ import MobileNav from '@/components/MobileNav'
 import ClientWrapper from '@/components/Navbar/ClientWrapper'
 import Logo from '@/components/Logo'
 import { getUserSubscriptionPlan } from '@/lib/stripe'
+import { getDictionary } from '@/lib/dictionary'
 
-const Navbar  =  async () => {
+
+export default async function Navbar({ lang }: { lang: "en" | "pt-br" }) {
+
+  const { navbar } = await getDictionary(lang);
 
   const { getUser } = getKindeServerSession()
   const user = getUser()
   const subscriptionPlan = await getUserSubscriptionPlan()
+  
+
 
   return (
     <ClientWrapper>
@@ -32,42 +38,42 @@ const Navbar  =  async () => {
                 <Link
                   href='/pricing'
                   className="text-white">
-                  Pricing
+                   {navbar.pricing}
                 </Link>
                 <LoginLink
                   className="text-white">
-                  Sign in
+                  {navbar.signIn}
                 </LoginLink>
                 <RegisterLink
                 className="text-white p-2 px-3 border border-white rounded-full"
                >
-                  Get started
+                  {navbar.getStarted}
   
                 </RegisterLink>
               </>
             ) : (
               <>
               {subscriptionPlan.isCanceled && (
-                <span className='p-2 text-red-300 border border-red-500 rounded'>Plan Expired</span>
+                <span className='p-2 text-red-300 border border-red-500 rounded'>{navbar.planExpired}</span>
               )}
                 <Link
                   href='/dashboard/billing'
                   className="text-white p-2 text-sm"
                  >
-                  My Subscription
+                  {navbar.mySubscription}
                 </Link>
 
                 <Link
                   href='/dashboard'
                   className="text-white p-2 text-sm"
                  >
-                  My Files
+                  {navbar.myFiles}
                 </Link>
 
                 <UserAccountNav
                   name={
                     !user.given_name || !user.family_name
-                      ? 'Your Account'
+                      ? navbar.yourAccount
                       : `${user.given_name} ${user.family_name}`
                   }
                   email={user.email ?? ''}
@@ -82,4 +88,3 @@ const Navbar  =  async () => {
   )
 }
 
-export default Navbar
