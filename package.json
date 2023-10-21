@@ -10,6 +10,7 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
+    "@formatjs/intl-localematcher": "^0.4.2",
     "@hookform/resolvers": "^3.3.1",
     "@kinde-oss/kinde-auth-nextjs": "^1.8.18",
     "@mantine/hooks": "^7.0.1",
@@ -47,6 +48,7 @@
     "jotai": "^2.4.3",
     "langchain": "^0.0.153",
     "lucide-react": "^0.279.0",
+    "negotiator": "^0.6.3",
     "next": "13.5.2",
     "next-plausible": "^3.11.1",
     "openai": "^4.10.0",
@@ -73,6 +75,7 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@types/canvas-confetti": "^1.6.1"
+    "@types/canvas-confetti": "^1.6.1",
+    "@types/negotiator": "^0.6.2"
   }
 }
