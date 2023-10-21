@@ -1,21 +1,26 @@
 import ChatWrapper from '@/components/chat/ChatWrapper'
 import PdfRenderer from '@/components/PdfRenderer'
 import { db } from '@/db'
+import { getDictionary } from '@/lib/dictionary'
 import { getUserSubscriptionPlan } from '@/lib/stripe'
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
 import { notFound, redirect } from 'next/navigation'
-
+import { Locale } from "../../../../../i18n.config";
 interface PageProps {
   params: {
     fileid: string
-  }
+    lang: Locale 
+  },
+  
 }
-
 const Page = async ({ params }: PageProps) => {
-  const { fileid } = params
+  const { fileid, lang } = params
 
   const { getUser } = getKindeServerSession()
+  const { aiDoc } = await getDictionary(lang);
   const user = getUser()
+
+
 
   if (!user || !user.id)
     redirect(`/auth-callback?origin=dashboard/${fileid}`)
@@ -59,7 +64,7 @@ const Page = async ({ params }: PageProps) => {
         </div>
 
         <div className='shrink-0 flex-[0.75] border-t border-gray-200 lg:w-96 lg:border-l lg:border-t-0'>
-          <ChatWrapper subscriptionPlan={plan} file={file} user={user} />
+          <ChatWrapper subscriptionPlan={plan} file={file} user={user} dictionary={aiDoc}/>
         </div>
       </div>
     </div>

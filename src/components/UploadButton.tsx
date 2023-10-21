@@ -32,7 +32,7 @@ export type DictionaryProps = {
 
 type UploadDropzoneProps = {
   planName: Plans;
-  dictionary: DictionaryProps  ;
+  dictionary: DictionaryProps;
 };
 const UploadDropzone = ({ planName, dictionary }: UploadDropzoneProps) => {
   const router = useRouter();

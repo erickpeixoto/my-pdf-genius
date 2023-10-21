@@ -3,7 +3,9 @@
 import {Button} from '@nextui-org/react';
 import confetti from 'canvas-confetti';
 
-const CustomButton = () => {
+const CustomButton = ({children}:{
+  children: React.ReactNode
+}) => {
   const handleConfetti = () => {
     confetti();
   };
@@ -16,7 +18,7 @@ const CustomButton = () => {
       onPress={handleConfetti}
       type='button'
     >
-     Experience AI Now 
+    {children}
     </Button>
   );
 };

@@ -5,6 +5,7 @@
     "description": "My PDF Genius isn't just another file manager. It's your smart assistant, turning dense PDFs into interactive dialogues using advanced AI. Upload and start conversing with your files like never before.",
     "valuePropHeader": "AI-Powered Interactions in Just Minutes",
     "valuePropDescription": "Delve deep into academic papers, legal documents, or professional reports seamlessly. My PDF Genius' advanced AI understands, interprets, and converses, making information absorption effortless.",
+    "customButton": "Experience AI Now",
     "step1Header": "Sign up for an account",
     "step1Description": "Either starting out with a free plan or choose the better",
     "step1Link": "plan for you",
@@ -98,6 +99,27 @@
         "prioritySupport": "24/7 priority support",
         "firstAccessToNewFeatures": "First access to new features"
       }
-    }
+    },
+    "aiDoc": {
+      "loading": "Loading...",
+      "preparingPdf": "We're preparing your PDF.",
+      "processingPdf": "Processing PDF...",
+      "wontTakeLong": "This won't take long.",
+      "tooManyPages": "Too many pages in PDF",
+      "yourPlanSupports": "Your",
+      "plan": "Plan",
+      "supportsUpTo": "plan supports up to",
+      "pagesPerPdf": "pages per PDF.",
+      "back": "Back",
+      "oopsTooManyPages": "Oops! Too many pages",
+      "youHavePages": "You have",
+      "upgradeToGetMorePages": "Upgrade to",
+      "toGetMorePages": "to get more pages",
+      "upgradePlan": "Upgrade Plan",
+      "oopsSubscriptionExpired": "Oops! Subscription expired",
+      "selectPreferredPlan": "To select your preferred plan, simply click on the link provided below.",
+      "choosePlans": "Choose Plans"
+  }
+
  }
 
