@@ -75,6 +75,10 @@ export const appRouter = router({
           z.literal('champion'),
           z.literal('elite')
         ]),
+        lang: z.union([
+          z.literal('en'),
+          z.literal('pt-br'),
+        ]),
       })
     )
     .mutation(
@@ -114,7 +118,7 @@ export const appRouter = router({
           cancel_url: billingUrl,
           payment_method_types: ['card'],
           mode: 'subscription',
-          currency: "usd", // that will be changed
+          currency: input.lang === 'pt-br' ? 'brl' : 'usd', 
           billing_address_collection: 'auto',
           line_items: [{
               price: pricePlan, 

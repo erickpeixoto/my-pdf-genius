@@ -9,10 +9,12 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip'
 import { PLANS } from '@/config/stripe'
+import { getDictionary } from '@/lib/dictionary'
 import { getUserSubscriptionPlan } from '@/lib/stripe'
 import { Plans } from '@/lib/types'
 import { cn, pricingItems } from '@/lib/utils'
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
+import { Locale } from "../../../../i18n.config";
 
 import {
   Check,
@@ -20,9 +22,14 @@ import {
   Minus,
 } from 'lucide-react'
 
-const Page = async () => {
+export default async function Pricing({
+  params: { lang },
+}: {
+  params: { lang: Locale };
+}) {
   
   const subscriptionPlan = await getUserSubscriptionPlan()
+  const { home } = await getDictionary(lang);
   const { isSubscribed, isCanceled } = subscriptionPlan
   const { getUser } = getKindeServerSession()
   const user = getUser()
@@ -162,6 +169,7 @@ const Page = async () => {
                                               isSubscribed={false} 
                                               planName={slug as Plans} 
                                               title='Choose Plan'
+                                              lang={lang}
                                               />}
                       {!isSubscribed && !user && <RegisterButton 
                                                     planName={slug as Plans} /> }                                              
@@ -170,6 +178,7 @@ const Page = async () => {
                                               planName={slug as Plans} 
                                               title='Change Plan'
                                               isDisabled={slug === subscriptionPlan.slug}
+                                              lang={lang}
                                               /> }
                   </div>
 
@@ -187,4 +196,3 @@ const Page = async () => {
 
 
 
-export default Page

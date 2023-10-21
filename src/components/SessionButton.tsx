@@ -6,6 +6,7 @@ import { trpc } from '@/app/_trpc/client'
 import { Plans } from '@/lib/types'
 import { cn } from '@/lib/utils'
 import { usePlausible } from 'next-plausible'
+import { Locale } from "../../i18n.config";
 
 type SessionButtonProps = {
   isSubscribed: boolean
@@ -15,8 +16,9 @@ type SessionButtonProps = {
   className?: string
   title?: string
   isDisabled?: boolean
+  lang: Locale
 }
-const SessionButton = ({ isDisabled, isSubscribed, planName, isManagedMode, isLoading, title, className = 'w-full'}: SessionButtonProps) => {
+const SessionButton = ({ lang, isDisabled, isSubscribed, planName, isManagedMode, isLoading, title, className = 'w-full'}: SessionButtonProps) => {
   
   const plausible = usePlausible()
   const {mutate: createStripeSession} = trpc.createStripeSession.useMutation({
@@ -29,7 +31,7 @@ const SessionButton = ({ isDisabled, isSubscribed, planName, isManagedMode, isLo
 
   const handleCreateSession = () => {
     plausible(`sessionButtonClicked=${planName}`)
-    createStripeSession({isSubscribed, planName, isManagedMode})
+    createStripeSession({isSubscribed, planName, isManagedMode, lang})
   }
 
   return (
