@@ -23,7 +23,7 @@ export const POST = async (req: NextRequest) => {
     return new Response('Unauthorized', { status: 401 })
   }
 
-  const { fileId, message } = SendMessageValidator.parse(body)
+  const { fileId, message, lang } = SendMessageValidator.parse(body)
 
   const file = await db.file.findFirst({
     where: {
@@ -79,24 +79,36 @@ export const POST = async (req: NextRequest) => {
     content: msg.text,
   }))
 
+  
   const contextDescription = `
-    If you don't know the answer, just say that you don't know, don't try to make up an answer.
+  ${lang === 'pt-br' ? 'CONVERSA ANTERIOR:' : 'PREVIOUS CONVERSATION:'}
+  ${formattedPrevMessages
+   .map((message) => {
+     if (message.role === 'user') return `${lang === 'pt-br' ? 'Usuário' : 'User'}: ${message.content}\n`;
+     return `${assistantName}: ${message.content}\n`;
+   })
+   .join('')}
+   ----------------
+   ${lang === 'pt-br' ? 'CONTEXTO:' : 'CONTEXT:'}
+   ${results.map((r) => r.pageContent).join('\n\n')}
+   
+   ----------------
+   
+   ${lang === 'pt-br' ? 'MENSAGEM DO USUÁRIO:' : 'USER INPUT:'}
+   ${message}
+ `;
 
-    ----------------
+ const promptLanguage:any = {
+  'en': {
+    system: `Use the following pieces of context to answer the user's question in markdown format`,
+    user: contextDescription
+  },
+  'pt-br': {
+    system: `Use os seguintes pedaços de contexto para responder à pergunta do usuário no formato markdown`,
+    user: contextDescription  
+  }
+};
 
-    PREVIOUS CONVERSATION:
-    ${formattedPrevMessages.map((message) => {
-      if (message.role === 'user') return `User: ${message.content}\n`
-      return `${assistantName}: ${message.content}\n`
-    })}
-
-    ----------------
-
-    CONTEXT:
-    ${results.map((r) => r.pageContent).join('\n\n')}
-
-    USER INPUT: ${message}
-  `
 
   const response = await openai.chat.completions.create({
     model: modelName,
@@ -105,11 +117,11 @@ export const POST = async (req: NextRequest) => {
     messages: [
       {
         role: 'system',
-        content: `Use the following pieces of context to answer the user\'s question in markdown format`,
+        content: promptLanguage[lang!]?.system || promptLanguage['en'].system,
       },
       {
         role: 'user',
-        content: contextDescription,
+        content: promptLanguage[lang!]?.user || promptLanguage['en'].user,
       },
     ],
   })

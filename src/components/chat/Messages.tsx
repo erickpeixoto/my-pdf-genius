@@ -6,11 +6,13 @@ import Message from "./Message";
 import { use, useContext, useEffect, useRef } from "react";
 import { ChatContext } from "./ChatContext";
 import { useIntersection } from "@mantine/hooks";
+import { Locale } from "../../../i18n.config";
 
 interface MessagesProps {
   fileId: string;
   picture: string;
   dictionary: any;
+  lang: Locale;
 }
 
 const Messages = ({ fileId, picture, dictionary }: MessagesProps) => {

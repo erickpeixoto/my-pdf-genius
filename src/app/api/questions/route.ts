@@ -9,7 +9,7 @@ import { NextRequest } from 'next/server';
 
 export const POST = async (req: NextRequest) => {
   const body = await req.json();
-  const { fileId } = body;
+  const { fileId, lang } = body;
 
   const { getUser } = getKindeServerSession();
   const user = getUser();
@@ -49,23 +49,32 @@ export const POST = async (req: NextRequest) => {
     take: 6,
   });
 
+
   const formattedPrevMessages = prevMessages.map((msg) => ({
     role: msg.isUserMessage ? 'user' : 'assistant',
     content: msg.text,
   }));
 
   const contextDescription = `
-    PREVIOUS CONVERSATION:
-    ${formattedPrevMessages
-      .map((message) => {
-        if (message.role === 'user') return `User: ${message.content}\n`;
-        return `${assistantName}: ${message.content}\n`;
-      })
-      .join('')}
+   ${lang === 'pt-br' ? 'CONVERSA ANTERIOR:' : 'PREVIOUS CONVERSATION:'}
+   ${formattedPrevMessages
+    .map((message) => {
+      if (message.role === 'user') return `${lang === 'pt-br' ? 'Usuário' : 'User'}: ${message.content}\n`;
+      return `${assistantName}: ${message.content}\n`;
+    })
+    .join('')}
     ----------------
-    CONTEXT:
+    ${lang === 'pt-br' ? 'CONTEXTO:' : 'CONTEXT:'}
     ${results.map((r) => r.pageContent).join('\n\n')}
   `;
+
+  const promptLanguage:any = {
+    'en': `Generate 5 possible questions based on the following context:\n\n${contextDescription}, 
+           Important: try to anticipate the questions that the user may have and provide them accordingly`,
+    'pt-br': `Gere 5 possíveis perguntas com base no seguinte contexto:\n\n${contextDescription}, 
+              Importante: tente antecipar as perguntas que o usuário pode ter e forneça-as de acordo`
+  };
+
 
   // AI QUESTIONS GENERATED
   const questionGenerationResponse = await openai.chat.completions.create({
@@ -74,8 +83,7 @@ export const POST = async (req: NextRequest) => {
     messages: [
       {
         role: 'system',
-        content: `Generate 5 possible questions based on the following context:\n\n${contextDescription}, 
-        Important: try to anticipate the questions that the user may have and provide them accordingly`,
+        content: promptLanguage[lang] || promptLanguage['en']
       },
     ],
     n: 5,

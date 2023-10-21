@@ -9,9 +9,10 @@ import { useToast } from '../ui/use-toast'
 import { useMutation } from '@tanstack/react-query'
 import { trpc } from '@/app/_trpc/client'
 import { INFINITE_QUERY_LIMIT } from '@/config/infinite-query'
+import { Locale } from "../../../i18n.config";
 
 type StreamResponse = {
-  addMessage: (param: string) => void
+  addMessage: (param: string, lang: Locale) => void
   message: string
   handleInputChange: (
     event: React.ChangeEvent<HTMLTextAreaElement>
@@ -47,8 +48,10 @@ export const ChatContextProvider = ({
   const { mutate: sendMessage } = useMutation({
     mutationFn: async ({
       message,
+      lang,
     }: {
       message: string
+      lang: Locale
     }) => {
    
       const response = await fetch('/api/message', {
@@ -56,6 +59,7 @@ export const ChatContextProvider = ({
         body: JSON.stringify({
           fileId,
           message,
+          lang,
         }),
       })
 
@@ -222,7 +226,7 @@ export const ChatContextProvider = ({
     setMessage(e.target.value)
   }
 
-  const addMessage = (message: string) => sendMessage({ message });
+  const addMessage = (message: string, lang: Locale) => sendMessage({ message, lang });
 
   return (
     <ChatContext.Provider

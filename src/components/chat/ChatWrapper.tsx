@@ -15,12 +15,14 @@ import { File, User } from '@prisma/client'
 import { useEffect, useState } from 'react'
 import { trpc } from '@/app/_trpc/client'
 import { KindeUser } from '@kinde-oss/kinde-auth-nextjs/server'
+import { Locale } from "../../../i18n.config";
 interface ChatWrapperProps {
   file: File
   subscriptionPlan: Awaited<
   ReturnType<typeof getUserSubscriptionPlan>>
   user: KindeUser
   dictionary: any
+  lang: Locale
 }
 
 
@@ -29,6 +31,7 @@ const ChatWrapper = ({
   subscriptionPlan,
   user,
   dictionary,
+  lang,
 }: ChatWrapperProps) => {
 
  
@@ -64,7 +67,7 @@ if(!loaded) return null
           </div>
         </div>
 
-        <ChatInput isDisabled dictionary={dictionary.inputMessage}   />
+        <ChatInput isDisabled dictionary={dictionary.inputMessage} lang={lang}  />
       </div>
     )
 
@@ -83,7 +86,7 @@ if(!loaded) return null
           </div>
         </div>
 
-        <ChatInput isDisabled dictionary={dictionary.inputMessage}  />
+        <ChatInput isDisabled dictionary={dictionary.inputMessage} lang={lang} />
       </div>
     )
 
@@ -118,7 +121,7 @@ if(!loaded) return null
           </div>
         </div>
 
-        <ChatInput isDisabled dictionary={dictionary.inputMessage}  />
+        <ChatInput isDisabled dictionary={dictionary.inputMessage} lang={lang} />
       </div>
     )
 
@@ -141,7 +144,7 @@ if(!loaded) return null
           </div>
         </div>
 
-        <ChatInput isDisabled dictionary={dictionary.inputMessage} />
+        <ChatInput isDisabled dictionary={dictionary.inputMessage} lang={lang} />
       </div>
     )
 
@@ -166,17 +169,17 @@ if(!loaded) return null
           </div>
         </div>
 
-        <ChatInput isDisabled dictionary={dictionary.inputMessage}  />
+        <ChatInput isDisabled dictionary={dictionary.inputMessage} lang={lang} />
       </div>
     )
   return (
     <ChatContextProvider fileId={file.id}>
       <div className='relative min-h-full bg-zinc-50 flex divide-y divide-zinc-200 flex-col justify-between gap-2'>
         <div className='flex-1 justify-between flex flex-col mb-28'>
-          <Messages fileId={file.id} picture={user.picture!} dictionary={dictionary.messages} />
+          <Messages fileId={file.id} picture={user.picture!} dictionary={dictionary.messages} lang={lang} />
         </div>
 
-        <ChatInput fileId={file.id} dictionary={dictionary.inputMessage}  />
+        <ChatInput fileId={file.id} dictionary={dictionary.inputMessage} lang={lang} />
       </div>
     </ChatContextProvider>
   )
