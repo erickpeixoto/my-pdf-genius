@@ -45,6 +45,21 @@
     "lang": "Você está atualmente em um",
     "planName": "plano."
   },
+  "dashboard": {
+    "title": "Meus Arquivos",
+    "description": "Gerencie todos os seus arquivos aqui.",
+    "loading": "Carregando...",
+    "uploadButton": {
+      "title": "Clique para fazer o upload ou arraste e solte",
+      "fileType": "PDF (até {maxFileSize} MB)",
+      "uploading": "Enviando...",
+      "redirecting": "Redirecionando...",
+      "errorTitle": "Algo deu errado",
+      "errorDescription": "Por favor, tente novamente mais tarde",
+      "uploadPDF": "Enviar PDF"
+    }
+    
+  },
   "pricingItems": {
     "explorer": {
        "tagline": "10 Days Free Trial, no credit card required",

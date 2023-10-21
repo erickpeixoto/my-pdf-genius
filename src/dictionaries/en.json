@@ -45,6 +45,20 @@
     "lang": "You are currently on a",
     "planName": "plan."
   },
+  "dashboard": {
+    "title": "My Files",
+    "description": "Manage all your files here.",
+    "loading": "Loading...",
+    "uploadButton": {
+      "title": "Click to upload or drag and drop",
+      "fileType": "PDF (up to {maxFileSize} MB)",
+      "uploading": "Uploading...",
+      "redirecting": "Redirecting...",
+      "errorTitle": "Something went wrong",
+      "errorDescription": "Please try again later",
+      "uploadPDF": "Upload PDF"
+    }
+  },
   "pricingItems": {
      "explorer": {
         "tagline": "10 Days Free Trial, no credit card required",
