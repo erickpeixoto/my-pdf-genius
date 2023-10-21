@@ -122,6 +122,10 @@
     "messages": {
       "youreGoodToGo": "Tudo pronto!",
        "askInitialQuestion": "Sinta-se à vontade para fazer sua pergunta inicial e começar"
-    }
+    },
+    "inputMessage": {
+      "notSureWhatToAsk": "Não tem certeza do que perguntar?",
+      "askYourPdfGenius": "Pergunte ao seu Genius PDF..."
+  }
 }
 }

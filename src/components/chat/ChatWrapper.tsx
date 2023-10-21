@@ -64,7 +64,7 @@ if(!loaded) return null
           </div>
         </div>
 
-        <ChatInput isDisabled  />
+        <ChatInput isDisabled dictionary={dictionary.inputMessage}   />
       </div>
     )
 
@@ -83,7 +83,7 @@ if(!loaded) return null
           </div>
         </div>
 
-        <ChatInput isDisabled />
+        <ChatInput isDisabled dictionary={dictionary.inputMessage}  />
       </div>
     )
 
@@ -118,7 +118,7 @@ if(!loaded) return null
           </div>
         </div>
 
-        <ChatInput isDisabled />
+        <ChatInput isDisabled dictionary={dictionary.inputMessage}  />
       </div>
     )
 
@@ -141,7 +141,7 @@ if(!loaded) return null
           </div>
         </div>
 
-        <ChatInput isDisabled />
+        <ChatInput isDisabled dictionary={dictionary.inputMessage} />
       </div>
     )
 
@@ -166,7 +166,7 @@ if(!loaded) return null
           </div>
         </div>
 
-        <ChatInput isDisabled />
+        <ChatInput isDisabled dictionary={dictionary.inputMessage}  />
       </div>
     )
   return (
@@ -176,7 +176,7 @@ if(!loaded) return null
           <Messages fileId={file.id} picture={user.picture!} dictionary={dictionary.messages} />
         </div>
 
-        <ChatInput fileId={file.id} />
+        <ChatInput fileId={file.id} dictionary={dictionary.inputMessage}  />
       </div>
     </ChatContextProvider>
   )

@@ -10,9 +10,10 @@ import { cn } from "@/lib/utils";
 interface ChatInputProps {
   isDisabled?: boolean;
   fileId?: string;
+  dictionary: any;
 }
 
-const ChatInput = ({ isDisabled, fileId }: ChatInputProps) => {
+const ChatInput = ({ isDisabled, fileId, dictionary }: ChatInputProps) => {
   const { addMessage, handleInputChange, isLoading, message } =
     useContext(ChatContext);
 
@@ -42,7 +43,6 @@ const ChatInput = ({ isDisabled, fileId }: ChatInputProps) => {
       }
     },
     onSuccess: (data) => {
-      console.log("Response:", data);
       setQuestions(data);
     },
     onError: (error) => {
@@ -72,7 +72,7 @@ const ChatInput = ({ isDisabled, fileId }: ChatInputProps) => {
         } overflow-hidden transition-all bg-white p-5 paper`}
       >
         <div className="text-black font-bold flex flex-row gap-2">
-          Not sure what to ask?{" "}
+          {dictionary.notSureWhatToAsk}{" "}
           <Lightbulb className="w-5 h-5 text-yellow-600" />
         </div>
         {questions.map((question, index) => {
@@ -126,7 +126,7 @@ const ChatInput = ({ isDisabled, fileId }: ChatInputProps) => {
                   }
                 }}
                 disabled={isLoading || isDisabled}
-                placeholder="Ask your PDF Genius..."
+                placeholder={dictionary.askYourPdfGenius}
                 className={
                   cn(
                     questions.length > 0 ? "pl-[65px]" : "pl-[10px]",
