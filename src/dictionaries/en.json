@@ -118,7 +118,11 @@
       "upgradePlan": "Upgrade Plan",
       "oopsSubscriptionExpired": "Oops! Subscription expired",
       "selectPreferredPlan": "To select your preferred plan, simply click on the link provided below.",
-      "choosePlans": "Choose Plans"
+      "choosePlans": "Choose Plans",
+      "messages": {
+        "youreGoodToGo": "You're good to go!",
+        "askInitialQuestion": "Feel free to ask your initial question to kick things off"
+      }
   }
 
  }

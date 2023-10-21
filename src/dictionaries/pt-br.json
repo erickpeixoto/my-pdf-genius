@@ -118,6 +118,10 @@
     "upgradePlan": "Opção de atualização: ",
     "oopsSubscriptionExpired": "Ops! Assinatura expirada",
     "selectPreferredPlan": "Para selecionar seu plano preferido, basta clicar no link fornecido abaixo.",
-    "choosePlans": "Escolher Planos"
+    "choosePlans": "Escolher Planos",
+    "messages": {
+      "youreGoodToGo": "Tudo pronto!",
+       "askInitialQuestion": "Sinta-se à vontade para fazer sua pergunta inicial e começar"
+    }
 }
 }
