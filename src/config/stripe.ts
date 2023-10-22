@@ -42,3 +42,27 @@ export const PLANS = [
     },
   },
 ]
+export const pricesPT = [
+  {
+    name: 'Explorer',
+    slug: 'explorer',
+    price: {
+      amount: 19.9, 
+    },
+  },
+  {
+    name: 'Champion',
+    slug: 'champion',
+    price: {
+      amount: 29.9, 
+    },
+  },
+  {
+    name: 'Elite',
+    slug: 'elite',
+    price: {
+      amount: 99.9, 
+    },
+  },
+
+];

@@ -61,73 +61,84 @@
     }
   },
   "pricingItems": {
-     "explorer": {
-        "tagline": "10 Days Free Trial, no credit card required",
-        "pagesPerPdf": "pages per PDF",
-        "pagesPerPdfFootnote": "The maximum amount of pages per PDF-file.",
-        "fileSizeLimit": "4MB file size limit",
-        "fileSizeLimitFootnote": "The maximum file size of a single PDF file.",
-        "unlimitedConversations": "Unlimited Conversations",
-        "unlimitedConversationsFootnote": "Talk to your files as much as you want",
-        "savedConversations": "Saved Conversations",
-        "savedConversationsFootnote": "Access your conversations anytime",
-        "mobileFriendlyInterface": "Mobile-friendly interface",
-        "higherQualityResponses": "Higher-quality responses",
-        "higherQualityResponsesFootnote": "Better algorithmic responses for enhanced content quality"
-      },
-      "champion": {
-        "tagline": "Unleash the full power of our platform",
-        "pagesPerPdf": "pages per PDF",
-        "pagesPerPdfFootnote": "The maximum amount of pages per PDF-file.",
-        "fileSizeLimit": "16MB file size limit",
-        "fileSizeLimitFootnote": "The maximum file size of a single PDF file.",
-        "aiQuestionGenerator": "AI Question Generator",
-        "aiQuestionGeneratorFootnote": "Generate questions for your PDFs using AI",
-        "higherQualityResponses": "Higher-quality responses",
-        "higherQualityResponsesFootnote": "Better algorithmic responses for enhanced content quality",
-        "prioritySupport": "Priority support"
-      },
-      "elite": {
-        "tagline": "For professionals seeking excellence",
-        "unlimitedPagesPerPdf": "Unlimited pages per PDF",
-        "fileSizeLimit": "File size limit: 32MB",
-        "aiQuestionGenerator": "AI Question Generator",
-        "aiQuestionGeneratorFootnote": "Generate questions for your PDFs using AI",
-        "optimizedInterfaceForMobile": "Optimized interface for mobile",
-        "highQualityAlgorithmic": "High-quality algorithmic",
-        "highQualityAlgorithmicFootnote": "Better algorithmic responses for enhanced content quality",
-        "prioritySupport": "24/7 priority support",
-        "firstAccessToNewFeatures": "First access to new features"
-      }
+    "explorer": {
+      "tagline": "10 Days Free Trial, no credit card required",
+      "pagesPerPdf": "pages per PDF",
+      "pagesPerPdfFootnote": "The maximum amount of pages per PDF-file.",
+      "fileSizeLimit": "4MB file size limit",
+      "fileSizeLimitFootnote": "The maximum file size of a single PDF file.",
+      "unlimitedConversations": "Unlimited Conversations",
+      "unlimitedConversationsFootnote": "Talk to your files as much as you want",
+      "savedConversations": "Saved Conversations",
+      "savedConversationsFootnote": "Access your conversations anytime",
+      "mobileFriendlyInterface": "Mobile-friendly interface",
+      "higherQualityResponses": "Higher-quality responses",
+      "higherQualityResponsesFootnote": "Better algorithmic responses for enhanced content quality"
     },
-    "aiDoc": {
-      "loading": "Loading...",
-      "preparingPdf": "We're preparing your PDF.",
-      "processingPdf": "Processing PDF...",
-      "wontTakeLong": "This won't take long.",
-      "tooManyPages": "Too many pages in PDF",
-      "yourPlanSupports": "Your",
-      "plan": "Plan",
-      "supportsUpTo": "plan supports up to",
-      "pagesPerPdf": "pages per PDF.",
-      "back": "Back",
-      "oopsTooManyPages": "Oops! Too many pages",
-      "youHavePages": "You have",
-      "upgradeToGetMorePages": "Upgrade to",
-      "toGetMorePages": "to get more pages",
-      "upgradePlan": "Upgrade Plan",
-      "oopsSubscriptionExpired": "Oops! Subscription expired",
-      "selectPreferredPlan": "To select your preferred plan, simply click on the link provided below.",
-      "choosePlans": "Choose Plans",
-      "messages": {
-        "youreGoodToGo": "You're good to go!",
-        "askInitialQuestion": "Feel free to ask your initial question to kick things off"
-      },
-      "inputMessage": {
-        "notSureWhatToAsk": "Not sure what to ask?",
-        "askYourPdfGenius": "Ask your PDF Genius..."
+    "champion": {
+      "tagline": "Unleash the full power of our platform",
+      "pagesPerPdf": "pages per PDF",
+      "pagesPerPdfFootnote": "The maximum amount of pages per PDF-file.",
+      "fileSizeLimit": "16MB file size limit",
+      "fileSizeLimitFootnote": "The maximum file size of a single PDF file.",
+      "aiQuestionGenerator": "AI Question Generator",
+      "aiQuestionGeneratorFootnote": "Generate questions for your PDFs using AI",
+      "higherQualityResponses": "Higher-quality responses",
+      "higherQualityResponsesFootnote": "Better algorithmic responses for enhanced content quality",
+      "prioritySupport": "Priority support"
+    },
+    "elite": {
+      "tagline": "For professionals seeking excellence",
+      "unlimitedPagesPerPdf": "Unlimited pages per PDF",
+      "fileSizeLimit": "File size limit: 32MB",
+      "aiQuestionGenerator": "AI Question Generator",
+      "aiQuestionGeneratorFootnote": "Generate questions for your PDFs using AI",
+      "optimizedInterfaceForMobile": "Optimized interface for mobile",
+      "highQualityAlgorithmic": "High-quality algorithmic",
+      "highQualityAlgorithmicFootnote": "Better algorithmic responses for enhanced content quality",
+      "prioritySupport": "24/7 priority support",
+      "firstAccessToNewFeatures": "First access to new features"
     }
+  },
+  "aiDoc": {
+    "loading": "Loading...",
+    "preparingPdf": "We're preparing your PDF.",
+    "processingPdf": "Processing PDF...",
+    "wontTakeLong": "This won't take long.",
+    "tooManyPages": "Too many pages in PDF",
+    "yourPlanSupports": "Your",
+    "plan": "Plan",
+    "supportsUpTo": "plan supports up to",
+    "pagesPerPdf": "pages per PDF.",
+    "back": "Back",
+    "oopsTooManyPages": "Oops! Too many pages",
+    "youHavePages": "You have",
+    "upgradeToGetMorePages": "Upgrade to",
+    "toGetMorePages": "to get more pages",
+    "upgradePlan": "Upgrade Plan",
+    "oopsSubscriptionExpired": "Oops! Subscription expired",
+    "selectPreferredPlan": "To select your preferred plan, simply click on the link provided below.",
+    "choosePlans": "Choose Plans",
+    "messages": {
+      "youreGoodToGo": "You're good to go!",
+      "askInitialQuestion": "Feel free to ask your initial question to kick things off"
+    },
+    "inputMessage": {
+      "notSureWhatToAsk": "Not sure what to ask?",
+      "askYourPdfGenius": "Ask your PDF Genius..."
+    }
+  },
+  "pricing": {
+    "chooseYourPath": "Choose Your Path",
+    "tailoredPlans": "Dive into our tailored plans designed to suit every kind of PDF enthusiast, from hobbyists to professionals.",
+    "myPlan": "My Plan",
+    "upgradeNow": "Upgrade now",
+    "mostPopular": "Most Popular",
+    "perMonth": "per month",
+    "unlimitedPDFs": "Unlimited PDFs",
+    "PDFsPerMonth": "PDFs/mo included",
+    "howManyPDFs": "How many PDFs you can upload per month.",
+    "choosePlan": "Choose Plan",
+    "changePlan": "Change Plan"
   }
-
- }
-
+}

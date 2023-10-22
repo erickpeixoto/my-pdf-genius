@@ -8,7 +8,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
-import { PLANS } from '@/config/stripe'
+import { PLANS, pricesPT } from '@/config/stripe'
 import { getDictionary } from '@/lib/dictionary'
 import { getUserSubscriptionPlan } from '@/lib/stripe'
 import { Plans } from '@/lib/types'
@@ -22,6 +22,11 @@ import {
   Minus,
 } from 'lucide-react'
 
+type Feature = {
+  text: string;
+  footnote?: string;
+  negative?: boolean;
+};
 export default async function Pricing({
   params: { lang },
 }: {
@@ -29,7 +34,7 @@ export default async function Pricing({
 }) {
   
   const subscriptionPlan = await getUserSubscriptionPlan()
-  const { home } = await getDictionary(lang);
+  const { pricing: pricingDoc } = await getDictionary(lang);
   const { isSubscribed, isCanceled } = subscriptionPlan
   const { getUser } = getKindeServerSession()
   const user = getUser()
@@ -39,21 +44,27 @@ export default async function Pricing({
       <MaxWidthWrapper className='mb-8 mt-24 text-center'>
         <div className='mx-auto mb-10'>
          <h1 className='text-6xl font-bold sm:text-7xl'>
-              Choose Your Path
+              {pricingDoc.chooseYourPath}
           </h1>
           <p className='mt-5 text-gray-600 sm:text-lg'>
-              Dive into our tailored plans designed to suit every kind of PDF enthusiast, from hobbyists to professionals.
+              {pricingDoc.tailoredPlans}    
           </p>
         </div>
 
         <div className='pt-12 grid grid-cols-1 gap-10 lg:grid-cols-3'>
           <TooltipProvider>
-            {pricingItems.map(
+            {Object.values(pricingItems(lang)).map(
               ({ plan, tagline, quota, features, slug }) => {
                 const price =
+                lang === "en" ? 
                   PLANS.find(
                     (p) => p.slug === plan.toLowerCase()
                   )?.price.amount || 0
+                : 
+                  pricesPT.find(
+                    (p) => p.slug === plan.toLowerCase()
+                  )?.price.amount || 0
+                    
 
                 return (
                   <div
@@ -71,8 +82,8 @@ export default async function Pricing({
                       {plan === 'Champion' && (
                       <div className='absolute -top-5 left-0 right-0 mx-auto w-32 rounded-full bg-gradient-to-r from-blue-600 to-cyan-600 px-3 py-2 text-sm font-medium text-white'>
                         {!isCanceled && isSubscribed ? (
-                          plan === subscriptionPlan.name ? "My Plan" :  "Upgrade now"
-                        ) : "Most Popular" } 
+                          plan === subscriptionPlan.name ? pricingDoc.myPlan :  pricingDoc.upgradeNow
+                        ) : pricingDoc.mostPopular } 
                         </div>
                     )}
 
@@ -86,17 +97,17 @@ export default async function Pricing({
                       </p>
                      
                       <p className='my-5 font-display text-6xl font-semibold'>
-                        ${price}
+                         {lang === "en" ? Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(price) : Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(price)}
                       </p>
                       <p className='text-gray-500'>
-                        per month
+                        {pricingDoc.perMonth}
                       </p>
                     </div>
 
                     <div className='flex h-20 items-center justify-center border-b border-t border-gray-200 bg-gray-50'>
                       <div className='flex items-center space-x-1'>
                         <p>
-                          {plan === 'Elite' ? 'Unlimited PDFs' :  `${quota.toLocaleString()} PDFs/mo included`}
+                          {plan === 'Elite' ? pricingDoc.unlimitedPDFs :  `${quota.toLocaleString()} ${pricingDoc.PDFsPerMonth}}`}
                           
                         </p>
 
@@ -105,8 +116,7 @@ export default async function Pricing({
                             <HelpCircle className='h-4 w-4 text-zinc-500' />
                           </TooltipTrigger>
                           <TooltipContent className='w-80 p-2'>
-                            How many PDFs you can upload per
-                            month.
+                           {pricingDoc.howManyPDFs}
                           </TooltipContent>
                         </Tooltip>
                       </div>
@@ -114,7 +124,9 @@ export default async function Pricing({
 
                     <ul className='my-10 space-y-5 px-8'>
                       {features.map(
-                        ({ text, footnote, negative }) => (
+                        ((feature: Feature) => {
+                          const { text, footnote, negative } = feature
+                          return (
                           <li
                             key={text}
                             className='flex space-x-5'>
@@ -160,15 +172,15 @@ export default async function Pricing({
                               </p>
                             )}
                           </li>
-                        )
-                      )}
+                        )}
+                      ))}
                     </ul>
                     <div className='border-t border-gray-200' />
                     <div className='p-5'>
                       {!isSubscribed && user && <SessionButton 
                                               isSubscribed={false} 
                                               planName={slug as Plans} 
-                                              title='Choose Plan'
+                                              title={pricingDoc.choosePlan}
                                               lang={lang}
                                               />}
                       {!isSubscribed && !user && <RegisterButton 
@@ -176,7 +188,7 @@ export default async function Pricing({
                       {isSubscribed &&  <SessionButton 
                                               isSubscribed={isSubscribed} 
                                               planName={slug as Plans} 
-                                              title='Change Plan'
+                                              title={pricingDoc.changePlan}
                                               isDisabled={slug === subscriptionPlan.slug}
                                               lang={lang}
                                               /> }

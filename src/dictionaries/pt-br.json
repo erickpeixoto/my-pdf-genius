@@ -59,49 +59,48 @@
       "errorDescription": "Por favor, tente novamente mais tarde",
       "uploadPDF": "Enviar PDF"
     }
-    
   },
   "pricingItems": {
     "explorer": {
-       "tagline": "10 Days Free Trial, no credit card required",
-       "pagesPerPdf": "pages per PDF",
-       "pagesPerPdfFootnote": "The maximum amount of pages per PDF-file.",
-       "fileSizeLimit": "4MB file size limit",
-       "fileSizeLimitFootnote": "The maximum file size of a single PDF file.",
-       "unlimitedConversations": "Unlimited Conversations",
-       "unlimitedConversationsFootnote": "Talk to your files as much as you want",
-       "savedConversations": "Saved Conversations",
-       "savedConversationsFootnote": "Access your conversations anytime",
-       "mobileFriendlyInterface": "Mobile-friendly interface",
-       "higherQualityResponses": "Higher-quality responses",
-       "higherQualityResponsesFootnote": "Better algorithmic responses for enhanced content quality"
-     },
-     "champion": {
-       "tagline": "Unleash the full power of our platform",
-       "pagesPerPdf": "pages per PDF",
-       "pagesPerPdfFootnote": "The maximum amount of pages per PDF-file.",
-       "fileSizeLimit": "16MB file size limit",
-       "fileSizeLimitFootnote": "The maximum file size of a single PDF file.",
-       "aiQuestionGenerator": "AI Question Generator",
-       "aiQuestionGeneratorFootnote": "Generate questions for your PDFs using AI",
-       "higherQualityResponses": "Higher-quality responses",
-       "higherQualityResponsesFootnote": "Better algorithmic responses for enhanced content quality",
-       "prioritySupport": "Priority support"
-     },
-     "elite": {
-       "tagline": "For professionals seeking excellence",
-       "unlimitedPagesPerPdf": "Unlimited pages per PDF",
-       "fileSizeLimit": "File size limit: 32MB",
-       "aiQuestionGenerator": "AI Question Generator",
-       "aiQuestionGeneratorFootnote": "Generate questions for your PDFs using AI",
-       "optimizedInterfaceForMobile": "Optimized interface for mobile",
-       "highQualityAlgorithmic": "High-quality algorithmic",
-       "highQualityAlgorithmicFootnote": "Better algorithmic responses for enhanced content quality",
-       "prioritySupport": "24/7 priority support",
-       "firstAccessToNewFeatures": "First access to new features"
-     }
-   },
-   "aiDoc": {
+      "tagline": "10 Days Free Trial, no credit card required",
+      "pagesPerPdf": "pages per PDF",
+      "pagesPerPdfFootnote": "The maximum amount of pages per PDF-file.",
+      "fileSizeLimit": "4MB file size limit",
+      "fileSizeLimitFootnote": "The maximum file size of a single PDF file.",
+      "unlimitedConversations": "Unlimited Conversations",
+      "unlimitedConversationsFootnote": "Talk to your files as much as you want",
+      "savedConversations": "Saved Conversations",
+      "savedConversationsFootnote": "Access your conversations anytime",
+      "mobileFriendlyInterface": "Mobile-friendly interface",
+      "higherQualityResponses": "Higher-quality responses",
+      "higherQualityResponsesFootnote": "Better algorithmic responses for enhanced content quality"
+    },
+    "champion": {
+      "tagline": "Unleash the full power of our platform",
+      "pagesPerPdf": "pages per PDF",
+      "pagesPerPdfFootnote": "The maximum amount of pages per PDF-file.",
+      "fileSizeLimit": "16MB file size limit",
+      "fileSizeLimitFootnote": "The maximum file size of a single PDF file.",
+      "aiQuestionGenerator": "AI Question Generator",
+      "aiQuestionGeneratorFootnote": "Generate questions for your PDFs using AI",
+      "higherQualityResponses": "Higher-quality responses",
+      "higherQualityResponsesFootnote": "Better algorithmic responses for enhanced content quality",
+      "prioritySupport": "Priority support"
+    },
+    "elite": {
+      "tagline": "For professionals seeking excellence",
+      "unlimitedPagesPerPdf": "Unlimited pages per PDF",
+      "fileSizeLimit": "File size limit: 32MB",
+      "aiQuestionGenerator": "AI Question Generator",
+      "aiQuestionGeneratorFootnote": "Generate questions for your PDFs using AI",
+      "optimizedInterfaceForMobile": "Optimized interface for mobile",
+      "highQualityAlgorithmic": "High-quality algorithmic",
+      "highQualityAlgorithmicFootnote": "Better algorithmic responses for enhanced content quality",
+      "prioritySupport": "24/7 priority support",
+      "firstAccessToNewFeatures": "First access to new features"
+    }
+  },
+  "aiDoc": {
     "loading": "Carregando...",
     "preparingPdf": "Estamos preparando seu PDF.",
     "processingPdf": "Processando PDF...",
@@ -121,11 +120,24 @@
     "choosePlans": "Escolher Planos",
     "messages": {
       "youreGoodToGo": "Tudo pronto!",
-       "askInitialQuestion": "Sinta-se à vontade para fazer sua pergunta inicial e começar"
+      "askInitialQuestion": "Sinta-se à vontade para fazer sua pergunta inicial e começar"
     },
     "inputMessage": {
       "notSureWhatToAsk": "Não tem certeza do que perguntar?",
       "askYourPdfGenius": "Pergunte ao seu Genius PDF..."
+    }
+  },
+  "pricing": {
+    "chooseYourPath": "Escolha o Seu Plano",
+    "tailoredPlans": "Explore nossos planos personalizados, criados para atender a estudantes e profissionais que utilizam a inteligência artificial para auxiliá-los com seus PDFs.",
+    "myPlan": "Meu Plano",
+    "upgradeNow": "Atualize Agora",
+    "mostPopular": "Mais Popular",
+    "perMonth": "por mês",
+    "unlimitedPDFs": "PDFs Ilimitados",
+    "PDFsPerMonth": "PDFs/mês incluídos",
+    "howManyPDFs": "Quantos PDFs você pode enviar por mês.",
+    "choosePlan": "Escolher Plano",
+    "changePlan": "Mudar Plano"
   }
-}
 }
