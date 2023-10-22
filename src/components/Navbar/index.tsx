@@ -17,12 +17,10 @@ import { getDictionary } from '@/lib/dictionary'
 export default async function Navbar({ lang }: { lang: "en" | "pt-br" }) {
 
   const { navbar } = await getDictionary(lang);
-
   const { getUser } = getKindeServerSession()
   const user = getUser()
   const subscriptionPlan = await getUserSubscriptionPlan()
   
-
 
   return (
     <ClientWrapper>
@@ -30,7 +28,7 @@ export default async function Navbar({ lang }: { lang: "en" | "pt-br" }) {
         <div className='flex items-center justify-between text-zinc-500'>
           <Logo />
 
-          <MobileNav isAuth={!!user} />
+          <MobileNav isAuth={!!user} dictionary={navbar} />
 
           <div className='hidden items-center space-x-4 sm:flex'>
             {!user ? (

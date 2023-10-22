@@ -3,8 +3,7 @@ import { LogOut, Menu, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
-
-const MobileNav = ({ isAuth }: { isAuth: boolean }) => {
+const MobileNav = ({ isAuth, dictionary }: { isAuth: boolean, dictionary: any }) => {
   const [isOpen, setOpen] = useState<boolean>(false)
 
   const toggleOpen = () => setOpen((prev) => !prev)
@@ -38,7 +37,7 @@ const MobileNav = ({ isAuth }: { isAuth: boolean }) => {
                     }
                     className='flex items-center w-full font-semibold text-green-600'
                     href='/sign-up'>
-                    Get Started
+                    {dictionary.getStarted}
                     <ArrowRight className='ml-2 h-5 w-5' />
                   </Link>
                 </li>
@@ -50,7 +49,7 @@ const MobileNav = ({ isAuth }: { isAuth: boolean }) => {
                     }
                     className='flex items-center w-full font-semibold'
                     href='/sign-in'>
-                    Sign in
+                    {dictionary.signIn}
                   </Link>
                 </li>
                 <li className='my-3 h-px w-full bg-gray-300' />
@@ -61,7 +60,7 @@ const MobileNav = ({ isAuth }: { isAuth: boolean }) => {
                     }
                     className='flex items-center w-full font-semibold'
                     href='/pricing'>
-                    Pricing
+                    {dictionary.pricing}
                   </Link>
                 </li>
               </>
@@ -72,7 +71,7 @@ const MobileNav = ({ isAuth }: { isAuth: boolean }) => {
                       href='/dashboard/billing'
                       className="text-white p-2 text-sm"
                     >
-                      My Subscription
+                      {dictionary.mySubscription}
                     </Link>
                  </li>
                 <li>
@@ -80,7 +79,7 @@ const MobileNav = ({ isAuth }: { isAuth: boolean }) => {
                       href='/dashboard'
                       className="text-white p-2 text-sm"
                       >
-                      My Files
+                      {dictionary.myFiles}
                     </Link>
                 </li>
                 <li className='my-3 h-px w-full bg-gray-300' />
@@ -91,7 +90,7 @@ const MobileNav = ({ isAuth }: { isAuth: boolean }) => {
                     }
                     className='flex items-center w-full font-semibold'
                     href='/sign-out'>
-                    Log Out
+                    {dictionary.signOut}
                     <LogOut className='ml-2 h-5 w-5' />
                   </Link>
                 </li>

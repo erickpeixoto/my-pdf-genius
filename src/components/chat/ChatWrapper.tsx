@@ -137,7 +137,7 @@ if(!loaded) return null
                 <div className=""> {dictionary.youHavePages} {pagesPerPdf} {dictionary.pagesPerPdf} </div>
                 <div> {dictionary.upgradePlan} <span className='capitalize font-bold'>{nextPlan} </span>  {dictionary.toGetMorePages}</div>
                 <div className="mt-5">
-                  <SessionButton  planName={nextPlan} isSubscribed={isSubscribed} title='Upgrade Plan'/>
+                  <SessionButton  planName={nextPlan} isSubscribed={isSubscribed} title='Upgrade Plan' lang={lang} />
                 </div>
            
             </div>

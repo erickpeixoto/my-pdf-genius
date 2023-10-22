@@ -27,7 +27,8 @@
     "planExpired": "Plan Expired",
     "mySubscription": "My Subscription",
     "myFiles": "My Files",
-    "yourAccount": "Your Account"
+    "yourAccount": "Your Account",
+    "signOut": "Sign out"
   },
   "billing": {
     "title": "My Subscription",

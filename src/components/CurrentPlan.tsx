@@ -15,7 +15,7 @@ interface CurrentPlanProps {
   }
   
 export const CurrentPlan = async ({ subscriptionPlan, lang }: CurrentPlanProps) => {
-    const explorerPlan = pricingItems.find(item => item.plan === subscriptionPlan.name);
+    const explorerPlan = Object.values(pricingItems(lang)).find(item => item.plan === subscriptionPlan.name);
     const { billing } = await getDictionary(lang)
 
     if (!explorerPlan) {
@@ -71,6 +71,7 @@ export const CurrentPlan = async ({ subscriptionPlan, lang }: CurrentPlanProps) 
                         planName={subscriptionPlan.slug as Plans} 
                         isManagedMode={true}
                         title={billing.manageSubscriptionButton}
+                        lang={lang}
                         />
                 
                      {!subscriptionPlan.isCanceled && subscriptionPlan.isSubscribed ? (
