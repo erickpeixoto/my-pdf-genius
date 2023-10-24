@@ -33,7 +33,7 @@ export default function RootLayout({
                     inter.className
                   )}>
                         <Toaster />
-                        <Navbar lang={'en'} />
+                        <Navbar />
                         {children}
                 </body>
               </ClerkProvider>
