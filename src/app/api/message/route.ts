@@ -2,28 +2,27 @@ import { db } from '@/db'
 import { openai } from '@/lib/openai'
 import { getPineconeClient } from '@/lib/pinecone'
 import { SendMessageValidator } from '@/lib/validators/SendMessageValidator'
-import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
 import { OpenAIEmbeddings } from 'langchain/embeddings/openai'
 import { PineconeStore } from 'langchain/vectorstores/pinecone'
 import { NextRequest } from 'next/server'
 
 import { OpenAIStream, StreamingTextResponse } from 'ai'
+import { getUser } from '@/lib/auth'
+import { getUserPreferredLanguage } from '@/lib/dictionary'
 
 
 export const POST = async (req: NextRequest) => {
 
-
   const body = await req.json()
-  const { getUser } = getKindeServerSession()
-  const user = getUser()
+  const user = await getUser()
+  const lang = getUserPreferredLanguage();
 
-  const { id: loggedInUserId } = user
+  const loggedInUserId = user?.id
 
   if (!loggedInUserId) {
     return new Response('Unauthorized', { status: 401 })
   }
-
-  const { fileId, message, lang } = SendMessageValidator.parse(body)
+  const { fileId, message } = SendMessageValidator.parse(body)
 
   const file = await db.file.findFirst({
     where: {

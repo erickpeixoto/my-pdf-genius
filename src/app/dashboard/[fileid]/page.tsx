@@ -1,34 +1,29 @@
 import ChatWrapper from '@/components/chat/ChatWrapper'
 import PdfRenderer from '@/components/PdfRenderer'
 import { db } from '@/db'
-import { getDictionary } from '@/lib/dictionary'
+import { getUser } from '@/lib/auth'
+import { getDictionary, getUserPreferredLanguage } from '@/lib/dictionary'
 import { getUserSubscriptionPlan } from '@/lib/stripe'
-import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
-import { notFound, redirect } from 'next/navigation'
-import { Locale } from "../../../../../i18n.config";
+import { notFound } from 'next/navigation'
+
 interface PageProps {
   params: {
     fileid: string
-    lang: Locale 
   },
   
 }
 const Page = async ({ params }: PageProps) => {
-  const { fileid, lang } = params
 
-  const { getUser } = getKindeServerSession()
+  const { fileid } = params
+  const lang = getUserPreferredLanguage();
   const { aiDoc } = await getDictionary(lang);
-  const user = getUser()
+  const user = await getUser()
 
-
-
-  if (!user || !user.id)
-    redirect(`/auth-callback?origin=dashboard/${fileid}`)
 
   const file = await db.file.findFirst({
     where: {
       id: fileid,
-      userId: user.id,
+      userId: user?.id ?? null,
     },
   })
   if (!file) notFound()
@@ -64,7 +59,7 @@ const Page = async ({ params }: PageProps) => {
         </div>
 
         <div className='shrink-0 flex-[0.75] border-t border-gray-200 lg:w-96 lg:border-l lg:border-t-0'>
-          <ChatWrapper subscriptionPlan={plan} file={file} user={user} dictionary={aiDoc} lang={lang}/>
+          <ChatWrapper subscriptionPlan={plan} file={file} dictionary={aiDoc} />
         </div>
       </div>
     </div>

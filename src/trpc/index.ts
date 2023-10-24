@@ -1,8 +1,5 @@
-import { pl } from 'date-fns/locale';
-import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
 import {
   privateProcedure,
-  publicProcedure,
   router,
 } from './trpc'
 import { TRPCError } from '@trpc/server'
@@ -16,34 +13,11 @@ import {
 } from '@/lib/stripe'
 import { PLANS } from '@/config/stripe'
 import Stripe from 'stripe'
+import { getUserPreferredLanguage } from '@/lib/dictionary'
 
 
-export const appRouter = router({
-  authCallback: publicProcedure.query(async () => {
-    const { getUser } = getKindeServerSession()
-    const user = getUser()
+export const  appRouter  =  router({
 
-    if (!user.id || !user.email)
-      throw new TRPCError({ code: 'UNAUTHORIZED' })
-
-    // check if the user is in the database
-    const dbUser = await db.user.findFirst({
-      where: {
-        id: user.id,
-      },
-    })
-
-    if (!dbUser) {
-      // create user in db
-      await db.user.create({
-        data: {
-          id: user.id,
-          email: user.email,
-        },
-      })
-    }
-    return { success: true }
-  }),
   getUserFiles: privateProcedure.query(async ({ ctx }) => {
     const { userId } = ctx;
 
@@ -75,17 +49,14 @@ export const appRouter = router({
           z.literal('champion'),
           z.literal('elite')
         ]),
-        lang: z.union([
-          z.literal('en'),
-          z.literal('pt-br'),
-        ]),
       })
     )
     .mutation(
       async ({ ctx, input }) => {
         const { userId } = ctx
         const billingUrl = absoluteUrl('/dashboard/billing')
-
+        const lang = getUserPreferredLanguage();
+        
         if (!userId)
           throw new TRPCError({ code: 'UNAUTHORIZED' })
 
@@ -118,7 +89,7 @@ export const appRouter = router({
           cancel_url: billingUrl,
           payment_method_types: ['card'],
           mode: 'subscription',
-          currency: input.lang === 'pt-br' ? 'brl' : 'usd', 
+          currency: lang === 'pt-br' ? 'brl' : 'usd', 
           billing_address_collection: 'auto',
           line_items: [{
               price: pricePlan, 

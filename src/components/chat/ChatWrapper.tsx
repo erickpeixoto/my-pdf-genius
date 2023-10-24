@@ -14,32 +14,29 @@ import { getNextPlan } from '@/lib/utils'
 import { File, User } from '@prisma/client'
 import { useEffect, useState } from 'react'
 import { trpc } from '@/app/_trpc/client'
-import { KindeUser } from '@kinde-oss/kinde-auth-nextjs/server'
 import { Locale } from "../../../i18n.config";
+import { useUser } from "@clerk/nextjs";
 interface ChatWrapperProps {
   file: File
   subscriptionPlan: Awaited<
   ReturnType<typeof getUserSubscriptionPlan>>
-  user: KindeUser
   dictionary: any
-  lang: Locale
 }
 
 
 const ChatWrapper = ({
   file,
   subscriptionPlan,
-  user,
-  dictionary,
-  lang,
+  dictionary
 }: ChatWrapperProps) => {
-
+  
+  const { user } = useUser();
  
 const { slug, isSubscribed, isCanceled, pagesPerPdf } = subscriptionPlan
 const nextPlan = getNextPlan(slug as string) as unknown as Plans
 const [loaded, setLoaded] = useState(false)
 
-const { data, isLoading } =
+const { data } =
 trpc.getFileUploadStatus.useQuery(
   {
     fileId: file.id,
@@ -67,7 +64,7 @@ if(!loaded) return null
           </div>
         </div>
 
-        <ChatInput isDisabled dictionary={dictionary.inputMessage} lang={lang}  />
+        <ChatInput isDisabled dictionary={dictionary.inputMessage}  />
       </div>
     )
 
@@ -86,7 +83,7 @@ if(!loaded) return null
           </div>
         </div>
 
-        <ChatInput isDisabled dictionary={dictionary.inputMessage} lang={lang} />
+        <ChatInput isDisabled dictionary={dictionary.inputMessage} />
       </div>
     )
 
@@ -121,7 +118,7 @@ if(!loaded) return null
           </div>
         </div>
 
-        <ChatInput isDisabled dictionary={dictionary.inputMessage} lang={lang} />
+        <ChatInput isDisabled dictionary={dictionary.inputMessage} />
       </div>
     )
 
@@ -137,14 +134,14 @@ if(!loaded) return null
                 <div className=""> {dictionary.youHavePages} {pagesPerPdf} {dictionary.pagesPerPdf} </div>
                 <div> {dictionary.upgradePlan} <span className='capitalize font-bold'>{nextPlan} </span>  {dictionary.toGetMorePages}</div>
                 <div className="mt-5">
-                  <SessionButton  planName={nextPlan} isSubscribed={isSubscribed} title='Upgrade Plan' lang={lang} />
+                  <SessionButton  planName={nextPlan} isSubscribed={isSubscribed} title='Upgrade Plan' />
                 </div>
            
             </div>
           </div>
         </div>
 
-        <ChatInput isDisabled dictionary={dictionary.inputMessage} lang={lang} />
+        <ChatInput isDisabled dictionary={dictionary.inputMessage}  />
       </div>
     )
 
@@ -169,17 +166,17 @@ if(!loaded) return null
           </div>
         </div>
 
-        <ChatInput isDisabled dictionary={dictionary.inputMessage} lang={lang} />
+        <ChatInput isDisabled dictionary={dictionary.inputMessage}  />
       </div>
     )
   return (
     <ChatContextProvider fileId={file.id}>
       <div className='relative min-h-full bg-zinc-50 flex divide-y divide-zinc-200 flex-col justify-between gap-2'>
         <div className='flex-1 justify-between flex flex-col mb-28'>
-          <Messages fileId={file.id} picture={user.picture!} dictionary={dictionary.messages} lang={lang} />
+          <Messages fileId={file.id} picture={user?.imageUrl!} dictionary={dictionary.messages} />
         </div>
 
-        <ChatInput fileId={file.id} dictionary={dictionary.inputMessage} lang={lang} />
+        <ChatInput fileId={file.id} dictionary={dictionary.inputMessage} />
       </div>
     </ChatContextProvider>
   )

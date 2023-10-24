@@ -1,24 +1,19 @@
 import Link from 'next/link'
 import MaxWidthWrapper from '../MaxWidthWrapper'
-import { buttonVariants } from '../ui/button'
-import {
-  LoginLink,
-  RegisterLink,
-  getKindeServerSession,
-} from '@kinde-oss/kinde-auth-nextjs/server'
-import UserAccountNav from '../UserAccountNav'
 import MobileNav from '@/components/MobileNav'
 import ClientWrapper from '@/components/Navbar/ClientWrapper'
 import Logo from '@/components/Logo'
 import { getUserSubscriptionPlan } from '@/lib/stripe'
-import { getDictionary } from '@/lib/dictionary'
+import { getDictionary, getUserPreferredLanguage } from '@/lib/dictionary'
+import { getUser } from '@/lib/auth'
+import { UserButton } from '@clerk/nextjs'
 
 
-export default async function Navbar({ lang }: { lang: "en" | "pt-br" }) {
+export default async function Navbar() {
 
+  const lang = getUserPreferredLanguage();
   const { navbar } = await getDictionary(lang);
-  const { getUser } = getKindeServerSession()
-  const user = getUser()
+  const user = await getUser()
   const subscriptionPlan = await getUserSubscriptionPlan()
   
 
@@ -38,16 +33,14 @@ export default async function Navbar({ lang }: { lang: "en" | "pt-br" }) {
                   className="text-white">
                    {navbar.pricing}
                 </Link>
-                <LoginLink
-                  className="text-white">
-                  {navbar.signIn}
-                </LoginLink>
-                <RegisterLink
-                className="text-white p-2 px-3 border border-white rounded-full"
-               >
-                  {navbar.getStarted}
+                <Link href='/sign-in'>
+                    {navbar.signIn}
+                 </Link>
+                <Link href='/sign-up'>
+                    {navbar.getStarted}
+                 </Link>
   
-                </RegisterLink>
+            
               </>
             ) : (
               <>
@@ -68,15 +61,7 @@ export default async function Navbar({ lang }: { lang: "en" | "pt-br" }) {
                   {navbar.myFiles}
                 </Link>
 
-                <UserAccountNav
-                  name={
-                    !user.given_name || !user.family_name
-                      ? navbar.yourAccount
-                      : `${user.given_name} ${user.family_name}`
-                  }
-                  email={user.email ?? ''}
-                  imageUrl={user.picture ?? ''}
-                />
+                <UserButton afterSignOutUrl="/" />
               </>
             )}
           </div>

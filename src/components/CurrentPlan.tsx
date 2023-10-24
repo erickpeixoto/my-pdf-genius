@@ -5,18 +5,20 @@ import { Plans } from "@/lib/types";
 import { Button } from "./ui/button";
 import { format } from "date-fns";
 import Link from "next/link";
-import { getDictionary } from "@/lib/dictionary";
+import { getDictionary, getUserPreferredLanguage } from "@/lib/dictionary";
 
 interface CurrentPlanProps {
 
     subscriptionPlan: Awaited<
     ReturnType<typeof getUserSubscriptionPlan>>
-    lang: "en" | "pt-br"
   }
   
-export const CurrentPlan = async ({ subscriptionPlan, lang }: CurrentPlanProps) => {
+export const CurrentPlan = async ({ subscriptionPlan }: CurrentPlanProps) => {
+    const lang = getUserPreferredLanguage();
+    const { billing } = await getDictionary(lang);
+
     const explorerPlan = Object.values(pricingItems(lang)).find(item => item.plan === subscriptionPlan.name);
-    const { billing } = await getDictionary(lang)
+
 
     if (!explorerPlan) {
         return <div className="flex justify-center flex-col gap-2 w-1/2">
@@ -71,7 +73,6 @@ export const CurrentPlan = async ({ subscriptionPlan, lang }: CurrentPlanProps) 
                         planName={subscriptionPlan.slug as Plans} 
                         isManagedMode={true}
                         title={billing.manageSubscriptionButton}
-                        lang={lang}
                         />
                 
                      {!subscriptionPlan.isCanceled && subscriptionPlan.isSubscribed ? (

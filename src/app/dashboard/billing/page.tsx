@@ -3,12 +3,13 @@ import { Heading } from '@/components/heading'
 import { Settings } from 'lucide-react'
 import MaxWidthWrapper from "@/components/MaxWidthWrapper"
 import { CurrentPlan } from "@/components/CurrentPlan"
-import { getDictionary } from "@/lib/dictionary"
-import { Locale } from '../../../../../i18n.config'
-export default async function Billing({ params: { lang } }: { params: { lang: Locale }}) {
+import { getDictionary, getUserPreferredLanguage } from "@/lib/dictionary"
+
+export default async function Billing() {
 
     const subscriptionPlan = await getUserSubscriptionPlan()
-    const { billing } = await getDictionary(lang)
+    const lang = getUserPreferredLanguage();
+    const { billing } = await getDictionary(lang);
 
     return (
         <MaxWidthWrapper className='pt-5'>
@@ -19,7 +20,7 @@ export default async function Billing({ params: { lang } }: { params: { lang: Lo
                 iconColor="text-gray-700"
                 bgColor="bg-gray-700/10"
             />
-            <CurrentPlan subscriptionPlan={subscriptionPlan} lang={lang} />
+            <CurrentPlan subscriptionPlan={subscriptionPlan} />
         </MaxWidthWrapper>
    )
 }

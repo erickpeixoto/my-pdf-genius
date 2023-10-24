@@ -10,6 +10,7 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
+    "@clerk/nextjs": "^4.25.6",
     "@formatjs/intl-localematcher": "^0.4.2",
     "@hookform/resolvers": "^3.3.1",
     "@kinde-oss/kinde-auth-nextjs": "^1.8.18",
@@ -67,6 +68,7 @@
     "sharp": "^0.32.6",
     "simplebar-react": "^3.2.4",
     "stripe": "^13.7.0",
+    "svix": "^1.13.0",
     "tailwind-merge": "^1.14.0",
     "tailwindcss": "3.3.3",
     "tailwindcss-animate": "^1.0.7",

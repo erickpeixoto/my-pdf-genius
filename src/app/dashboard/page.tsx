@@ -1,36 +1,18 @@
 import Dashboard from "@/components/Dashboard";
 import { Heading } from "@/components/heading";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
-import UploadButton, { DictionaryProps } from "@/components/UploadButton";
-import { db } from "@/db";
-import { getDictionary } from "@/lib/dictionary";
+import UploadButton from "@/components/UploadButton";
+import { getDictionary, getUserPreferredLanguage } from "@/lib/dictionary";
 import { getUserSubscriptionPlan } from "@/lib/stripe";
 import { Plans } from "@/lib/types";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { Files } from "lucide-react";
-import { redirect } from "next/navigation";
 import { Suspense } from "react";
-import { Locale } from "../../../../i18n.config";
 
-export default async function DashboardPage({
-  params: { lang },
-}: {
-  params: { lang: Locale };
-}) {
+
+export default async function DashboardPage() {
+
+  const lang = getUserPreferredLanguage();
   const { dashboard } = await getDictionary(lang);
-  const { getUser } = getKindeServerSession();
-  const user = getUser();
-
-  if (!user || !user.id) redirect("/auth-callback?origin=dashboard");
-
-  const dbUser = await db.user.findFirst({
-    where: {
-      id: user.id,
-    },
-  });
-
-  if (!dbUser) redirect("/auth-callback?origin=dashboard");
-
   const subscriptionPlan = await getUserSubscriptionPlan();
 
   return (

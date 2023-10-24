@@ -12,8 +12,7 @@ import Image from 'next/image'
 import { Icons } from './Icons'
 import Link from 'next/link'
 import { Gem } from 'lucide-react'
-import { LogoutLink } from '@kinde-oss/kinde-auth-nextjs/server'
-
+import { SignOutButton, UserButton } from "@clerk/nextjs";
 interface UserAccountNavProps {
   email: string | undefined
   name: string
@@ -89,11 +88,12 @@ const UserAccountNav = async ({
           )}
 
         <DropdownMenuSeparator />
-        <LogoutLink>
+      
           <DropdownMenuItem className='cursor-pointer'>
             Log out
+            <UserButton afterSignOutUrl="/" />
           </DropdownMenuItem>
-         </LogoutLink>
+
       </DropdownMenuContent>
     </DropdownMenu>
   )

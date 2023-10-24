@@ -1,7 +1,7 @@
 import MaxWidthWrapper from '@/components/MaxWidthWrapper'
 import RegisterButton from '@/components/RegisterButton'
 import SessionButton from '@/components/SessionButton'
-import { buttonVariants } from '@/components/ui/button'
+
 import {
   Tooltip,
   TooltipContent,
@@ -9,12 +9,11 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip'
 import { PLANS, pricesPT } from '@/config/stripe'
-import { getDictionary } from '@/lib/dictionary'
+import { getUser } from '@/lib/auth'
+import { getDictionary, getUserPreferredLanguage } from '@/lib/dictionary'
 import { getUserSubscriptionPlan } from '@/lib/stripe'
 import { Plans } from '@/lib/types'
 import { cn, pricingItems } from '@/lib/utils'
-import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
-import { Locale } from "../../../../i18n.config";
 
 import {
   Check,
@@ -27,17 +26,15 @@ type Feature = {
   footnote?: string;
   negative?: boolean;
 };
-export default async function Pricing({
-  params: { lang },
-}: {
-  params: { lang: Locale };
-}) {
+export default async function Pricing() {
   
   const subscriptionPlan = await getUserSubscriptionPlan()
+  const lang = getUserPreferredLanguage();
   const { pricing: pricingDoc } = await getDictionary(lang);
+
   const { isSubscribed, isCanceled } = subscriptionPlan
-  const { getUser } = getKindeServerSession()
-  const user = getUser()
+
+  const user = await getUser()
 
   return (
     <>
@@ -181,7 +178,6 @@ export default async function Pricing({
                                               isSubscribed={false} 
                                               planName={slug as Plans} 
                                               title={pricingDoc.choosePlan}
-                                              lang={lang}
                                               />}
                       {!isSubscribed && !user && <RegisterButton 
                                                     planName={slug as Plans} /> }                                              
@@ -190,7 +186,6 @@ export default async function Pricing({
                                               planName={slug as Plans} 
                                               title={pricingDoc.changePlan}
                                               isDisabled={slug === subscriptionPlan.slug}
-                                              lang={lang}
                                               /> }
                   </div>
 

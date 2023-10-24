@@ -4,14 +4,12 @@ import Link from "next/link";
 import { User, Upload, Keyboard, Heart, HelpCircleIcon } from "lucide-react";
 import Image from "next/image";
 import CustomButton from "@/components/CustomButton";
-import { getDictionary } from "@/lib/dictionary";
-import { Locale } from "../../../i18n.config";
+import { getDictionary, getUserPreferredLanguage } from "@/lib/dictionary";
 
-export default async function Home({
-  params: { lang },
-}: {
-  params: { lang: Locale };
-}) {
+
+export default async function Home() {
+
+  const lang = getUserPreferredLanguage();
   const { home } = await getDictionary(lang);
 
   return (

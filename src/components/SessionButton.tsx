@@ -16,9 +16,8 @@ type SessionButtonProps = {
   className?: string
   title?: string
   isDisabled?: boolean
-  lang: Locale
 }
-const SessionButton = ({ lang, isDisabled, isSubscribed, planName, isManagedMode, isLoading, title, className = 'w-full'}: SessionButtonProps) => {
+const SessionButton = ({ isDisabled, isSubscribed, planName, isManagedMode, isLoading, title, className = 'w-full'}: SessionButtonProps) => {
   
   const plausible = usePlausible()
   const {mutate: createStripeSession} = trpc.createStripeSession.useMutation({
@@ -31,7 +30,7 @@ const SessionButton = ({ lang, isDisabled, isSubscribed, planName, isManagedMode
 
   const handleCreateSession = () => {
     plausible(`sessionButtonClicked=${planName}`)
-    createStripeSession({isSubscribed, planName, isManagedMode, lang})
+    createStripeSession({isSubscribed, planName, isManagedMode})
   }
 
   return (

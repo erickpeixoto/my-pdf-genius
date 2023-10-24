@@ -13,10 +13,9 @@ interface ChatInputProps {
   isDisabled?: boolean;
   fileId?: string;
   dictionary: any;
-  lang: Locale
 }
 
-const ChatInput = ({ isDisabled, fileId, dictionary, lang }: ChatInputProps) => {
+const ChatInput = ({ isDisabled, fileId, dictionary }: ChatInputProps) => {
   const { addMessage, handleInputChange, isLoading, message } =
     useContext(ChatContext);
 
@@ -32,7 +31,7 @@ const ChatInput = ({ isDisabled, fileId, dictionary, lang }: ChatInputProps) => 
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ fileId, lang }),
+          body: JSON.stringify({ fileId }),
         });
 
         if (!response.ok) {
@@ -60,9 +59,9 @@ const ChatInput = ({ isDisabled, fileId, dictionary, lang }: ChatInputProps) => 
   }, []);
 
 
-  const selectQuestion = (selectedQuestion: string, lang: Locale) => {
+  const selectQuestion = (selectedQuestion: string) => {
   
-    addMessage(selectedQuestion, lang);
+    addMessage(selectedQuestion);
     setShowAITips(false)
   };
 
@@ -82,8 +81,8 @@ const ChatInput = ({ isDisabled, fileId, dictionary, lang }: ChatInputProps) => 
           return (
             <Button
               key={index}
-              className="w-full text-slate-500 bg-white-200 hover:bg-slate-100 transition-all p-3 opacity-100 border-1 border-b-slate-200"
-              onClick={() => selectQuestion(question, lang)}
+              className="w-full text-slate-500 bg-white-200 hover:bg-slate-100 transition-all p-8 opacity-100 border-1 border-b-slate-200 "
+              onClick={() => selectQuestion(question)}
             >
               {question.replace(/['"]+/g, '')}
             </Button>
@@ -118,7 +117,7 @@ const ChatInput = ({ isDisabled, fileId, dictionary, lang }: ChatInputProps) => 
                 onKeyDown={(e) => {
                   if (e.key === "Enter" && !e.shiftKey) {
                     e.preventDefault();
-                    addMessage(textareaRef.current?.value || "", lang);
+                    addMessage(textareaRef.current?.value || "");
                    
                     textareaRef.current?.focus();
       
@@ -142,7 +141,7 @@ const ChatInput = ({ isDisabled, fileId, dictionary, lang }: ChatInputProps) => 
                 className="absolute bottom-1.5 right-[8px]"
                 aria-label="send message"
                 onClick={() => {
-                  addMessage(textareaRef.current?.value || "", lang);
+                  addMessage(textareaRef.current?.value || "");
                 
                   textareaRef.current?.focus();
                   
