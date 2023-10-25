@@ -37,6 +37,8 @@ export async function POST(request: Request) {
       status: 200,
     })
   }
+  console.log('event.type', event.type)
+  console.log('session', session)
   if (event.type === 'checkout.session.completed') {
 
     const subscription =
