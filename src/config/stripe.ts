@@ -8,8 +8,8 @@ export const PLANS = [
     price: {
       amount: 10, 
       priceIds: {
-        test: 'price_1O44DGFl55eurQgwLfBy1yKN',
-        production: 'price_1O44DGFl55eurQgwLfBy1yKN',
+        test: 'price_1O1Zl7Fl55eurQgw2MOJ3AiS',
+        production: 'price_1O44CSFl55eurQgw2WXtU0WR',
       },
     },
   },
@@ -23,7 +23,7 @@ export const PLANS = [
       amount: 20,
       priceIds: {
         test: 'price_1O1Zn0Fl55eurQgwoiaKHUsX',
-        production: 'price_1O1Zn0Fl55eurQgwoiaKHUsX',
+        production: 'price_1O44D8Fl55eurQgwugUOvyEI',
       },
     },
   },
@@ -36,7 +36,7 @@ export const PLANS = [
     price: {
       amount: 80,  
       priceIds: {
-        test: 'price_1O44DGFl55eurQgwLfBy1yKN', 
+        test: 'price_1O1ZnrFl55eurQgwCKPYo7de', 
         production: 'price_1O44DGFl55eurQgwLfBy1yKN',  
       },
     },

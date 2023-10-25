@@ -81,9 +81,9 @@ export const  appRouter  =  router({
             return { url: stripeSession.url }
           }
         }
-
-        const pricePlan = PLANS.find((plan) => plan.slug === input.planName)?.price.priceIds.test
-      
+        const environment = process.env.NODE_ENV === 'production' ? 'production' : 'test';
+        const pricePlan = PLANS.find((plan) => plan.slug === input.planName)?.price.priceIds[environment]
+       
         const stripeSessionConfig = {
           success_url: billingUrl,
           cancel_url: billingUrl,
