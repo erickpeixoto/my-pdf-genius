@@ -8,9 +8,6 @@ export async function POST(request: Request) {
   const body = await request.text()
   const signature = headers().get("Stripe-Signature") as string
 
-  console.log('Body:', body);
-  console.log('Signature:', signature);
-  console.log('Webhook Secret:', process.env.STRIPE_WEBHOOK_SECRET);
   
   let event: Stripe.Event
 
@@ -20,8 +17,9 @@ export async function POST(request: Request) {
     event = stripe.webhooks.constructEvent(
       body,
       signature,
-      process.env.STRIPE_WEBHOOK_SECRET || ''
+      process.env.STRIPE_WEBHOOK_SECRET!
     )
+    console.log('event', event)
 
   } catch (err) {
     return new Response(
