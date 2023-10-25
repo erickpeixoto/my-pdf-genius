@@ -4,25 +4,19 @@ import { headers } from 'next/headers'
 import type Stripe from 'stripe'
 
 export async function POST(request: Request) {
-
   const body = await request.text()
-  const signature = headers().get("Stripe-Signature") as string
+  const signature = headers().get('Stripe-Signature') ?? ''
 
-  if (!signature) {
-    return new Response('No stripe signature found!', { status: 400 });
-  }
 
   let event: Stripe.Event
-
 
 
   try {
     event = stripe.webhooks.constructEvent(
       body,
       signature,
-      process.env.STRIPE_WEBHOOK_SECRET!
+      process.env.STRIPE_WEBHOOK_SECRET || ''
     )
-    console.log('event', event)
 
   } catch (err) {
     return new Response(
@@ -36,14 +30,12 @@ export async function POST(request: Request) {
   const session = event.data
     .object as Stripe.Checkout.Session
 
-    console.log('session', session)
     if (!session?.metadata?.userId) {
     return new Response(null, {
       status: 200,
     })
   }
-  console.log('event.type', event.type)
-  console.log('session', session)
+
   if (event.type === 'checkout.session.completed') {
 
     const subscription =
@@ -63,14 +55,6 @@ export async function POST(request: Request) {
           subscription.current_period_end * 1000
         ),
       },
-    })
-    console.log('checkout.session.completed', {
-      stripeSubscriptionId: subscription.id,
-      stripeCustomerId: subscription.customer as string,
-      stripePriceId: subscription.items.data[0]?.price.id,
-      stripeCurrentPeriodEnd: new Date(
-        subscription.current_period_end * 1000
-      ),
     })
   }
 
