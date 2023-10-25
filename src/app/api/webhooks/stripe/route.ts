@@ -57,6 +57,14 @@ export async function POST(request: Request) {
         ),
       },
     })
+    console.log('checkout.session.completed', {
+      stripeSubscriptionId: subscription.id,
+      stripeCustomerId: subscription.customer as string,
+      stripePriceId: subscription.items.data[0]?.price.id,
+      stripeCurrentPeriodEnd: new Date(
+        subscription.current_period_end * 1000
+      ),
+    })
   }
 
   if (event.type === 'invoice.payment_succeeded') {

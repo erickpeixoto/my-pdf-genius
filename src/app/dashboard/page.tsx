@@ -27,6 +27,7 @@ export default async function DashboardPage() {
       <UploadButton
         planName={subscriptionPlan.slug as Plans}
         isCanceled={subscriptionPlan.isCanceled}
+        isSubscribed={subscriptionPlan.isSubscribed}
         dictionary={dashboard as any}
       />
       <Suspense

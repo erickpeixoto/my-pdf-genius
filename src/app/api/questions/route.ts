@@ -1,5 +1,6 @@
 import { db } from '@/db';
 import { getUser } from '@/lib/auth';
+import { getUserPreferredLanguage } from '@/lib/dictionary';
 import { openai } from '@/lib/openai';
 import { getPineconeClient } from '@/lib/pinecone';
 import { OpenAIEmbeddings } from 'langchain/embeddings/openai';
@@ -8,8 +9,8 @@ import { NextRequest } from 'next/server';
 
 export const POST = async (req: NextRequest) => {
   const body = await req.json();
-  const { fileId, lang } = body;
-
+  const { fileId } = body;
+  const lang = getUserPreferredLanguage();
 
   const user = await getUser();
   const loggedInUserId = user?.id

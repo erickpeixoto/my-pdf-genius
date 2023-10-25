@@ -173,17 +173,19 @@ const UploadDropzone = ({ planName, dictionary }: UploadDropzoneProps) => {
 const UploadButton = ({
   planName,
   isCanceled,
+  isSubscribed,
   dictionary,
 }: {
   planName: Plans;
   isCanceled: boolean;
+  isSubscribed : boolean;
   dictionary: DictionaryProps;
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const router = useRouter();
 
   const handleModal = () => {
-    if (!planName) {
+    if (!isSubscribed) {
       router.push("/pricing");
     } else {
       setIsOpen(true);

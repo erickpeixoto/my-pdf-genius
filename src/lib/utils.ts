@@ -50,7 +50,7 @@ export function constructMetadata({
       creator: "@erickpeixoto"
     },
     icons,
-    metadataBase: new URL(process.env.APPLICATION_URL as string),
+    metadataBase: process.env.APPLICATION_URL ? new URL(process.env.APPLICATION_URL as string) : undefined,
     themeColor: '#FFF',
     ...(noIndex && {
       robots: {
