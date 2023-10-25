@@ -8,7 +8,10 @@ export async function POST(request: Request) {
   const body = await request.text()
   const signature = headers().get("Stripe-Signature") as string
 
-  
+  if (!signature) {
+    return new Response('No stripe signature found!', { status: 400 });
+  }
+
   let event: Stripe.Event
 
 
