@@ -10,6 +10,7 @@ export async function POST(request: Request) {
 
   console.log('Body:', body);
   console.log('Signature:', signature);
+  console.log('Webhook Secret:', process.env.STRIPE_WEBHOOK_SECRET);
   
   let event: Stripe.Event
 
@@ -34,6 +35,7 @@ export async function POST(request: Request) {
   const session = event.data
     .object as Stripe.Checkout.Session
 
+    console.log('session', session)
     if (!session?.metadata?.userId) {
     return new Response(null, {
       status: 200,
