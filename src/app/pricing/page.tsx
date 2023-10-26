@@ -104,7 +104,7 @@ export default async function Pricing() {
                     <div className='flex h-20 items-center justify-center border-b border-t border-gray-200 bg-gray-50'>
                       <div className='flex items-center space-x-1'>
                         <p>
-                          {plan === 'Elite' ? pricingDoc.unlimitedPDFs :  `${quota.toLocaleString()} ${pricingDoc.PDFsPerMonth}}`}
+                          {plan === 'Elite' ? pricingDoc.unlimitedPDFs :  `${quota.toLocaleString()} ${pricingDoc.PDFsPerMonth}`}
                           
                         </p>
 
