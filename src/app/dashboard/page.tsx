@@ -15,6 +15,8 @@ export default async function DashboardPage() {
   const { dashboard } = await getDictionary(lang);
   const subscriptionPlan = await getUserSubscriptionPlan();
 
+  console.log({subscriptionPlan})
+
   return (
     <MaxWidthWrapper className="pt-5 flex flex-col">
       <Heading
