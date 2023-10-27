@@ -41,7 +41,7 @@ trpc.getFileUploadStatus.useQuery(
   },
   {
     refetchInterval: (data) =>
-      data?.status !== "PROCESSING" ? 500
+      data?.status === "PROCESSING" ? 500
         : false,
   }
 )
