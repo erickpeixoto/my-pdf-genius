@@ -141,7 +141,7 @@ const ChatInput = ({ isDisabled, fileId, dictionary }: ChatInputProps) => {
 
               <Button
                 disabled={isLoading || isDisabled}
-                className="absolute bottom-1.5 right-[8px]"
+                className="absolute bottom-1.5 right-[6px] p-4 px-3"
                 aria-label="send message"
                 onClick={() => {
                   if (textareaRef.current?.value === "") {

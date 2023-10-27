@@ -74,7 +74,7 @@ export const POST = async (req: NextRequest) => {
               Importante: tente antecipar as perguntas que o usuário pode ter e forneça-as de acordo`
   };
 
-console.log(promptLanguage[lang] || promptLanguage['en']);
+
   // AI QUESTIONS GENERATED
   const questionGenerationResponse = await openai.chat.completions.create({
     model: modelName,
@@ -91,7 +91,7 @@ console.log(promptLanguage[lang] || promptLanguage['en']);
   function removeQuestionPrefix(question: string): string {
     return question.replace(/^\d+\.\s/, '');
   }
-
+console.log({questionGenerationResponse})
   if (questionGenerationResponse && questionGenerationResponse.choices) {
     const generatedQuestionsArray = questionGenerationResponse.choices[0]?.message?.content?.split('\n').filter((question) => question.trim() !== '');
 
