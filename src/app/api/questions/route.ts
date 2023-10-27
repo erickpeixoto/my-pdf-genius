@@ -74,7 +74,7 @@ export const POST = async (req: NextRequest) => {
               Importante: tente antecipar as perguntas que o usuário pode ter e forneça-as de acordo`
   };
 
-
+console.log(promptLanguage[lang] || promptLanguage['en']);
   // AI QUESTIONS GENERATED
   const questionGenerationResponse = await openai.chat.completions.create({
     model: modelName,
