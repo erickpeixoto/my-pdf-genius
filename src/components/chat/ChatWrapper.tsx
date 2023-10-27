@@ -6,15 +6,13 @@ import { ChevronLeft, Loader2, XCircle, Info } from 'lucide-react'
 import Link from 'next/link'
 import { Button, buttonVariants } from '../ui/button'
 import { ChatContextProvider } from './ChatContext'
-import { PLANS } from '@/config/stripe'
 import { getUserSubscriptionPlan } from '@/lib/stripe'
 import SessionButton from '@/components/SessionButton'
 import { Plans } from '@/lib/types'
 import { getNextPlan } from '@/lib/utils'
-import { File, User } from '@prisma/client'
-import { useEffect, useState } from 'react'
+import { File } from '@prisma/client'
 import { trpc } from '@/app/_trpc/client'
-import { Locale } from "../../../i18n.config";
+
 import { useUser } from "@clerk/nextjs";
 interface ChatWrapperProps {
   file: File
@@ -34,20 +32,23 @@ const ChatWrapper = ({
  
 const { slug, isSubscribed, isCanceled, pagesPerPdf } = subscriptionPlan
 const nextPlan = getNextPlan(slug as string) as unknown as Plans
-const [loaded, setLoaded] = useState(false)
+
 
 const { data } =
 trpc.getFileUploadStatus.useQuery(
   {
     fileId: file.id,
   },
+  {
+    refetchInterval: (data) =>
+      data?.status !== "PROCESSING" ? 500
+        : false,
+  }
 )
 
-useEffect(() => {
-    setLoaded(true)
-}, [file.id, data?.status])
 
-if(!loaded) return null
+
+
 
   if (!file)
     return (

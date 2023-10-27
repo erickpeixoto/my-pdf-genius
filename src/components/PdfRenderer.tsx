@@ -138,7 +138,7 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
           </Button>
         </div>
 
-        <div className='space-x-2'>
+        <div className='space-x-2 hidden sm:block '>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
