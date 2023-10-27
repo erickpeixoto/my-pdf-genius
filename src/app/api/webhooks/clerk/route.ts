@@ -61,15 +61,13 @@ export async function POST(req: Request) {
     });
 
     if (!dbUser) {
-      console.log('Creating user in the database');
       // Create user in the database
-      const response =await db.user.create({
+      await db.user.create({
         data: {
           id: data.id,
           email: data.email_addresses[0].email_address,
         },
       });
-      console.log({response})
     }
   }
  

@@ -76,8 +76,6 @@ export async function getUserSubscriptionPlan() {
       }
     }
  
-    console.log('stripePlan', {stripePlan});
-
   return {
     ...plan,
     stripeSubscriptionId: dbUser.stripeSubscriptionId,

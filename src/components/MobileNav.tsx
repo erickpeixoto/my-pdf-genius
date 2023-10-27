@@ -3,6 +3,7 @@ import { LogOut, Menu, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
+import { UserButton } from "@clerk/nextjs";
 const MobileNav = ({ isAuth, dictionary }: { isAuth: boolean, dictionary: any }) => {
   const [isOpen, setOpen] = useState<boolean>(false)
 
@@ -44,8 +45,10 @@ const MobileNav = ({ isAuth, dictionary }: { isAuth: boolean, dictionary: any })
                 <li className='my-3 h-px w-full bg-gray-300' />
                 <li>
                   <Link
-                    onClick={() =>
+                    onClick={() => {
+                      toggleOpen()
                       closeOnCurrent('/sign-in')
+                    }
                     }
                     className='flex items-center w-full font-semibold'
                     href='/sign-in'>
@@ -55,8 +58,10 @@ const MobileNav = ({ isAuth, dictionary }: { isAuth: boolean, dictionary: any })
                 <li className='my-3 h-px w-full bg-gray-300' />
                 <li>
                   <Link
-                    onClick={() =>
+                    onClick={() => {
+                      toggleOpen()
                       closeOnCurrent('/pricing')
+                      }
                     }
                     className='flex items-center w-full font-semibold'
                     href='/pricing'>
@@ -70,6 +75,7 @@ const MobileNav = ({ isAuth, dictionary }: { isAuth: boolean, dictionary: any })
                     <Link
                       href='/dashboard/billing'
                       className="text-white p-2 text-sm"
+                      onClick={() =>  toggleOpen()}
                     >
                       {dictionary.mySubscription}
                     </Link>
@@ -78,21 +84,17 @@ const MobileNav = ({ isAuth, dictionary }: { isAuth: boolean, dictionary: any })
                     <Link
                       href='/dashboard'
                       className="text-white p-2 text-sm"
+                      onClick={() =>  toggleOpen()}
                       >
                       {dictionary.myFiles}
                     </Link>
                 </li>
                 <li className='my-3 h-px w-full bg-gray-300' />
                 <li>
-                <Link
-                    onClick={() =>
-                      closeOnCurrent('/sign-out')
-                    }
-                    className='flex items-center w-full font-semibold'
-                    href='/sign-out'>
-                    {dictionary.signOut}
-                    <LogOut className='ml-2 h-5 w-5' />
-                  </Link>
+              <li className='flex text-center justify-between gap-2'>
+                <span> {dictionary.yourAccount}</span>
+                <UserButton afterSignOutUrl="/" />
+              </li>
                 </li>
               </>
             )}
