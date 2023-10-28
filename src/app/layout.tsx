@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar'
 import Providers from '@/components/Providers'
-import { cn } from '@/lib/utils'
+import { cn, constructMetadata } from '@/lib/utils'
 import { Inter } from 'next/font/google'
 import './globals.css'
 
@@ -13,7 +13,6 @@ import { ClerkProvider } from '@clerk/nextjs'
 import { ptBR, enUS } from "@clerk/localizations";
 import { HighlightInit } from '@highlight-run/next/client'
 import { getUserPreferredLanguage } from '@/lib/dictionary'
-import { constructMetadata } from '@/lib/metadata'
 
 const inter = Inter({ subsets: ['latin'] })
 
