@@ -74,7 +74,17 @@ export const POST = async (req: NextRequest) => {
               Importante: tente antecipar as perguntas que o usuário pode ter e forneça-as de acordo`
   };
 
-
+console.log({
+  model: modelName,
+  temperature,
+  messages: [
+    {
+      role: 'system',
+      content: promptLanguage[lang] || promptLanguage['en']
+    },
+  ],
+  n: 5,
+})
   // AI QUESTIONS GENERATED
   const questionGenerationResponse = await openai.chat.completions.create({
     model: modelName,
@@ -88,7 +98,7 @@ export const POST = async (req: NextRequest) => {
     n: 5,
   });
 
-  console.log('questionGenerationResponse', questionGenerationResponse);
+
   if (questionGenerationResponse && questionGenerationResponse.choices) {
     const generatedQuestionsArray = questionGenerationResponse.choices[0]?.message?.content?.split('\n').filter((question) => question.trim() !== '');
     return new Response(JSON.stringify(generatedQuestionsArray), {
