@@ -28,8 +28,7 @@ export default function RootLayout({
       <HighlightInit
 				projectId={'odzlr0le'}
 				serviceName="my-pdf-genius"
-				tracingOrigins={['localhost', 'mypdfgenius.com', 'www.mypdfgenius.com']}
- 				networkRecording={{
+				networkRecording={{
 					enabled: true,
 					recordHeadersAndBody: true,
 					urlBlocklist: [],
