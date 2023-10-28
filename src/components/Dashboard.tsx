@@ -16,6 +16,8 @@ import { format } from "date-fns";
 import { Button } from "./ui/button";
 import { useState } from "react";
 import { Spinner } from "@nextui-org/react";
+import { H } from "@highlight-run/next/client";
+import { useUser } from "@clerk/nextjs";
 
 const Dashboard = () => {
   const [currentlyDeletingFile, setCurrentlyDeletingFile] = useState<
@@ -23,7 +25,7 @@ const Dashboard = () => {
   >(null);
 
   const utils = trpc.useContext();
-
+  const { user } = useUser();
   const { data: files, isLoading } = trpc.getUserFiles.useQuery();
 
   const { mutate: deleteFile } = trpc.deleteFile.useMutation({
@@ -37,14 +39,22 @@ const Dashboard = () => {
       setCurrentlyDeletingFile(null);
     },
   });
-
+console.log({user})
+  H.identify(user?.emailAddresses[0].emailAddress!, {
+    id: user?.id!,
+    avatar: user?.imageUrl!,
+  });
+  
   return (
     <main className="mx-auto max-w-7xl">
       {files && files?.length !== 0 ? (
         <ul className="mt-8 grid grid-cols-1 gap-6 divide-y divide-zinc-200 md:grid-cols-2 lg:grid-cols-3">
           {files
             .sort(
-              (a: { createdAt: string | number | Date; }, b: { createdAt: string | number | Date; }) =>
+              (
+                a: { createdAt: string | number | Date },
+                b: { createdAt: string | number | Date }
+              ) =>
                 new Date(b.createdAt).getTime() -
                 new Date(a.createdAt).getTime()
             )
@@ -70,7 +80,10 @@ const Dashboard = () => {
                       <p className="text-sm text-zinc-500">
                         Pages: {file.pagesAmt || "N/A"}
                       </p>
-                      <p className="text-sm text-zinc-500 flex gap-1" title={file.uploadStatus}>
+                      <p
+                        className="text-sm text-zinc-500 flex gap-1"
+                        title={file.uploadStatus}
+                      >
                         Status:{" "}
                         {file.uploadStatus === "SUCCESS" ? (
                           <ShieldCheck className="h-4 w-4 text-green-600" />
