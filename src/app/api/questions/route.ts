@@ -88,13 +88,26 @@ export const POST = async (req: NextRequest) => {
     n: 5,
   });
 
+  function removeQuestionPrefix(question: string): string {
+    return question.replace(/^\d+\.\s/, '');
+  }
+
   if (questionGenerationResponse && questionGenerationResponse.choices) {
     const generatedQuestionsArray = questionGenerationResponse.choices[0]?.message?.content?.split('\n').filter((question) => question.trim() !== '');
-    return new Response(JSON.stringify(generatedQuestionsArray), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    });
 
+    if (generatedQuestionsArray) {
+      const questionsWithoutPrefix = generatedQuestionsArray.map(removeQuestionPrefix);
+
+      return new Response(JSON.stringify(questionsWithoutPrefix), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    } else {
+      return new Response(JSON.stringify([]), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
   } else {
     return new Response('Unable to generate questions', { status: 500 });
   }
