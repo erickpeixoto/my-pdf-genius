@@ -16,7 +16,7 @@ import { format } from "date-fns";
 import { Button } from "./ui/button";
 import { useState } from "react";
 import { Spinner } from "@nextui-org/react";
-
+import { H } from "@highlight-run/next/client";
 import { useUser } from "@clerk/nextjs";
 
 const Dashboard = () => {
@@ -40,6 +40,11 @@ const Dashboard = () => {
     },
   });
 
+  H.identify(user?.emailAddresses[0].emailAddress!, {
+    id: user?.id!,
+    avatar: user?.imageUrl!,
+  });
+  
   return (
     <main className="mx-auto max-w-7xl">
       {files && files?.length !== 0 ? (
