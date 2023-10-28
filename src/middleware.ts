@@ -8,7 +8,8 @@ export default authMiddleware({
     "/pricing",
     "/api/auth/login",
     "api/auth/register",
-    "/api/webhooks/stripe"
+    "/api/webhooks/stripe",
+    "/proxy/api/event"
   ],
 });
 
