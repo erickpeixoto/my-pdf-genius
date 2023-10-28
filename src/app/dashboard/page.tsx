@@ -6,8 +6,6 @@ import { getDictionary, getUserPreferredLanguage } from "@/lib/dictionary";
 import { getUserSubscriptionPlan } from "@/lib/stripe";
 import { Plans } from "@/lib/types";
 import { Files } from "lucide-react";
-import { Suspense } from "react";
-
 
 export default async function DashboardPage() {
 
@@ -30,11 +28,8 @@ export default async function DashboardPage() {
         isSubscribed={subscriptionPlan.isSubscribed}
         dictionary={dashboard as any}
       />
-      <Suspense
-        fallback={<div className="pt-5 flex flex-col">{dashboard.loading}</div>}
-      >
-        <Dashboard />
-      </Suspense>
+         <Dashboard />
+  
     </MaxWidthWrapper>
   );
 }

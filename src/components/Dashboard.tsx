@@ -14,7 +14,7 @@ import {
 import Link from "next/link";
 import { format } from "date-fns";
 import { Button } from "./ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Spinner } from "@nextui-org/react";
 import { H } from "@highlight-run/next/client";
 import { useUser } from "@clerk/nextjs";
@@ -39,13 +39,17 @@ const Dashboard = () => {
       setCurrentlyDeletingFile(null);
     },
   });
+  useEffect(() => {
+    if (user) {
+        H.identify(user.emailAddresses[0].emailAddress!, {
+        id: user.id!,
+        avatar: user.imageUrl!,
+        name: user.fullName!,
+      });
+    }
+  }, [user]);
 
-  H.identify(user?.emailAddresses[0].emailAddress!, {
-    id: user?.id!,
-    avatar: user?.imageUrl!,
-    name: user?.fullName!,
-  });
-  
+ 
   return (
     <main className="mx-auto max-w-7xl">
       {files && files?.length !== 0 ? (

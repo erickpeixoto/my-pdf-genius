@@ -19,6 +19,7 @@ export async function getUserSubscriptionPlan() {
       isSubscribed: false,
       isCanceled: false,
       stripeCurrentPeriodEnd: null,
+      trialPeriodDays: null
     }
   }
 
@@ -35,6 +36,7 @@ export async function getUserSubscriptionPlan() {
       isSubscribed: false,
       isCanceled: false,
       stripeCurrentPeriodEnd: null,
+      trialPeriodDays: null
     }
   }
 
@@ -75,7 +77,7 @@ export async function getUserSubscriptionPlan() {
         console.error("Error retrieving subscription:", error);
       }
     }
- 
+
   return {
     ...plan,
     stripeSubscriptionId: dbUser.stripeSubscriptionId,
@@ -83,5 +85,6 @@ export async function getUserSubscriptionPlan() {
     stripeCustomerId: dbUser.stripeCustomerId,
     isSubscribed,
     isCanceled: stripePlan?.status === 'canceled',
+    trialPeriodDays: Math.floor((stripePlan?.trial_end - stripePlan?.trial_start) / 86400),
   }
 }

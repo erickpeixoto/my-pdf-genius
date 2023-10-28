@@ -14,11 +14,6 @@ export default async function Navbar() {
   const user = await getUser();
   const subscriptionPlan = await getUserSubscriptionPlan();
 
-  function formatSubscriptionEndDate(dateStr: Date) {
-    const dateObj = new Date(dateStr);
-    const monthShortNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    return `Trial ends ${monthShortNames[dateObj.getMonth()]} ${dateObj.getDate()}`;
-  }
   return (
     <ClientWrapper>
       <MaxWidthWrapper>
@@ -50,10 +45,13 @@ export default async function Navbar() {
                     {navbar.planExpired}
                   </span>
                 )}
-                  {subscriptionPlan && subscriptionPlan?.stripeCurrentPeriodEnd && (
-                  <span className="p-2 text-violet-300 border border-violet-500 rounded">
-                    {formatSubscriptionEndDate(subscriptionPlan?.stripeCurrentPeriodEnd as Date)} 
-                  </span>
+                {Number(subscriptionPlan.trialPeriodDays) > 0 && (
+
+                  <Link href="/pricing">
+                    <span className="p-2 text-violet-300 border border-violet-500 rounded">
+                      {subscriptionPlan.trialPeriodDays} {navbar.trialDaysLeft}
+                    </span>
+                  </Link>
                 )}
                 <Link
                   href="/dashboard/billing"

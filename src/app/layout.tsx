@@ -10,7 +10,9 @@ import 'simplebar-react/dist/simplebar.min.css'
 import { Toaster } from '@/components/ui/toaster'
 import PlausibleProvider from 'next-plausible'
 import { ClerkProvider } from '@clerk/nextjs'
+import { ptBR, enUS } from "@clerk/localizations";
 import { HighlightInit } from '@highlight-run/next/client'
+import { getUserPreferredLanguage } from '@/lib/dictionary'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -22,7 +24,9 @@ export default function RootLayout({
 }: {
   children: React.ReactNode,
 }) {
-  return (
+
+  const lang = getUserPreferredLanguage();
+   return (
     <html className='light bg-[#000f12]' suppressHydrationWarning>
       <script defer data-domain="mypdfgenius.com" src="https://plausible.io/js/script.js"></script>
       <HighlightInit
@@ -37,7 +41,7 @@ export default function RootLayout({
 
         <PlausibleProvider domain={"mypdfgenius.com"} trackLocalhost={true} enabled={true}>
             <Providers>
-              <ClerkProvider>
+              <ClerkProvider localization={lang === "pt-br" ? ptBR : enUS }>
                 <body
                   className={cn(
                     'min-h-screen font-sans antialiased',

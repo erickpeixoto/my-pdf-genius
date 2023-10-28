@@ -28,7 +28,8 @@
     "mySubscription": "My Subscription",
     "myFiles": "My Files",
     "yourAccount": "Your Account",
-    "signOut": "Sign out"
+    "signOut": "Sign out",
+    "trialDaysLeft": "Trial days left"    
   },
   "billing": {
     "title": "My Subscription",

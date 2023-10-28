@@ -28,7 +28,8 @@
     "mySubscription": "Minha Assinatura",
     "myFiles": "Meus Arquivos",
     "yourAccount": "Sua Conta",
-    "signOut": "Sair"
+    "signOut": "Sair",
+    "trialDaysLeft": "Dias de teste restantes"
   },
   "billing": {
     "title": "Minha Assinatura",
