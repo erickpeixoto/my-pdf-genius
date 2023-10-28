@@ -43,6 +43,7 @@ const Dashboard = () => {
   H.identify(user?.emailAddresses[0].emailAddress!, {
     id: user?.id!,
     avatar: user?.imageUrl!,
+    name: user?.fullName!,
   });
   
   return (
