@@ -1,7 +1,8 @@
 {
   "metadata": {
     "title":  "My PDF Genius - Conversas Avançadas por IA em Instantes",
-    "description":  "My PDF Genius não é apenas outro gerenciador de arquivos. É o seu assistente inteligente, transformando PDFs densos em diálogos interativos usando IA avançada. Envie e comece a conversar com seus arquivos como nunca antes."
+    "description":  "My PDF Genius não é apenas outro gerenciador de arquivos. É o seu assistente inteligente, transformando PDFs densos em diálogos interativos usando IA avançada. Envie e comece a conversar com seus arquivos como nunca antes.",
+    "image": "thumbnailPt.png"
   },
   "home": {
     "title": "Eleve seus",

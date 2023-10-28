@@ -1,7 +1,8 @@
 {
   "metadata": {
     "title":  "My PDF Genius - AI-Powered Interactions in Just Minutes",
-    "description":  "My PDF Genius isn't just another file manager. It's your smart assistant, turning dense PDFs into interactive dialogues using advanced AI. Upload and start conversing with your files like never before."
+    "description":  "My PDF Genius isn't just another file manager. It's your smart assistant, turning dense PDFs into interactive dialogues using advanced AI. Upload and start conversing with your files like never before.",
+    "image": "thumbnail.png"
   },
   "home": {
     "title": "Elevate your",
