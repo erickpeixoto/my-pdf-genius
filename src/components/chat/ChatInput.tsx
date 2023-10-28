@@ -76,13 +76,14 @@ const ChatInput = ({ isDisabled, fileId, dictionary }: ChatInputProps) => {
             <Lightbulb className="w-5 h-5 text-yellow-600" />
           </div>
           {questions.map((question, index) => {
+            const newQuestion = question.replace(/^\d+\.\s/, "").replace(/['"]+/g, "");
             return (
               <div
                 key={index}
                 className="w-full text-slate-600 bg-white-200 hover:bg-slate-100 transition-all p-2 opacity-100 border-1 border-b-slate-200 "
-                onClick={() => selectQuestion(question)}
+                onClick={() => selectQuestion(newQuestion)}
               >
-                {question.replace(/['"]+/g, "")}
+                  {newQuestion}
               </div>
             );
           })}
