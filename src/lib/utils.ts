@@ -42,7 +42,7 @@ export function constructMetadata({
       creator: "@erickpeixoto"
     },
     icons,
-    metadataBase: process.env.APPLICATION_URL ? new URL(process.env.APPLICATION_URL as string) : undefined,
+    metadataBase: new URL("https://mypdfgenius.com"),
     themeColor: '#FFF',
     ...(noIndex && {
       robots: {
