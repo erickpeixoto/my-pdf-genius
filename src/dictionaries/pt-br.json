@@ -145,6 +145,7 @@
     "PDFsPerMonth": "PDFs/mês incluídos",
     "howManyPDFs": "Quantos PDFs você pode enviar por mês.",
     "choosePlan": "Escolher Plano",
-    "changePlan": "Mudar Plano"
+    "changePlan": "Mudar Plano",
+    "trial": "Teste"
   }
 }

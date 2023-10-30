@@ -160,6 +160,9 @@ dependencies:
   react-loading-skeleton:
     specifier: ^3.3.1
     version: 3.3.1(react@18.2.0)
+  react-magic-motion:
+    specifier: ^1.0.9
+    version: 1.0.9(react-dom@18.2.0)(react@18.2.0)
   react-markdown:
     specifier: ^8.0.7
     version: 8.0.7(@types/react@18.2.22)(react@18.2.0)
@@ -10164,6 +10167,15 @@ packages:
       react: '>=16.8.0'
     dependencies:
       react: 18.2.0
+    dev: false
+
+  /react-magic-motion@1.0.9(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-mieWujqKgy0ycAEnVtU0LCTwZf8jrcBMYcYUJNABPcdHVI7aupictbmD4h4iK5DhzUFdhuurk5o13s/5HUeivA==}
+    dependencies:
+      framer-motion: 10.16.4(react-dom@18.2.0)(react@18.2.0)
+    transitivePeerDependencies:
+      - react
+      - react-dom
     dev: false
 
   /react-markdown@8.0.7(@types/react@18.2.22)(react@18.2.0):

@@ -146,6 +146,7 @@
     "PDFsPerMonth": "PDFs/mo included",
     "howManyPDFs": "How many PDFs you can upload per month.",
     "choosePlan": "Choose Plan",
-    "changePlan": "Change Plan"
+    "changePlan": "Change Plan",
+    "trial": "Trial"
   }
 }

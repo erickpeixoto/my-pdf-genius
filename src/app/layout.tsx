@@ -14,6 +14,7 @@ import { ptBR, enUS } from "@clerk/localizations";
 import { HighlightInit } from "@highlight-run/next/client";
 import { getDictionary, getUserPreferredLanguage } from "@/lib/dictionary";
 
+
 const inter = Inter({ subsets: ["latin"] });
 let metadata;
 

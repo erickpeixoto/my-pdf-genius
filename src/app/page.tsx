@@ -6,9 +6,7 @@ import Image from "next/image";
 import CustomButton from "@/components/CustomButton";
 import { getDictionary, getUserPreferredLanguage } from "@/lib/dictionary";
 
-
 export default async function Home() {
-
   const lang = getUserPreferredLanguage();
   const { home } = await getDictionary(lang);
 
@@ -190,10 +188,15 @@ export default async function Home() {
         <div className="flex justify-between items-center">
           <div className="flex items-center">
             <HelpCircleIcon className="w-5 pr-2 text-gray-400" />
-            <p className="text-gray-400">{home.support}</p>
+            <a
+              href="mailto:team@mypdfgenius.com"
+              className="text-gray-400 hover:text-gray-600 transition-colors duration-300 ease-in-out"
+            >
+              {home.support}
+            </a>
           </div>
           <div className="flex gap-2 items-center text-gray-400">
-            <span>{home.madeBy}</span>
+            <span className="hidden md:block">{home.madeBy}</span>
             <Heart className="text-primary w-5" />
             <span>{home.by}</span>
           </div>
@@ -213,7 +216,7 @@ export default async function Home() {
               />
             </svg>
             <a
-              href="mailto:contact@mypdfgenius.com"
+              href="mailto:team@mypdfgenius.com"
               className="text-gray-400 hover:text-gray-600 transition-colors duration-300 ease-in-out"
             >
               {home.contactUs}

@@ -7,6 +7,7 @@ import { getUserSubscriptionPlan } from "@/lib/stripe";
 import { Plans } from "@/lib/types";
 import { Files } from "lucide-react";
 
+
 export default async function DashboardPage() {
 
   const lang = getUserPreferredLanguage();

@@ -41,24 +41,27 @@ export default async function Navbar() {
             ) : (
               <>
                 {subscriptionPlan.isCanceled && (
-                  <span className="p-2 text-red-300 border border-red-500 rounded">
-                    {navbar.planExpired}
-                  </span>
+                  <Link href="/pricing">
+                    <span className="p-2 text-red-300 border border-red-500 rounded">
+                      {navbar.planExpired}
+                    </span>
+                  </Link>
                 )}
-                {Number(subscriptionPlan.trialPeriodDays) > 0 && (
-
+                {subscriptionPlan.isTrial && Number(subscriptionPlan.trialPeriodDays) > 0 && (
                   <Link href="/pricing">
                     <span className="p-2 text-violet-300 border border-violet-500 rounded">
                       {subscriptionPlan.trialPeriodDays} {navbar.trialDaysLeft}
                     </span>
                   </Link>
                 )}
-                <Link
-                  href="/dashboard/billing"
-                  className="text-white p-2 text-sm"
-                >
-                  {navbar.mySubscription}
-                </Link>
+                {!subscriptionPlan.isCanceled && (
+                  <Link
+                    href="/dashboard/billing"
+                    className="text-white p-2 text-sm"
+                  >
+                    {navbar.mySubscription}
+                  </Link>
+                )}
 
                 <Link href="/dashboard" className="text-white p-2 text-sm">
                   {navbar.myFiles}

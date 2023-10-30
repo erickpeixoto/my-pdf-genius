@@ -19,7 +19,8 @@ export async function getUserSubscriptionPlan() {
       isSubscribed: false,
       isCanceled: false,
       stripeCurrentPeriodEnd: null,
-      trialPeriodDays: null
+      trialPeriodDays: null,
+      isTrial: false,
     }
   }
 
@@ -36,7 +37,8 @@ export async function getUserSubscriptionPlan() {
       isSubscribed: false,
       isCanceled: false,
       stripeCurrentPeriodEnd: null,
-      trialPeriodDays: null
+      trialPeriodDays: null,
+      isTrial: false,
     }
   }
 
@@ -86,5 +88,6 @@ export async function getUserSubscriptionPlan() {
     isSubscribed,
     isCanceled: stripePlan?.status === 'canceled',
     trialPeriodDays: Math.floor((stripePlan?.trial_end - stripePlan?.trial_start) / 86400),
+    isTrial: stripePlan?.status === 'trialing',
   }
 }
