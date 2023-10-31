@@ -86,7 +86,7 @@ export async function getUserSubscriptionPlan() {
     stripeCurrentPeriodEnd: dbUser.stripeCurrentPeriodEnd,
     stripeCustomerId: dbUser.stripeCustomerId,
     isSubscribed,
-    isCanceled: stripePlan?.status === 'canceled',
+    isCanceled: stripePlan?.status === 'canceled' || stripePlan?.status === 'past_due',
     trialPeriodDays: Math.floor((stripePlan?.trial_end - stripePlan?.trial_start) / 86400),
     isTrial: stripePlan?.status === 'trialing',
   }

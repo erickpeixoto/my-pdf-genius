@@ -55,14 +55,18 @@ const Message = forwardRef<HTMLDivElement, MessageProps>(
           >
             <CopyToClipboard text={message.text as string}>
               <span>
-                <Copy
-                  className={
-                    cn("w-4 h-4 cursor-pointer float-right", {
-                      "text-zinc-50 hover:text-white transition duration-300 ease-in-out": message.isUserMessage,
-                      "text-gray-500 hover:text-blue-500 transition duration-300 ease-in-out": !message.isUserMessage,
-                    })
-                  }
-                />
+                {message.id !== "loading-message" && (
+                   <Copy
+                   className={
+                     cn("w-4 h-4 cursor-pointer float-right", {
+                       "text-zinc-50 hover:text-white transition duration-300 ease-in-out": message.isUserMessage,
+                       "text-gray-500 hover:text-blue-500 transition duration-300 ease-in-out": !message.isUserMessage,
+                     })
+                   }
+                 />
+
+                )}
+               
                 {typeof message.text === "string" ? (
                   <ReactMarkdown
                     className={cn("prose", {

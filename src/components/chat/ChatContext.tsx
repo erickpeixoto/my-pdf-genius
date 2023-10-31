@@ -10,6 +10,8 @@ import { useMutation } from '@tanstack/react-query'
 import { trpc } from '@/app/_trpc/client'
 import { INFINITE_QUERY_LIMIT } from '@/config/infinite-query'
 
+const MAX_RETRIES = 3; 
+
 type StreamResponse = {
   addMessage: (param: string) => void
   message: string
@@ -208,6 +210,17 @@ export const ChatContextProvider = ({
         { fileId },
         { messages: context?.previousMessages ?? [] }
       )
+    },
+    retry: (count, error) => {
+      if (count >= MAX_RETRIES) return false
+
+      if (error instanceof Error) {
+        if (error.message === 'Failed to send message') {
+          return true
+        }
+      }
+
+      return false
     },
     onSettled: async () => {
       setIsLoading(false)

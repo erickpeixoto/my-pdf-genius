@@ -9,6 +9,7 @@ import { useMutation } from "@tanstack/react-query";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
+const MAX_RETRIES = 3; 
 interface ChatInputProps {
   isDisabled?: boolean;
   fileId?: string;
@@ -49,6 +50,17 @@ const ChatInput = ({ isDisabled, fileId, dictionary }: ChatInputProps) => {
     },
     onError: (error) => {
       console.error("Error:", error);
+    },
+    retry: (count, error) => {
+      if (count >= MAX_RETRIES) return false
+
+      if (error instanceof Error) {
+        if (error.message === 'Failed to send message') {
+          return true
+        }
+      }
+
+      return false
     },
   });
 

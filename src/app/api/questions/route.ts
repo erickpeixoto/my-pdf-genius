@@ -68,11 +68,11 @@ export const POST = async (req: NextRequest) => {
   `;
 
   const promptLanguage:any = {
-    'en': `Generate 5 possible questions based on the following context:\n\n${contextDescription}, 
-           Important: try to anticipate the questions that the user may have and provide them accordingly`,
-    'pt-br': `Gere 5 possíveis perguntas com base no seguinte contexto:\n\n${contextDescription}, 
-              Importante: tente antecipar as perguntas que o usuário pode ter e forneça-as de acordo`
-  };
+    'en': `Generate 5 short, concise questions based on the following context:\n\n${contextDescription}. 
+           Avoid multiple choice format. Important: try to anticipate the questions that the user may have and provide them accordingly.`,
+    'pt-br': `Gere 5 perguntas curtas e concisas com base no seguinte contexto:\n\n${contextDescription}. 
+              Evite o formato de múltipla escolha. Importante: tente antecipar as perguntas que o usuário pode ter e forneça-as de acordo.`
+};
 
 
   // AI QUESTIONS GENERATED
@@ -93,7 +93,7 @@ export const POST = async (req: NextRequest) => {
   }
 
   if (questionGenerationResponse && questionGenerationResponse.choices) {
-    const generatedQuestionsArray = questionGenerationResponse.choices[0]?.message?.content?.split('\n').filter((question) => question.trim() !== '');
+    const generatedQuestionsArray = questionGenerationResponse.choices[0]?.message?.content?.split('\n').filter((question) => question.trim() !== '').slice(0, 5); 
 
     if (generatedQuestionsArray) {
       const questionsWithoutPrefix = generatedQuestionsArray.map(removeQuestionPrefix);
