@@ -180,18 +180,25 @@ export default async function Pricing() {
                       {!isSubscribed && !user && (
                         <RegisterButton planName={slug as Plans} />
                       )}
-                      {isSubscribed && (
+                      {isSubscribed && !isCanceled && (
                         <SessionButton
                           isSubscribed={isSubscribed}
                           planName={slug as Plans}
                           title={
                             slug === subscriptionPlan.slug && subscriptionPlan.isTrial 
-                              ? "Activate Plan"
+                              ? pricingDoc.activatePlan
                               : pricingDoc.changePlan
                           }
                           isDisabled={
                             !isTrial && slug === subscriptionPlan.slug
                           }
+                        />
+                      )}
+                      {isSubscribed && isCanceled && (
+                        <SessionButton
+                          isSubscribed={isSubscribed}
+                          planName={slug as Plans}
+                          title={pricingDoc.reactivatePlan}
                         />
                       )}
                     </div>

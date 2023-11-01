@@ -7,6 +7,8 @@ import { OpenAIEmbeddings } from 'langchain/embeddings/openai';
 import { PineconeStore } from 'langchain/vectorstores/pinecone';
 import { NextRequest } from 'next/server';
 
+export const maxDuration = 300; 
+export const dynamic = 'force-dynamic';
 export const POST = async (req: NextRequest) => {
   const body = await req.json();
   const { fileId } = body;

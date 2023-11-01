@@ -10,6 +10,8 @@ import { OpenAIStream, StreamingTextResponse } from "ai";
 import { getUser } from "@/lib/auth";
 import { getUserPreferredLanguage } from "@/lib/dictionary";
 
+export const maxDuration = 300; 
+export const dynamic = 'force-dynamic';
 export const POST = async (req: NextRequest) => {
   const body = await req.json();
   const user = await getUser();

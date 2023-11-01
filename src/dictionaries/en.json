@@ -147,6 +147,8 @@
     "howManyPDFs": "How many PDFs you can upload per month.",
     "choosePlan": "Choose Plan",
     "changePlan": "Change Plan",
-    "trial": "Trial"
+    "trial": "Trial",
+    "reactivatePlan": "Reactivate Plan",
+    "activatePlan": "Activate Plan"
   }
 }

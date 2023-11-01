@@ -146,6 +146,8 @@
     "howManyPDFs": "Quantos PDFs você pode enviar por mês.",
     "choosePlan": "Escolher Plano",
     "changePlan": "Mudar Plano",
-    "trial": "Teste"
+    "trial": "Teste",
+    "reactivatePlan": "Reativar Plano",
+    "activatePlan": "Ativar Plano"
   }
 }
